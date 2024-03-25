@@ -162,8 +162,6 @@ Here's a screenshot of Right-click Tools in German:
 
 ![image](https://github.com/LesFerch/RightClickTools/assets/79026235/1d994985-8743-46f6-b7bb-e890e8284de7)
 
-**IMPORTANT**: If you are using [Custom Context Menu](https://apps.microsoft.com/detail/9pc7bzz28g0x?hl=en-US&gl=US) you can change language between English and another language simply by doing an **Install**. However, to change between two languages, *that do not include English*, first **Remove** Right-click Tools while in the first language and then **Install** after switching to the other language. Otherwise, the items will be in the Windows 11 context menu in two languages.
-
 ## Dark Theme Compatible
 
 Right-click Tools automatically detects and switches to a dark theme. For example:
