@@ -106,9 +106,13 @@ This opens **Cmd** or **PowerShell** via the SYSTEM account with **TrustedInstal
 
 This opens RegEdit as a standard user. As an administrator, this can be handy to verify what a standard user can or cannot change in the registry without having to analyze the permissions. As a standard user, this option opens RegEdit as it would normally.
 
+**Hidden feature**: Hold down the **Ctrl** key when selecting this item to open RegEdit collapsed.
+
 ### RegEdit Here as Administrator
 
 This opens RegEdit as an administrator. As an administrator, this is the same as the normal method of opening RegEdit except that it eliminates the nuisance of the UAC prompt. For a standard user, this option pops up a UAC prompt and then regedit will by running under the profile of the account used at the UAC prompt.
+
+**Hidden feature**: For administrator users, hold down the **Ctrl** key when selecting this item to open RegEdit collapsed.
 
 ### RegEdit Here as TrustedInstaller
 
@@ -170,7 +174,7 @@ Right-click Tools automatically detects and switches to a dark theme. For exampl
 
 ## Customizations
 
-Customizations, such as moving an item to the root of the context menu or removing an item you don't use, can be done with a context menu editor.
+Customizations, such as removing an item you don't use, can be done with a context menu editor.
 
 If you are using Windows 11 with [Custom Context Menu](https://apps.microsoft.com/detail/9pc7bzz28g0x?hl=en-US&gl=US), use that tool to modify the entries in the Windows 11 context menu.
 
