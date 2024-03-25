@@ -82,7 +82,7 @@ Select the action you wish to perform. If nothing happens, then the Exe was like
 
 This opens **Cmd** or **PowerShell**, with your normal privileges, in the selected location, using your default console program (**Console Host** or **Windows Terminal**).
 
-This is identical to the built-in Windows commands with two improvements for PowerShell: 1) Folders with an apostrophe in the name, such as **Bob's Files** will not cause an error. 2) Opening a folder with a long path (i.e. > 260 characters) will cause the prompt to be shown in the short (8.3) format. This lets you know that you're in a long path and prevents the prompt from taking too much screen space.
+This is identical to the built-in Windows commands with the following improvements: 1) For Cmd, folders with environment variables in their names, such as **%OS%** will not cause an error. 2) For PowerShell, folders with an apostrophe in the name, such as **Bob's Files** will not cause an error. 3) For PowerShell, opening a folder with a long path (i.e. > 260 characters) will create a prompt in the short (8.3) format. This lets you know that you're in a long path and prevents the prompt from taking too much screen space.
 
 **Note**: If you open a PowerShell prompt within a long path, running an executable, such as **whoami** will result in an error. This is a PowerShell problem. It has nothing to do with Right-click Tools and there is no known fix or workaround.
 
