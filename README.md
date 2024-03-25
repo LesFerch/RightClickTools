@@ -1,4 +1,6 @@
-# RightClickTools (Coming Soon)
+# RightClickTools
+
+## Coming soon!
 
 Classic context menu:
 
