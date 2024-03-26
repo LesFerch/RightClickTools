@@ -100,19 +100,19 @@ This opens **Cmd** or **PowerShell** via the SYSTEM account with **TrustedInstal
 
 **Tip**: Create a folder, such as C:\Tools\OnPath, to contain scripts and executables that you want easy access to via Cmd or PowerShell. Add that folder to your search path using the **Add or Remove folder in Path variable** tool. Put a copy of a portable file manager in that folder, such as [Explorer++](https://explorerplusplus.com/) and give it a short name, such as **ep.exe**. That will give you quick access to a GUI file manager with TrustedInstaller access.
 
-### RegEdit Here as User
+### RegEdit as User
 
 This opens RegEdit as a standard user. As an administrator, this can be handy to verify what a standard user can or cannot change in the registry without having to analyze the permissions. As a standard user, this option opens RegEdit as it would normally.
 
 **Hidden feature**: Hold down the **Ctrl** key when selecting this item to open RegEdit collapsed.
 
-### RegEdit Here as Administrator
+### RegEdit as Administrator
 
 This opens RegEdit as an administrator. As an administrator, this is the same as the normal method of opening RegEdit except that it eliminates the nuisance of the UAC prompt. For a standard user, this option pops up a UAC prompt and then regedit will by running under the profile of the account used at the UAC prompt.
 
 **Hidden feature**: For administrator users, hold down the **Ctrl** key when selecting this item to open RegEdit collapsed.
 
-### RegEdit Here as TrustedInstaller
+### RegEdit as TrustedInstaller
 
 This opens **RegEdit** via the SYSTEM account with **TrustedInstaller** privileges. This is handy for changing a protected setting. Use with care.
 
