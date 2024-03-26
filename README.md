@@ -26,7 +26,7 @@ All languages are supported. The included **language.ini** file includes many la
 
 1. Download the zip file using the link above.
 2. Extract the contents. You should see **RightClickTools.exe** and an **AppParts** folder.
-3. Move the folder to a permanent location of your choice. For example **C:\Tools\RightClickTools**.
+3. Move the contents to a permanent location of your choice. For example **C:\Tools\RightClickTools**.
 3. Right-click **RightClickTools.exe**, select Properties, check **Unblock**, and click **OK**.
 5. Double-click **RightClickTools.exe** to open the Install/Remove dialog and click **Install** to add the tools to the Explorer right-click menu.
 6. If you skipped step 3, then, in the SmartScreen window, click **More info** and then **Run anyway**.
