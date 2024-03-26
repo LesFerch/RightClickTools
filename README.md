@@ -2,12 +2,12 @@
 
 Classic context menu:
 
-![image](https://github.com/LesFerch/RightClickTools/assets/79026235/5e6b4160-c39c-4298-aaa7-d82df94ee42b)
+![image](https://github.com/LesFerch/RightClickTools/assets/79026235/6b05aa99-7421-4b31-bedf-a7f1a4b8b19e)
 
 
 Windows 11 context menu:
 
-![image](https://github.com/LesFerch/RightClickTools/assets/79026235/ae8a44fc-c128-4c84-9b86-628b44208b34)
+![image](https://github.com/LesFerch/RightClickTools/assets/79026235/bd5b4641-e4a2-4767-95dc-c4e713501811)
 
 ## Summary
 
