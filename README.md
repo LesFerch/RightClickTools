@@ -130,7 +130,7 @@ Temporary files are all files that are not currently in use within the %Temp% lo
 
 Defender history is the "Protection history" list in Windows Defender. Right-click tools elevates to TrustedInstaller access in order to clear this history. A UAC prompt will appear if you are logged in as a standard user.
 
-### Take owernship and get access
+### Take ownership and get access
 
 This gives you ownership and access to the selected folder. Right-click Tools uses the **SetACL** program to do the work. This allows it to set ownership and access on folders with Unicode characters in the name and ones that are in long paths.
 

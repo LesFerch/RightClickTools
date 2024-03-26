@@ -44,7 +44,7 @@ namespace RightClickTools
         static string sRemove = "Remove";
         static string sDone = "Done";
         static string[] CmdKeys = { "CmdHere", "CmdAdminHere", "CmdTrustedHere", "PowerShellHere", "PowerShellAdminHere", "PowerShellTrustedHere", "RegEdit", "RegEditAdmin", "RegEditTrusted", "ClearHistory", "TakeOwnHere", "AddDelPathHere", "ShowHide", "RefreshShell", "RestartExplorerHere" };
-        static string[] CmdLabels = { "Cmd here", "Cmd here as Administrator", "Cmd here as TrustedInstaller", "PowerShell here", "PowerShell here as Administrator", "PowerShell here as TrustedInstaller", "RegEdit as User", "RegEdit as Administrator", "RegEdit as TrustedInstaller", "Clear History", "Take owernship and get access", "Add or Remove folder in Path variable", "Toggle display of hidden and system files", "Refresh shell", "Restart Explorer" };
+        static string[] CmdLabels = { "Cmd here", "Cmd here as Administrator", "Cmd here as TrustedInstaller", "PowerShell here", "PowerShell here as Administrator", "PowerShell here as TrustedInstaller", "RegEdit as User", "RegEdit as Administrator", "RegEdit as TrustedInstaller", "Clear History", "Take ownership and get access", "Add or Remove folder in Path variable", "Toggle display of hidden and system files", "Refresh shell", "Restart Explorer" };
         static string sClearHistory = CmdLabels[9];
         static string sTakeOwnHere = CmdLabels[10];
         static string sRestartExplorer = CmdLabels[14];
@@ -692,7 +692,7 @@ namespace RightClickTools
                 if (StrCmp(StopRoot[i], StartDirectory)) { Stop = true; break; }
             }
 
-            helpPage = "take-owernship-and-get-access";
+            helpPage = "take-ownership-and-get-access";
 
             if (Stop) { CustomMessageBox.Show($"{sFolderNotAllowed}:\n\n{StartDirectory}\n\n", sMain); return; }
 
