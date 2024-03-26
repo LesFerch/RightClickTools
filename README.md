@@ -1,7 +1,5 @@
 # RightClickTools
 
-## Coming soon!
-
 Classic context menu:
 
 ![image](https://github.com/LesFerch/RightClickTools/assets/79026235/f5cbcbb7-5a9d-42e3-84a6-53d9259cc69b)
