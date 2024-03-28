@@ -211,6 +211,7 @@ namespace RightClickTools
                     break;
 
                 case "/RestartExplorerHere":
+                    helpPage = "restart-explorer";
                     DialogResult result = TwoChoiceBox.Show(sRestartExplorer, sMain, sYes, sNo);
                     if (result != DialogResult.Yes) return;
                     RefreshShell();
