@@ -21,7 +21,7 @@ All languages are supported. The included **language.ini** file includes many la
 
 ## How to Download and Install 
 
-[![image](https://github.com/LesFerch/WinSetView/assets/79026235/0188480f-ca53-45d5-b9ff-daafff32869e)Download the zip file](https://github.com/LesFerch/RightClickTools/releases/download/1.0.2/RightClickTools.zip)
+[![image](https://github.com/LesFerch/WinSetView/assets/79026235/0188480f-ca53-45d5-b9ff-daafff32869e)Download the zip file](https://github.com/LesFerch/RightClickTools/releases/download/1.0.3/RightClickTools.zip)
 
 **Note**: Some antivirus software may falsely detect the download as a virus. This can happen any time you download a new executable and may require extra steps to whitelist the file.
 
@@ -129,7 +129,7 @@ Auto-suggest items are the items that show in drop-down lists, such as the Run b
 
 Temporary files are all files that are not currently in use within the %Temp% location.
 
-Defender history is the "Protection history" list in Windows Defender. Right-click tools elevates to TrustedInstaller access in order to clear this history. A UAC prompt will appear if you are logged in as a standard user.
+Defender history is the "Protection history" list in Windows Defender. Right-click Tools creates a task to clear Windows Defender log files on next restart. The task removes itself after it runs. A UAC prompt will appear if you are logged in as a standard user.
 
 ### Take ownership and get access
 

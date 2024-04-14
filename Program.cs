@@ -57,6 +57,7 @@ namespace RightClickTools
         static string sTemp = "Temporary files";
         static string sDefender = "Defender history";
         static string sCCM = "Classic context menu";
+        static string sRestartPC = "A restart is required to clear the Protection history. Restart now?";
 
         static string Option = "";
         static string StartDirectory = "";
@@ -82,6 +83,7 @@ namespace RightClickTools
 
         static string UserName = Environment.GetEnvironmentVariable("UserName");
         static string TaskName = $@"MyTasks\{myName}-{UserName}";
+        static string TaskDWDH = $@"MyTasks\DWDH";
         static string helpPage = "install-and-remove";
 
         static CheckBox userPathCheckbox;
@@ -206,6 +208,10 @@ namespace RightClickTools
                     ClearHistory();
                     break;
 
+                case "/ClearHistoryAdmin":
+                    ClearDefenderHistoryTask();
+                    break;
+
                 case "/RefreshShell":
                     RefreshShell();
                     break;
@@ -319,7 +325,7 @@ namespace RightClickTools
 
                 if (DefenderCheckbox.Checked)
                 {
-                    RunClearDefenderPS1AsTrusted();
+                    ClearDefenderHistory();
                 }
 
             }
@@ -550,19 +556,6 @@ namespace RightClickTools
             CommandLine = $"-NoLogo -NoProfile -ExecutionPolicy Bypass -file \"{PS1File}\"";
         }
 
-        static void CreateClearDefenderPS1()
-        {
-            string PS1Data = $"$MAPS_Status = (Get-MpPreference).MAPSReporting\r\n";
-            PS1Data += $"Set-MpPreference -DisableRealtimeMonitoring 1\r\n";
-            PS1Data += $"Set-MpPreference -MAPSReporting Disabled\r\n";
-            PS1Data += $"Get-ChildItem -File 'C:\\ProgramData\\Microsoft\\Windows Defender\\Scans\\History\\Service' -Recurse | Remove-Item -Force\r\n";
-            PS1Data += $"Set-MpPreference -DisableRealtimeMonitoring 0\r\n";
-            PS1Data += $"Set-MpPreference -MAPSReporting $MAPS_Status\r\n";
-            string PS1File = $@"{TempPath}ClearDefender.ps1";
-            File.WriteAllText(PS1File, PS1Data, Encoding.UTF8);
-            CommandLine = $"-NoLogo -NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -file \"{PS1File}\"";
-        }
-
         static void RunAsUser(string EXEFilename)
         {
             CreateChangeDirectoryFile(EXEFilename);
@@ -725,11 +718,11 @@ namespace RightClickTools
             }
         }
 
-        static void RunClearDefenderPS1AsTrusted()
+        static void ClearDefenderHistory()
         {
-            CreateClearDefenderPS1();
+            CommandLine = "/ClearHistoryAdmin";
 
-            string cfg = $"[Process]\r\nEXEFilename={PowerShellExe}\r\nCommandLine={CommandLine}\r\nRunAs=TrustedInstaller";
+            string cfg = $"[Process]\r\nEXEFilename={myExe}\r\nCommandLine={CommandLine}\r\nRunAs=Administrator";
 
             File.WriteAllText(ElevateCfg, cfg);
 
@@ -744,10 +737,31 @@ namespace RightClickTools
             }
             else
             {
-                CommandLine = $"/Elevate \"{ElevateCfg}\"";
                 RunUAC(myExe);
             }
 
+        }
+
+        static void ClearDefenderHistoryTask()
+        {
+            string folder = @"C:\ProgramData\Microsoft\Windows Defender\Scans\History\Service";
+            string file = $@"{folder}\Detections.log";
+
+            if (File.Exists(file))
+            {
+                Process p = new Process();
+                p.StartInfo.FileName = SchTasksExe;
+                p.StartInfo.Arguments = $"/create /f /sc onStart /ru \"NT AUTHORITY\\SYSTEM\" /tn {TaskDWDH} /tr \"cmd.exe /c rd /s /q \\\"{folder}\\\" & schtasks /delete /f /tn {TaskDWDH}\"";
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.CreateNoWindow = true;
+                p.Start();
+                p.WaitForExit();
+
+                helpPage = "clear-history";
+                DialogResult result = TwoChoiceBox.Show(sRestartPC, sMain, sYes, sNo);
+                if (result != DialogResult.Yes) return;
+                Process.Start("shutdown", "/r /t 0");
+            }
         }
 
         static bool StrCmp(string str1, string str2)
@@ -833,6 +847,7 @@ namespace RightClickTools
             sTemp = ReadString(iniFile, lang, "sTemp", sTemp);
             sDefender = ReadString(iniFile, lang, "sDefender", sDefender);
             sCCM = ReadString(iniFile, lang, "sCCM", sCCM);
+            sRestartPC = ReadString(iniFile, lang, "sRestartPC", sRestartPC);
 
             string sCmdLabels = ReadString(iniFile, lang, "CmdLabels", "");
             string[] LangLabels = sCmdLabels.Split(new char[] { '|' });
