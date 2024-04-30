@@ -2,12 +2,11 @@
 
 Classic context menu:
 
-![image](https://github.com/LesFerch/RightClickTools/assets/79026235/6b05aa99-7421-4b31-bedf-a7f1a4b8b19e)
-
+![image](https://github.com/LesFerch/RightClickTools/assets/79026235/577b48a4-d855-450b-97a6-e39cc50a6012)
 
 Windows 11 context menu:
 
-![image](https://github.com/LesFerch/RightClickTools/assets/79026235/bd5b4641-e4a2-4767-95dc-c4e713501811)
+![image](https://github.com/LesFerch/RightClickTools/assets/79026235/1760b0fc-9a8f-4db6-942f-a698334c69ea)
 
 ## Summary
 
@@ -41,21 +40,21 @@ The **Remove** option removes the context menu entries and the scheduled task it
 
 On Windows 7 through Windows 10, you should see a simple Install/Remove prompt.
 
-![image](https://github.com/LesFerch/RightClickTools/assets/79026235/7af3e31c-088a-4afe-acd1-a449c3a4115c)
+![image](https://github.com/LesFerch/RightClickTools/assets/79026235/986a33e3-f314-4111-8c8d-49e478b246ad)
 
 On Windows 11, there is an additional checkbox to allow selecting the context menu type. The box will be checked if you've already changed Windows 11 to use the classic context menu. Check or uncheck the box to select your preferred context menu type. The change, if any, will occur after clicking **Install** or **Remove**.
 
-![image](https://github.com/LesFerch/RightClickTools/assets/79026235/c46e1d96-33be-445d-8630-38ed92094a27)
+![image](https://github.com/LesFerch/RightClickTools/assets/79026235/800dff00-bb4b-4bbc-9dfe-1c5ff6aef938)
 
 If you're an administrator user, you will then see the following UAC prompt after clicking **Install** or **Remove**. This is required so that a scheduled task may be added or removed. The task allows right-click commands, such as **Cmd Here as Administrator** to open without popping up a UAC prompt.
 
 For Standard users, the task cannot be used, so it's not installed and therefore no UAC prompt pops up during installation. Instead, Standard users will get a UAC prompt every time they use an option that requires administrator privileges, such as **Cmd Here as Administrator**. 
 
-![image](https://github.com/LesFerch/RightClickTools/assets/79026235/38815f01-b30c-4de1-b7c5-d855a6cb402a)
+![image](https://github.com/LesFerch/RightClickTools/assets/79026235/4d1cb77e-3d13-4a2a-bf93-2db5e60bb4da)
 
 Upon completion the following dialog pops up. It may be hidden under another window, but can always be found on the taskbar.
 
-![image](https://github.com/LesFerch/RightClickTools/assets/79026235/2f4ba1b1-1d97-4626-afcb-f0510790359e)
+![image](https://github.com/LesFerch/RightClickTools/assets/79026235/0e063de7-d0bc-4dcd-9cce-fc07fcbb6ade)
 
 **Note**: If you move **RightClickTools.exe** after installing, the context menu entries will do nothing because the exe path will be incorrect. To fix that issue, just run the install again.
 
@@ -121,7 +120,7 @@ This opens **RegEdit** via the SYSTEM account with **TrustedInstaller** privileg
 
 This clears the data for the selected items.
 
-![image](https://github.com/LesFerch/RightClickTools/assets/79026235/a5a322d6-7674-4fcc-a36c-808c6a6bab47)
+![image](https://github.com/LesFerch/RightClickTools/assets/79026235/9724da1a-b634-4f3f-9903-8d2b808a88fa)
 
 Recent items are the recent files and folders shown in Explorer's Home or Quick Access section.
 
@@ -135,7 +134,7 @@ Defender history is the "Protection history" list in Windows Defender. Right-cli
 
 This gives you ownership and access to the selected folder. Right-click Tools uses the **SetACL** program to do the work. This allows it to set ownership and access on folders with Unicode characters in the name and ones that are in long paths.
 
-![image](https://github.com/LesFerch/RightClickTools/assets/79026235/b0d1807a-7b34-400d-8d01-83adf8d71fc9)
+![image](https://github.com/LesFerch/RightClickTools/assets/79026235/b128dfcc-5b81-4307-b1d8-b50b2967f829)
 
 This option will not allow changing permissions on system folders and will display a message when that's attempted. The restrictions can be edited in the file **RightClickTools.ini**, but that should be avoided. If you need to make changes in a restricted folder, such as **WindowsApps**, you should access the folder using the Cmd or PowerShell Here as **TrustedInstaller** option.
 
@@ -143,7 +142,7 @@ This option will not allow changing permissions on system folders and will displ
 
 This will show whether the selected folder is currently part of the user or system path and will allow you to change that by checking or unchecking the appropriate box.
 
-![image](https://github.com/LesFerch/RightClickTools/assets/79026235/5f19b328-082a-4489-bdb6-ef84be49a7c1)
+![image](https://github.com/LesFerch/RightClickTools/assets/79026235/c0751d3c-a4fe-4e95-911a-54d872bf9e27)
 
 ### Toggle display of hidden and system files
 
