@@ -162,7 +162,7 @@ The Right-click Tools **Install** will detect your Windows language and use it, 
 
 Here's a screenshot of Right-click Tools in German:
 
-![image](https://github.com/LesFerch/RightClickTools/assets/79026235/1d994985-8743-46f6-b7bb-e890e8284de7)
+![image](https://github.com/LesFerch/RightClickTools/assets/79026235/bcc41927-40a8-4140-a714-f8bbcbb23269)
 
 ## Dark Theme Compatible
 
