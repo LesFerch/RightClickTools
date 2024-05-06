@@ -108,7 +108,7 @@ This opens RegEdit as a standard user. As an administrator, this can be handy to
 
 ### RegEdit as Administrator
 
-This opens RegEdit as an administrator. As an administrator, this is the same as the normal method of opening RegEdit except that it eliminates the nuisance of the UAC prompt. For a standard user, this option pops up a UAC prompt and then regedit will by running under the profile of the account used at the UAC prompt.
+This opens RegEdit as an administrator. As an administrator, this is the same as the normal method of opening RegEdit except that it eliminates the nuisance of the UAC prompt. For a standard user, this option pops up a UAC prompt and then regedit will be running under the profile of the account used at the UAC prompt.
 
 **Hidden feature**: For administrator users, hold down the **Ctrl** key when selecting this item to open RegEdit collapsed.
 
