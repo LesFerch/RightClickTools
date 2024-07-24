@@ -29,7 +29,7 @@ All languages are supported. The included **language.ini** file includes many la
 3. Move the contents to a permanent location of your choice. For example **C:\Tools\RightClickTools**.
 3. Right-click **RightClickTools.exe**, select Properties, check **Unblock**, and click **OK**.
 5. Double-click **RightClickTools.exe** to open the Install/Remove dialog and click **Install** to add the tools to the Explorer right-click menu.
-6. If you skipped step 3, then, in the SmartScreen window, click **More info** and then **Run anyway**.
+6. If you skipped step 4, then, in the SmartScreen window, click **More info** and then **Run anyway**.
 7. Click **OK** when the **Done** message box appears.
 
 ## Install and Remove
