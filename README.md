@@ -98,7 +98,7 @@ The enhancements and issues noted above for the regular **PowerShell Here** wind
 
 This opens **Cmd** or **PowerShell** via the SYSTEM account with **TrustedInstaller** privileges. This is useful for accessing and making changes in protected folders, such as **WindowsApps**. Use with care.
 
-**Tip**: Create a folder, such as C:\Tools\OnPath, to contain scripts and executables that you want easy access to via Cmd or PowerShell. Add that folder to your search path using the **Add or Remove folder in Path variable** tool. Put a copy of a portable file manager in that folder, such as [Explorer++](https://explorerplusplus.com/) and give it a short name, such as **ep.exe**. That will give you quick access to a GUI file manager with TrustedInstaller access.
+**Tip**: Create a folder, such as C:\Tools\OnPath, to contain scripts and executables that you want easy access to via Cmd or PowerShell. Add that folder to your search path using the **Add or Remove folder in Path variable** tool. Put a copy of a portable file manager in that folder, such as [Explorer++](https://explorerplusplus.com/) and give it a short name, such as **ep.exe**. Then, any time you need a file manager with TrustedInstaller access, just right-click, select **Cmd here as TrustedInstaller**, and enter **ep**.
 
 ### RegEdit as User
 
