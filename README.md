@@ -70,7 +70,7 @@ If you're running Windows 11 and have [Custom Context Menu](https://apps.microso
 
 Right-click a folder, the background of an open folder, or a drive to get to the **Right-click Tools** context menu, as shown at the beginning of this document.
 
-**Note**: If you are using Windows 11, and do not have **Custom Context Menu** installed or the classic context menu enabled, you will have to hold down the **Shift** key, when right-clicking, to access Right-Click Tools (or select "Show more options"). Also, if the classic context menu is not enabled, you will have to hold down the **Shift** key when right-clicking a *drive* (or select "Show more options").
+**Note**: If you are using Windows 11, and do not have [Custom Context Menu](https://apps.microsoft.com/detail/9pc7bzz28g0x?hl=en-US&gl=US) installed or the classic context menu enabled, you will have to hold down the **Shift** key, when right-clicking, to access Right-Click Tools (or select "Show more options"). Also, if the classic context menu is not enabled, you will have to hold down the **Shift** key when right-clicking a *drive* (or select "Show more options").
 
 Select the action you wish to perform. If nothing happens, then the Exe was likely moved after installing. In that case, just double-click the Exe to re-install.
 
