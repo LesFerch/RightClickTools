@@ -10,6 +10,9 @@ Windows 11 context menu:
 
 ## Summary
 
+**Version 1.0.3**\
+lesferch@gmail.com
+
 This program adds a right-click context menu to Windows Explorer that provides a number of tools that are described in detail below. The tools are compatible with Windows 7 and above, 32 bit and 64 bit, standard and administrator users, multiple users on the same computer, and long paths.
 
 The tools are added to the new Windows 11 context menu if you have the app [Custom Context Menu](https://apps.microsoft.com/detail/9pc7bzz28g0x?hl=en-US&gl=US) installed. Please note that its web page shows a price of $0.99, but if you click the link, you should see that the app is available for an unlimited free trial.
@@ -23,6 +26,8 @@ All languages are supported. The included **language.ini** file includes many la
 [![image](https://github.com/LesFerch/WinSetView/assets/79026235/0188480f-ca53-45d5-b9ff-daafff32869e)Download the zip file](https://github.com/LesFerch/RightClickTools/releases/download/1.0.3/RightClickTools.zip)
 
 **Note**: Some antivirus software may falsely detect the download as a virus. This can happen any time you download a new executable and may require extra steps to whitelist the file.
+
+**Note**: Scanning Right-Click Tools with VirusTotal will show that many AV products out there detect it as a trojan (14 of 69 last check). Those are false positives. This is to be expected with a tool that creates a scheduled task in order to provide the convenience of promptless elevated Cmd, PowerShell, and RegEdit commands. Right-Click Tools is provided on GitHub as open source, the Exe is signed, and my identity is not hidden. I submit my apps to the Windows Defender team to ensure that Windows Defender is okay with them. I don't have the resources to do that for all AV products. Life is too short for that.
 
 1. Download the zip file using the link above.
 2. Extract the contents. You should see **RightClickTools.exe** and an **AppParts** folder.
