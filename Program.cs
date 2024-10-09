@@ -22,15 +22,18 @@ namespace RightClickTools
         static string TempPath = Path.GetTempPath(); //Includes trailing backslash
         static string ElevateCfg = $@"{TempPath}Elevate.cfg";
         static string appParts = $@"{myPath}\AppParts";
+        static string myIniFile = $@"{appParts}\{myName}.ini";
         static string myIcon = $@"{myPath}\AppParts\Icons\{myName}.ico";
         static string AdvKey = @"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced";
+        static string perKey = @"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize";
+        static string ExpKey = @"HKEY_LOCAL_MACHINE\Software\Classes\AppID\{CDCBCFCA-3CDC-436f-A4E2-0E02075250C2}";
         static string bitPath = "64";
-        static bool Hidden = (int)Registry.GetValue(AdvKey, "Hidden", 0) == 1;
+        static bool Hidden = false;
         static string NTkey = @"HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion";
         static int buildNumber = int.Parse(Registry.GetValue(NTkey, "CurrentBuild", "").ToString());
         static bool Win11 = buildNumber >= 21996;
         static bool Win11Install = false;
-        static string CCMfolder = FindCustomCommandsFolder();
+        static string CCMfolder = FindCustomCommandsFolder(true);
         static string CCMA = @"Software\Classes\CLSID\{86CA1AA0-34AA-4E8B-A509-50C905BAE2A2}";
         static string CCMB = $@"{CCMA}\InprocServer32";
         static bool Win10ContextMenu = false;
@@ -43,8 +46,8 @@ namespace RightClickTools
         static string sInstall = "Install";
         static string sRemove = "Remove";
         static string sDone = "Done";
-        static string[] CmdKeys = { "CmdHere", "CmdAdminHere", "CmdTrustedHere", "PowerShellHere", "PowerShellAdminHere", "PowerShellTrustedHere", "RegEdit", "RegEditAdmin", "RegEditTrusted", "ClearHistory", "TakeOwnHere", "AddDelPathHere", "ShowHide", "RefreshShell", "RestartExplorerHere" };
-        static string[] CmdLabels = { "Cmd here", "Cmd here as Administrator", "Cmd here as TrustedInstaller", "PowerShell here", "PowerShell here as Administrator", "PowerShell here as TrustedInstaller", "RegEdit as User", "RegEdit as Administrator", "RegEdit as TrustedInstaller", "Clear History", "Take ownership and get access", "Add or Remove folder in Path variable", "Toggle display of hidden and system files", "Refresh shell", "Restart Explorer" };
+        static string[] CmdKeys = { "CmdHere", "CmdAdminHere", "CmdTrustedHere", "PowerShellHere", "PowerShellAdminHere", "PowerShellTrustedHere", "RegEdit", "RegEditAdmin", "RegEditTrusted", "ClearHistory", "TakeOwnHere", "AddDelPathHere", "ShowHide", "RefreshShellHere", "RestartExplorerHere", "FileManagerHere" };
+        static string[] CmdLabels = { "Cmd here", "Cmd here as Administrator", "Cmd here as TrustedInstaller", "PowerShell here", "PowerShell here as Administrator", "PowerShell here as TrustedInstaller", "RegEdit as User", "RegEdit as Administrator", "RegEdit as TrustedInstaller", "Clear History", "Take ownership and get access", "Add or Remove folder in Path variable", "Toggle display of hidden and system files", "Refresh shell", "Restart Explorer", "Privileged file manager here" };
         static string sClearHistory = CmdLabels[9];
         static string sTakeOwnHere = CmdLabels[10];
         static string sRestartExplorer = CmdLabels[14];
@@ -58,6 +61,13 @@ namespace RightClickTools
         static string sDefender = "Defender history";
         static string sCCM = "Classic context menu";
         static string sRestartPC = "A restart is required to clear the Protection history. Restart now?";
+        static string sOpenFileManager = "Open file manager as...";
+        static string sAdministrator = "Administrator";
+        static string sTrustedInstaller = "Trusted Installer";
+        static string sShellRefresh = "Shell refresh only";
+        static string sResetIcons = "Reset icon cache";
+        static string sResetThumbs = "Reset thumbnail cache";
+        static string sFileManager = "File Manager";
 
         static string Option = "";
         static string StartDirectory = "";
@@ -67,6 +77,7 @@ namespace RightClickTools
         static bool Dark = isDark();
         static bool isAdmin = false;
         static bool ctrlKey = false;
+        static bool fLatCB = true;
 
         static string UserKey = @"HKEY_CURRENT_USER\Environment";
         static string SystemKey = @"HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment";
@@ -75,6 +86,8 @@ namespace RightClickTools
         static bool InUserPath = false;
         static bool InSystemPath = false;
         static int pathLength = UserPath.Length + SystemPath.Length;
+        static string UIkey = @"HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Authentication\LogonUI";
+        static string userSID = "";
 
         static string CmdExe = @"C:\Windows\System32\Cmd.exe";
         static string PowerShellExe = @"C:\Windows\System32\WindowsPowerShell\v1.0\PowerShell.exe";
@@ -83,11 +96,15 @@ namespace RightClickTools
 
         static string UserName = Environment.GetEnvironmentVariable("UserName");
         static string TaskName = $@"MyTasks\{myName}-{UserName}";
-        static string TaskDWDH = $@"MyTasks\DWDH";
         static string helpPage = "install-and-remove";
+        static int bwidth = 75;
 
         static CheckBox userPathCheckbox;
         static CheckBox systemPathCheckbox;
+
+        static CheckBox ShellRefreshCheckbox;
+        static CheckBox iconCacheCheckbox;
+        static CheckBox thumbCacheCheckbox;
 
         static CheckBox RecentItemsCheckbox;
         static CheckBox AutoSuggestCheckbox;
@@ -95,7 +112,7 @@ namespace RightClickTools
         static CheckBox DefenderCheckbox;
         static CheckBox checkBoxCCM;
 
-
+        [STAThread]
         static void Main(string[] args)
         {
             // If the current folder is a long path, the Elevate function will fail, so let's make C:\ the current folder.
@@ -111,6 +128,12 @@ namespace RightClickTools
 
             isAdmin = IsCurrentUserInAdminGroup();
 
+            try {Hidden = (int)Registry.GetValue(AdvKey, "Hidden", 0) == 1;} catch {}
+
+            try {userSID = (string)Registry.GetValue(UIkey, "LastLoggedOnUserSID", "");} catch {}
+
+            if (userSID == "") findUserSID();
+
             if (args.Length == 0) { InstallRemove(); return; }
 
             Option = args[0];
@@ -120,113 +143,195 @@ namespace RightClickTools
                 StartDirectory = args[1].Replace("|","");
             }
 
-            switch (Option)
+            switch (Option.ToLower())
             {
-                case "/Install":
-                    Install();
+                case "/dark":
+                    Registry.SetValue(perKey, "AppsUseLightTheme", 0, RegistryValueKind.DWord);
+                    Registry.SetValue(perKey, "SystemUsesLightTheme", 0, RegistryValueKind.DWord);
                     break;
 
-                case "/Remove":
-                    Remove();
+                case "/light":
+                    Registry.SetValue(perKey, "AppsUseLightTheme", 1, RegistryValueKind.DWord);
+                    Registry.SetValue(perKey, "SystemUsesLightTheme", 1, RegistryValueKind.DWord);
                     break;
 
-                case "/UACInstall":
-                    UACInstall();
+                case "/install":
+                    Install(false);
                     break;
 
-                case "/Elevate":
+                case "/remove":
+                    Remove(false);
+                    break;
+
+                case "/hkuinstall":
+                    HKUInstall();
+                    break;
+
+                case "/hkuremove":
+                    HKURemove();
+                    break;
+
+                case "/taskinstall":
+                    TaskInstall(true);
+                    break;
+
+                case "/taskremove":
+                    TaskRemove(true);
+                    break;
+
+                case "/taskinstallquiet":
+                    TaskInstall(false);
+                    break;
+
+                case "/taskremovequiet":
+                    TaskRemove(false);
+                    break;
+
+                case "/elevate":
                     if (args.Length > 1) { ElevateCfg = args[1]; }
                     Elevate();
                     break;
 
-                case "/UACRemove":
-                    UACRemove();
-                    break;
-
-                case "/CmdHere":
+                case "/cmdhere":
                     RunAsUser(CmdExe);
                     break;
 
-                case "/CmdAdminHere":
+                case "/cmdadminhere":
                     RunAsAdmin(CmdExe);
                     break;
 
-                case "/CmdTrustedHere":
+                case "/cmdtrustedhere":
                     RunAsTrusted(CmdExe);
                     break;
 
-                case "/PowerShellHere":
+                case "/powershellhere":
                     RunAsUser(PowerShellExe);
                     break;
 
-                case "/PowerShellAdminHere":
+                case "/powershelladminhere":
                     RunAsAdmin(PowerShellExe);
                     break;
 
-                case "/PowerShellTrustedHere":
+                case "/powershelltrustedhere":
                     RunAsTrusted(PowerShellExe);
                     break;
 
-                case "/RegEdit":
+                case "/regedit":
                     Environment.SetEnvironmentVariable("__COMPAT_LAYER", "RUNASINVOKER");
                     if (ctrlKey) clearRegEdit();
                     CommandLine = "/m";
                     RunAsUser(RegEditExe);
                     break;
 
-                case "/RegEditAdmin":
+                case "/regeditadmin":
                     CommandLine = "/m";
                     RunAsAdmin(RegEditExe);
                     break;
 
-                case "/RegEditTrusted":
+                case "/regedittrusted":
                     CommandLine = "/m";
                     RunAsTrusted(RegEditExe);
                     break;
 
-                case "/TakeOwnHere":
+                case "/allowelevatedexplorer":
+                    object runAsValue = Registry.GetValue(ExpKey, "RunAs", null);
+                    if (runAsValue != null && runAsValue.ToString() == "Interactive User")
+                    {
+                        Registry.SetValue(ExpKey, "RunAs", "", RegistryValueKind.String);
+                        Thread.Sleep(5000);
+                        Registry.SetValue(ExpKey, "RunAs", "Interactive User", RegistryValueKind.String);
+                    }
+                    break;
+
+                case "/minifilemanager":
+                    OpenFileDialog fd = new OpenFileDialog
+                    {
+                        Title = sFileManager,
+                        Filter = "",
+                        InitialDirectory = StartDirectory,
+                        Multiselect = true
+                    };
+                    fd.ShowDialog();
+                    break;
+
+                case "/filemanagerhere":
+                    FileManagerHere();
+                    break;
+
+                case "/takeownhere":
                     RunTakeOwnHerePS1AsAdmin();
                     break;
 
-                case "/AddDelPathHere":
+                case "/adddelpathhere":
                     AddDelPathHere();
                     break;
 
-                case "/AddPathAdmin":
+                case "/addpathadmin":
                     AddPathAdmin();
                     break;
 
-                case "/DelPathAdmin":
+                case "/delpathadmin":
                     DelPathAdmin();
                     break;
 
-                case "/ShowHide":
+                case "/showhide":
                     ShowHide();
                     break;
 
-                case "/ClearHistory":
+                case "/clearhistory":
                     ClearHistory();
                     break;
 
-                case "/ClearHistoryAdmin":
+                case "/clearhistoryadmin":
                     ClearDefenderHistoryTask();
                     break;
 
-                case "/RefreshShell":
-                    RefreshShell();
+                case "/refreshshellhere":
+                    RefreshShellHere();
                     break;
 
-                case "/RestartExplorerHere":
+                case "/restartexplorerhere":
                     helpPage = "restart-explorer";
-                    DialogResult result = TwoChoiceBox.Show(sRestartExplorer, sMain, sYes, sNo);
-                    if (result != DialogResult.Yes) return;
-                    RefreshShell();
+                    DialogResult result = CustomMessageBox.Show($"{sRestartExplorer}?", sMain);
+                    if (result == DialogResult.Cancel) return;
                     RestartExplorer();
                     break;
 
                 default:
                     return;
             }
+        }
+
+        static void findUserSID()
+        {
+            string userName = "";
+            try { userName = (string)Registry.GetValue(UIkey, "LastLoggedOnUser", ""); } catch { }
+            if (userName == "") return;
+            userName = userName.Substring(userName.LastIndexOf('\\') + 1);
+
+            using (RegistryKey hkeyUsers = Registry.Users)
+            {
+                foreach (string userSid in hkeyUsers.GetSubKeyNames())
+                {
+                    try
+                    {
+                        using (RegistryKey volatileEnvKey = hkeyUsers.OpenSubKey($@"{userSid}\Volatile Environment"))
+                        {
+                            if (volatileEnvKey != null)
+                            {
+                                object usernameValue = volatileEnvKey.GetValue("USERNAME");
+                                if (usernameValue != null && usernameValue.ToString().Equals(userName, StringComparison.OrdinalIgnoreCase))
+                                {
+                                    userSID = userSid;
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                    catch { }
+                }
+            }
+            userSID = "";
         }
 
         static bool IsCurrentUserInAdminGroup()
@@ -245,6 +350,53 @@ namespace RightClickTools
             p.StartInfo.CreateNoWindow = true;
             p.StartInfo.Verb = "runas";
             p.Start();
+            p.WaitForExit();
+        }
+
+        static void FileManagerHere()
+        {
+            helpPage = "privileged-file-manager-here";
+            bwidth = 120;
+            DialogResult result = TwoChoiceBox.Show(sOpenFileManager, sMain, sAdministrator, sTrustedInstaller);
+            if (result == DialogResult.Cancel) return;
+
+            CommandLine = $"\"{StartDirectory}\"";
+
+            string FMExe = ReadString(myIniFile, "FileManagerHere", "Exe", "");
+
+            // Set file manager to Explorer if no valid third-party file manager is set
+            if (FMExe == "" || $@"\{FMExe}".ToLower().EndsWith("\\explorer.exe") || !File.Exists(FMExe))
+            {
+                FMExe = "explorer.exe";
+
+                // Check registry value that prevents Explorer to run elevated
+                object runAsValue = Registry.GetValue(ExpKey, "RunAs", null);
+                if (runAsValue != null && runAsValue.ToString() == "Interactive User")
+                {
+                    if (isAdmin)
+                    {
+                        // Temporarily allow Explorer to run elevated
+                        CommandLine = "/AllowElevatedExplorer";
+                        RunAsTrusted(myExe);
+                        // Wait for registry entry to be updated
+                        for (int i = 0; i < 100; i++)
+                        {
+                            Thread.Sleep(20);
+                            runAsValue = Registry.GetValue(ExpKey, "RunAs", null);
+                            if (runAsValue == null || runAsValue.ToString() != "Interactive User") break;
+                        }
+                        CommandLine = $"\"{StartDirectory}\"";
+                    }
+                    else
+                    {
+                        CommandLine = $"/MiniFileManager \"{StartDirectory}\"";
+                        FMExe = myExe;
+                    }
+                }
+            };
+
+            if (result == DialogResult.Yes) RunAsAdmin(FMExe);
+            if (result == DialogResult.No) RunAsTrusted(FMExe);
         }
 
         static void AddPathAdmin()
@@ -269,67 +421,64 @@ namespace RightClickTools
         {
             DialogResult result = ClearHistoryDialog.Show(sClearHistory, sMain);
 
-            if (result == DialogResult.OK)
+            if (result == DialogResult.Cancel) return;
+
+            if (RecentItemsCheckbox.Checked)
             {
-                if (RecentItemsCheckbox.Checked)
+                string Recent = Environment.GetFolderPath(Environment.SpecialFolder.Recent);
+                try
                 {
-                    string Recent = Environment.GetFolderPath(Environment.SpecialFolder.Recent);
+                    Directory.GetFiles(Recent, "*", SearchOption.TopDirectoryOnly).ToList().ForEach(File.Delete);
+                    Directory.GetFiles($@"{Recent}\AutomaticDestinations", "*", SearchOption.TopDirectoryOnly).ToList().ForEach(File.Delete);
+                    Directory.GetFiles($@"{Recent}\CustomDestinations", "*", SearchOption.TopDirectoryOnly).ToList().ForEach(File.Delete);
+                }
+                catch
+                {
+                }
+            }
+
+            if (AutoSuggestCheckbox.Checked)
+            {
+                string parentKey = @"Software\Microsoft\Windows\CurrentVersion\Explorer";
+                ClearRegValues($@"{parentKey}\RunMRU");
+                ClearRegValues($@"{parentKey}\TypedPaths");
+
+                Process p = new Process();
+                p.StartInfo.FileName = "Rundll32.exe";
+                p.StartInfo.Arguments = "InetCpl.cpl,ClearMyTracksByProcess 1";
+                p.StartInfo.WorkingDirectory = @"C:\";
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.CreateNoWindow = true;
+                p.Start();
+            }
+
+            if (TempFilesCheckbox.Checked)
+            {
+                var filesAndFolders = Directory.GetFileSystemEntries(TempPath, "*", SearchOption.TopDirectoryOnly);
+
+                foreach (var entry in filesAndFolders)
+                {
                     try
                     {
-                        Directory.GetFiles(Recent, "*", SearchOption.TopDirectoryOnly).ToList().ForEach(File.Delete);
-                        Directory.GetFiles($@"{Recent}\AutomaticDestinations", "*", SearchOption.TopDirectoryOnly).ToList().ForEach(File.Delete);
-                        Directory.GetFiles($@"{Recent}\CustomDestinations", "*", SearchOption.TopDirectoryOnly).ToList().ForEach(File.Delete);
+                        if (File.Exists(entry))
+                        {
+                            File.Delete(entry);
+                        }
+                        else if (Directory.Exists(entry))
+                        {
+                            Directory.Delete(entry, true);
+                        }
                     }
                     catch
                     {
                     }
                 }
-
-                if (AutoSuggestCheckbox.Checked)
-                {
-                    string parentKey = @"Software\Microsoft\Windows\CurrentVersion\Explorer";
-                    ClearRegValues($@"{parentKey}\RunMRU");
-                    ClearRegValues($@"{parentKey}\TypedPaths");
-
-                    Process p = new Process();
-                    p.StartInfo.FileName = "Rundll32.exe";
-                    p.StartInfo.Arguments = "InetCpl.cpl,ClearMyTracksByProcess 1";
-                    p.StartInfo.WorkingDirectory = @"C:\";
-                    p.StartInfo.UseShellExecute = false;
-                    p.StartInfo.CreateNoWindow = true;
-                    p.Start();
-                }
-
-                if (TempFilesCheckbox.Checked)
-                {
-                    var filesAndFolders = Directory.GetFileSystemEntries(TempPath, "*", SearchOption.TopDirectoryOnly);
-
-                    foreach (var entry in filesAndFolders)
-                    {
-                        try
-                        {
-                            if (File.Exists(entry))
-                            {
-                                File.Delete(entry);
-                            }
-                            else if (Directory.Exists(entry))
-                            {
-                                Directory.Delete(entry, true);
-                            }
-                        }
-                        catch
-                        {
-                        }
-                    }
-                }
-
-                if (DefenderCheckbox.Checked)
-                {
-                    ClearDefenderHistory();
-                }
-
             }
 
+            if (DefenderCheckbox.Checked)
+            {
+                ClearDefenderHistory();
+            }
         }
 
         static void ClearRegValues(string keyPath)
@@ -363,29 +512,28 @@ namespace RightClickTools
 
             DialogResult result = AddDelPathDialog.Show(path, sMain);
 
-            if (result == DialogResult.OK)
+            if (result == DialogResult.Cancel) return;
+
+            if (userPathCheckbox.Checked != InUserPath)
             {
-                if (userPathCheckbox.Checked != InUserPath)
-                {
-                    if (userPathCheckbox.Checked)
-                        AddPathToEnvironmentVariable(path, UserPath, UserKey, true);
-                    else
-                        RemovePathFromEnvironmentVariable(path, UserPath, UserKey, true);
-                }
+                if (userPathCheckbox.Checked)
+                    AddPathToEnvironmentVariable(path, UserPath, UserKey, true);
+                else
+                    RemovePathFromEnvironmentVariable(path, UserPath, UserKey, true);
+            }
 
-                if (systemPathCheckbox.Checked != InSystemPath)
-                {
+            if (systemPathCheckbox.Checked != InSystemPath)
+            {
 
-                    if (systemPathCheckbox.Checked)
-                    {
-                        CommandLine = $"/AddPathAdmin \"{StartDirectory}\"";
-                    }
-                    else
-                    {
-                        CommandLine = $"/DelPathAdmin \"{StartDirectory}\"";
-                    }
-                    RunElevated(myExe, "Administrator");
+                if (systemPathCheckbox.Checked)
+                {
+                    CommandLine = $"/AddPathAdmin \"{StartDirectory}\"";
                 }
+                else
+                {
+                    CommandLine = $"/DelPathAdmin \"{StartDirectory}\"";
+                }
+                RunElevated(myExe, "Administrator");
             }
         }
 
@@ -455,6 +603,63 @@ namespace RightClickTools
             }
         }
 
+        static void RefreshShellHere()
+        {
+            DialogResult result = ShellRefreshDialog.Show("", sMain);
+
+            if (result == DialogResult.Cancel) return;
+
+            RefreshShell();
+
+            if (iconCacheCheckbox.Checked || thumbCacheCheckbox.Checked)
+            {
+                if (StartDirectory.ToLower().EndsWith("\\desktop"))
+                {
+                    if (!DesktopWindowFound()) StartDirectory = "";
+                }
+
+                using (Process p = new Process())
+                {
+                    p.StartInfo = new ProcessStartInfo
+                    {
+                        FileName = "taskkill.exe",
+                        Arguments = "/f /im explorer.exe",
+                        WindowStyle = ProcessWindowStyle.Hidden,
+                        UseShellExecute = true,
+                        CreateNoWindow = true,
+                    };
+                    p.Start();
+                    p.WaitForExit();
+                }
+
+                Thread.Sleep(2000);
+
+                if (iconCacheCheckbox.Checked) DeleteCacheFiles("iconcache_*.db");
+
+                if (thumbCacheCheckbox.Checked) DeleteCacheFiles("thumbcache_*.db");
+
+                Process.Start("explorer.exe");
+                if (StartDirectory != "") Process.Start("explorer.exe", StartDirectory);
+            }
+        }
+
+        static void DeleteCacheFiles(string searchPattern)
+        {
+            string targetDirectory = $@"{Environment.GetEnvironmentVariable("LocalAppData")}\Microsoft\Windows\Explorer";
+
+            try
+            {
+                string[] files = Directory.GetFiles(targetDirectory, searchPattern, SearchOption.TopDirectoryOnly);
+
+                foreach (string file in files)
+                {
+                    try { File.Delete(file); }
+                    catch { }
+                }
+            }
+            catch { }
+        }
+
         static void ToggleHiddenFiles(bool bShow)
         {
             if (buildNumber >= 14393) 
@@ -508,8 +713,45 @@ namespace RightClickTools
             }
         }
 
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        private static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern IntPtr FindWindowEx(IntPtr parentHandle, IntPtr childAfter, string className, string windowTitle);
+
+        static bool DesktopWindowFound()
+        {
+            bool desktopFound = false;
+            IntPtr hwnd = IntPtr.Zero;
+            do
+            {
+                hwnd = FindWindowEx(IntPtr.Zero, hwnd, "CabinetWClass", null);
+
+                if (hwnd != IntPtr.Zero)
+                {
+                    StringBuilder windowTitle = new StringBuilder(256);
+                    GetWindowText(hwnd, windowTitle, windowTitle.Capacity);
+                    string t = windowTitle.ToString().ToLower();
+                    if (t == "desktop" || t == "desktop - file explorer")
+                    {
+                        desktopFound = true;
+                        break;
+                    }
+                }
+            }
+            while (hwnd != IntPtr.Zero);
+            return desktopFound;
+        }
+
         static void RestartExplorer()
         {
+            if (StartDirectory.ToLower().EndsWith("\\desktop"))
+            {
+                if (!DesktopWindowFound()) StartDirectory = "";
+            }
+
+            RefreshShell();
+
             var processes = Process.GetProcessesByName("explorer");
             foreach (var process in processes)
             {
@@ -520,7 +762,7 @@ namespace RightClickTools
                 }
                 catch { }
             }
-            Process.Start("explorer.exe", StartDirectory);
+            if (StartDirectory != "") Process.Start("explorer.exe", StartDirectory);
         }
 
         static void CreateChangeDirectoryFile(string EXEFilename)
@@ -600,8 +842,8 @@ namespace RightClickTools
             string EXEFilename = ReadString(iniFile, "Process", "EXEFilename", "");
             string CommandLine = ReadString(iniFile, "Process", "CommandLine", "");
             string RunAs = ReadString(iniFile, "Process", "RunAs", "");
-            string Hidden = ReadString(iniFile, "Process", "Hidden", "0");
-            bool hidden = Convert.ToBoolean(Convert.ToInt32(Hidden));
+            string Dark = ReadString(iniFile, "Process", "Dark", "false");
+            bool dark = Dark == "True";
 
             if (RunAs == "TrustedInstaller")
             {
@@ -609,8 +851,16 @@ namespace RightClickTools
                 {
                     ServiceName = "TrustedInstaller",
                 };
+
                 if (sc.Status != ServiceControllerStatus.Running) sc.Start();
+
                 Process[] proc = Process.GetProcessesByName("TrustedInstaller");
+
+                if (dark) TrustedInstaller.Run(proc[0].Id, $"{myExe} /Dark");
+                if (!dark) TrustedInstaller.Run(proc[0].Id, $"{myExe} /Light");
+
+                Thread.Sleep(100);
+                proc = Process.GetProcessesByName("TrustedInstaller");
                 TrustedInstaller.Run(proc[0].Id, $"{EXEFilename} {CommandLine}");
             }
             else
@@ -622,17 +872,16 @@ namespace RightClickTools
                 p.StartInfo.Arguments = CommandLine;
                 p.StartInfo.WorkingDirectory = @"C:\";
                 p.StartInfo.UseShellExecute = false;
-                p.StartInfo.CreateNoWindow = hidden;
+                p.StartInfo.CreateNoWindow = false;
                 p.Start();
             }
-
         }
 
         static void RunElevated(string EXEFilename, string mode) 
         {
             CreateChangeDirectoryFile(EXEFilename);
 
-            string cfg = $"[Process]\r\nEXEFilename={EXEFilename}\r\nCommandLine={CommandLine}\r\nRunAs={mode}";
+            string cfg = $"[Process]\r\nEXEFilename={EXEFilename}\r\nCommandLine={CommandLine}\r\nRunAs={mode}\r\nDark={Dark}";
 
             File.WriteAllText(ElevateCfg, cfg);
 
@@ -666,12 +915,10 @@ namespace RightClickTools
 
         static void RunTakeOwnHerePS1AsAdmin()
         {
-            string iniFile = $@"{appParts}\{myName}.ini";
-
-            string sStopAll = ReadString(iniFile, "TakeOwnHere", "StopAll", "");
+            string sStopAll = ReadString(myIniFile, "TakeOwnHere", "StopAll", "");
             string[] StopAll = sStopAll.Split(new char[] { '|' });
 
-            string sStopRoot = ReadString(iniFile, "TakeOwnHere", "StopRoot", "");
+            string sStopRoot = ReadString(myIniFile, "TakeOwnHere", "StopRoot", "");
             string[] StopRoot = sStopRoot.Split(new char[] { '|' });
 
             bool Stop = false;
@@ -694,8 +941,9 @@ namespace RightClickTools
             string sMsg = sTakeOwnHere;
             if (StartsWith(StartDirectory, "C:\\Users\\") && !StartsWith(StartDirectory, UserProfile)) sMsg = $"{sWarningTakeOwn}\r\n\r\n{sTakeOwnHere}";
 
-            DialogResult result = TwoChoiceBox.Show($"{sMsg}?\n\n{StartDirectory}\n\n", sMain, sYes, sNo);
-            if (result != DialogResult.Yes) return;
+            DialogResult result = CustomMessageBox.Show($"{sMsg}?\n\n{StartDirectory}\n\n", sMain);
+
+            if (result == DialogResult.Cancel) return;
 
             CreateTakeOwnHerePS1();
 
@@ -744,24 +992,25 @@ namespace RightClickTools
 
         static void ClearDefenderHistoryTask()
         {
-            string folder = @"C:\ProgramData\Microsoft\Windows Defender\Scans\History\Service";
-            string file = $@"{folder}\Detections.log";
+            string scans = @"C:\ProgramData\Microsoft\Windows Defender\Scans";
+            string service = $@"{scans}\History\Service";
+            string db = $@"{scans}\mpenginedb.db*";
 
-            if (File.Exists(file))
-            {
-                Process p = new Process();
-                p.StartInfo.FileName = SchTasksExe;
-                p.StartInfo.Arguments = $"/create /f /sc onStart /ru \"NT AUTHORITY\\SYSTEM\" /tn {TaskDWDH} /tr \"cmd.exe /c rd /s /q \\\"{folder}\\\" & schtasks /delete /f /tn {TaskDWDH}\"";
-                p.StartInfo.UseShellExecute = false;
-                p.StartInfo.CreateNoWindow = true;
-                p.Start();
-                p.WaitForExit();
+            Process p = new Process();
+            p.StartInfo.FileName = SchTasksExe;
+            p.StartInfo.Arguments = $"/create /f /tn MyTasks\\DWDH /xml \"{appParts}\\DWDH.cfg\"";
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.CreateNoWindow = true;
+            p.Start();
+            p.WaitForExit();
 
-                helpPage = "clear-history";
-                DialogResult result = TwoChoiceBox.Show(sRestartPC, sMain, sYes, sNo);
-                if (result != DialogResult.Yes) return;
-                Process.Start("shutdown", "/r /t 0");
-            }
+            helpPage = "clear-history";
+
+            DialogResult result = CustomMessageBox.Show(sRestartPC, sMain);
+
+            if (result == DialogResult.Cancel) return;
+
+            Process.Start("shutdown", "/r /t 0");
         }
 
         static bool StrCmp(string str1, string str2)
@@ -848,6 +1097,13 @@ namespace RightClickTools
             sDefender = ReadString(iniFile, lang, "sDefender", sDefender);
             sCCM = ReadString(iniFile, lang, "sCCM", sCCM);
             sRestartPC = ReadString(iniFile, lang, "sRestartPC", sRestartPC);
+            sOpenFileManager = ReadString(iniFile, lang, "sOpenFileManager", sOpenFileManager);
+            sAdministrator = ReadString(iniFile, lang, "sAdministrator", sAdministrator);
+            sTrustedInstaller = ReadString(iniFile, lang, "sTrustedInstaller", sTrustedInstaller);
+            sShellRefresh = ReadString(iniFile, lang, "sShellRefresh", sShellRefresh);
+            sResetIcons = ReadString(iniFile, lang, "sResetIcons", sResetIcons);
+            sResetThumbs = ReadString(iniFile, lang, "sResetThumbs", sResetThumbs);
+            sFileManager = ReadString(iniFile, lang, "sFileManager", sFileManager);
 
             string sCmdLabels = ReadString(iniFile, lang, "CmdLabels", "");
             string[] LangLabels = sCmdLabels.Split(new char[] { '|' });
@@ -959,48 +1215,73 @@ namespace RightClickTools
 
             if (result == DialogResult.Yes)
             {
-                Install();
+                Install(true);
             }
             if (result == DialogResult.No)
             {
-                Remove();
+                Remove(true);
             }
         }
 
-        static void Install()
+        static void ContextMenuInstall(bool HKCU)
         {
-            RemoveContextMenuEntries();
-            RemoveContextMenuEntriesCCM();
-            InstallContextMenuEntries(@"Drive");
-            InstallContextMenuEntries(@"Directory");
-            InstallContextMenuEntries(@"Directory\Background");
-            InstallContextMenuEntriesCCM();
-            SetWin11ContextMenu();
+            RemoveContextMenuEntries(HKCU);
+            RemoveContextMenuEntriesCCM(HKCU);
+            InstallContextMenuEntries(@"Drive", HKCU);
+            InstallContextMenuEntries(@"Directory", HKCU);
+            InstallContextMenuEntries(@"Directory\Background", HKCU);
+            InstallContextMenuEntriesCCM(HKCU);
+            if (HKCU) SetWin11ContextMenu();
+        }
+        static void ContextMenuRemove(bool HKCU)
+        {
+            RemoveContextMenuEntries(HKCU);
+            RemoveContextMenuEntriesCCM(HKCU);
+            if (HKCU) SetWin11ContextMenu();
+        }
+
+        static void Install(bool interactive)
+        {
+            ContextMenuInstall(true);
 
             if (!isAdmin) 
             {
-                CustomMessageBox.Show(sDone, sMain);
+                if (interactive) CustomMessageBox.Show(sDone, sMain);
                 return;
             }
 
-            CommandLine = "/UACInstall";
+            CommandLine = "/TaskInstallQuiet";
+            if (interactive) CommandLine = "/TaskInstall";
             RunUAC(myExe);
         }
 
-        static void Remove()
+        static void Remove(bool interactive)
         {
-            RemoveContextMenuEntries();
-            RemoveContextMenuEntriesCCM();
-            SetWin11ContextMenu();
+            ContextMenuRemove(true);
 
             if (!isAdmin)
             {
-                CustomMessageBox.Show(sDone, sMain);
+                if (interactive) CustomMessageBox.Show(sDone, sMain);
                 return;
             }
 
-            CommandLine = "/UACRemove";
+            CommandLine = "/TaskRemoveQuiet";
+            if (interactive) CommandLine = "/TaskRemove";
             RunUAC(myExe);
+        }
+
+        static void HKUInstall()
+        {
+            CCMfolder = FindCustomCommandsFolder(false);
+            ContextMenuInstall(false);
+            TaskInstall(false);
+        }
+
+        static void HKURemove()
+        {
+            CCMfolder = FindCustomCommandsFolder(false);
+            ContextMenuRemove(false);
+            TaskRemove(false);
         }
 
         static void SetWin11ContextMenu()
@@ -1034,7 +1315,7 @@ namespace RightClickTools
             }
         }
 
-        static void UACInstall()
+        static void TaskInstall(bool interactive)
         {
             Process p = new Process();
             p.StartInfo.FileName = SchTasksExe;
@@ -1058,10 +1339,10 @@ namespace RightClickTools
             p.Start();
             p.WaitForExit();
 
-            CustomMessageBox.Show(sDone, sMain);
+            if (interactive) CustomMessageBox.Show(sDone, sMain);
         }
 
-        static void UACRemove()
+        static void TaskRemove(bool interactive)
         {
             Process p = new Process();
             p.StartInfo.FileName = SchTasksExe;
@@ -1071,14 +1352,22 @@ namespace RightClickTools
             p.Start();
             p.WaitForExit();
 
-            CustomMessageBox.Show(sDone, sMain);
+            if (interactive) CustomMessageBox.Show(sDone, sMain);
         }
 
-        static void InstallContextMenuEntries(string thiskey)
+        static void InstallContextMenuEntries(string thiskey, bool HKCU)
         {
+            RegistryKey baseKey = Registry.CurrentUser;
+
+            if (!HKCU)
+            {
+                if (userSID == "") return;
+                baseKey = Registry.Users.OpenSubKey(userSID, true);
+            }
+         
             string MyKey = $@"Software\Classes\{thiskey}\shell\{myName}";
 
-            using (RegistryKey key = Registry.CurrentUser.CreateSubKey(MyKey))
+            using (RegistryKey key = baseKey.CreateSubKey(MyKey))
             {
                 key.SetValue("SubCommands", "");
                 key.SetValue("", "");
@@ -1088,7 +1377,7 @@ namespace RightClickTools
 
             for (int i = 0; i < CmdKeys.Length; i++)
             {
-                using (RegistryKey key = Registry.CurrentUser.CreateSubKey($@"{MyKey}\shell\{i:D2}-{CmdKeys[i]}"))
+                using (RegistryKey key = baseKey.CreateSubKey($@"{MyKey}\shell\{i:D2}-{CmdKeys[i]}"))
                 {
                     key.SetValue("", CmdLabels[i]);
                     key.SetValue("Icon", $@"{appParts}\Icons\{CmdKeys[i]}.ico");
@@ -1103,16 +1392,14 @@ namespace RightClickTools
             }
         }
 
-        static void InstallContextMenuEntriesCCM()
+        static void InstallContextMenuEntriesCCM(bool HKCU)
         {
             if (CCMfolder == null) return;
-            //string zmyExe = "\\\"" + myExe.Replace(@"\", @"\\") + "\\\"";
             string exe = myExe.Replace(@"\", @"\\");
 
             for (int i = 0; i < CmdKeys.Length; i++)
             {
                 string icon = $@"{appParts}\Icons\{CmdKeys[i]}.ico";
-                //icon = "\\\"" + icon.Replace(@"\", @"\\") + "\\\"";
                 icon = icon.Replace(@"\", @"\\");
                 string JSONFile = $@"{CCMfolder}\{CmdLabels[i]}.JSON";
                 string JSONData = File.ReadAllText($@"{appParts}\JSON.cfg");
@@ -1125,7 +1412,7 @@ namespace RightClickTools
             }
         }
 
-        static void RemoveContextMenuEntriesCCM()
+        static void RemoveContextMenuEntriesCCM(bool HKCU)
         {
             if (CCMfolder == null) return;
 
@@ -1140,19 +1427,22 @@ namespace RightClickTools
             }
         }
 
-        static void RemoveContextMenuEntries()
+        static void RemoveContextMenuEntries(bool HKCU)
         {
-            using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Classes\Drive\shell", true))
+            RegistryKey baseKey = Registry.CurrentUser;
+            if (!HKCU) baseKey = Registry.Users.OpenSubKey(userSID, true);
+
+            using (RegistryKey key = baseKey.OpenSubKey(@"Software\Classes\Drive\shell", true))
             {
                 try { key.DeleteSubKeyTree(myName, false); }
                 catch { }
             }
-            using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Classes\Directory\shell", true))
+            using (RegistryKey key = baseKey.OpenSubKey(@"Software\Classes\Directory\shell", true))
             {
                 try { key.DeleteSubKeyTree(myName, false); }
                 catch { }
             }
-            using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Classes\Directory\Background\shell", true))
+            using (RegistryKey key = baseKey.OpenSubKey(@"Software\Classes\Directory\Background\shell", true))
             {
                 try { key.DeleteSubKeyTree(myName, false); }
                 catch { }
@@ -1160,9 +1450,15 @@ namespace RightClickTools
 
         }
 
-        static string FindCustomCommandsFolder()
+        static string FindCustomCommandsFolder(bool HKCU)
         {
             string packagesFolderPath = $@"{Environment.GetEnvironmentVariable("LocalAppData")}\Packages";
+
+            if (!HKCU)
+            {
+                string keyPath = $@"HKEY_USERS\{userSID}\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders";
+                packagesFolderPath = $@"{(string)Registry.GetValue(keyPath, @"Local AppData", "")}\Packages";
+            }
 
             if (!Directory.Exists(packagesFolderPath)) return null;
 
@@ -1181,6 +1477,7 @@ namespace RightClickTools
         public class CustomMessageBox : Form
         {
             private Label messageLabel;
+            private Label buttonHelp;
             private Button buttonOK;
 
             public CustomMessageBox(string message, string caption)
@@ -1208,6 +1505,23 @@ namespace RightClickTools
                     Height = Math.Max(Height, (int)(size.Height + (int)(100 * ScaleFactor)));
                 }
 
+                buttonHelp = new Label();
+                Image image = Image.FromFile($@"{appParts}\Icons\Question.png");
+                Bitmap scaledImage = new Bitmap((int)(26 * ScaleFactor), (int)(26 * ScaleFactor));
+                using (Graphics g = Graphics.FromImage(scaledImage))
+                {
+                    g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                    g.DrawImage(image, 0, 0, (int)(26 * ScaleFactor), (int)(26 * ScaleFactor));
+                }
+                buttonHelp.BackgroundImage = scaledImage;
+                buttonHelp.BackgroundImageLayout = ImageLayout.Stretch;
+                buttonHelp.Size = new Size((int)(26 * ScaleFactor), (int)(26 * ScaleFactor));
+                buttonHelp.FlatStyle = FlatStyle.Flat;
+                buttonHelp.Left = ClientSize.Width - (int)(30 * ScaleFactor);
+                buttonHelp.Top = (int)(4 * ScaleFactor);
+                buttonHelp.Click += ButtonHelp_Click;
+
+                messageLabel.Padding = new Padding(0, 0, (int)(26 * ScaleFactor), 0);
 
                 buttonOK = new Button();
                 buttonOK.Text = sOK;
@@ -1222,10 +1536,13 @@ namespace RightClickTools
                     buttonOK.FlatStyle = FlatStyle.Flat;
                     buttonOK.FlatAppearance.BorderColor = SystemColors.Highlight;
                     buttonOK.FlatAppearance.BorderSize = 1;
+                    buttonOK.BackColor = Color.FromArgb(60, 60, 60);
+                    buttonOK.FlatAppearance.MouseOverBackColor = Color.Black;
                     DarkTitleBar(Handle);
                     BackColor = Color.FromArgb(32, 32, 32);
                     ForeColor = Color.White;
                 }
+                Controls.Add(buttonHelp);
                 Controls.Add(buttonOK);
                 Controls.Add(messageLabel);
 
@@ -1251,17 +1568,23 @@ namespace RightClickTools
 
         }
 
+        static void GetCheckboxChoice()
+        {
+            fLatCB = ReadString(myIniFile, "General", "AlternateCheckbox", "1") == "1";
+        }
+
         // Dialog for install/Remove and Yes/No
         public class TwoChoiceBox : Form
         {
             private Label messageLabel;
-            private Button buttonHelp;
+            private Label buttonHelp;
             private Button buttonYes;
             private Button buttonNo;
 
             public TwoChoiceBox(string message, string caption, string button1, string button2)
             {
-                int b2Width = (int)(75 * ScaleFactor);
+                GetCheckboxChoice();
+                int b2Width = (int)(bwidth * ScaleFactor);
                 using (Graphics g = CreateGraphics())
                 {
                     SizeF size = g.MeasureString(button2, new Font("Segoe UI", 9));
@@ -1291,7 +1614,7 @@ namespace RightClickTools
                     Height = Math.Max(Height, (int)(size.Height + (int)(100 * ScaleFactor)));
                 }
 
-                buttonHelp = new Button();
+                buttonHelp = new Label();
                 Image image = Image.FromFile($@"{appParts}\Icons\Question.png");
                 Bitmap scaledImage = new Bitmap((int)(26 * ScaleFactor), (int)(26 * ScaleFactor));
                 using (Graphics g = Graphics.FromImage(scaledImage))
@@ -1303,10 +1626,8 @@ namespace RightClickTools
                 buttonHelp.BackgroundImageLayout = ImageLayout.Stretch;
                 buttonHelp.Size = new Size((int)(26 * ScaleFactor), (int)(26 * ScaleFactor));
                 buttonHelp.FlatStyle = FlatStyle.Flat;
-                buttonHelp.FlatAppearance.BorderSize = 0;
                 buttonHelp.Left = ClientSize.Width - (int)(30 * ScaleFactor);
                 buttonHelp.Top = (int)(4 * ScaleFactor);
-                buttonHelp.DialogResult = DialogResult.None;
                 buttonHelp.Click += ButtonHelp_Click;
 
                 messageLabel.Padding = new Padding(0, 0, (int)(26 * ScaleFactor), 0);
@@ -1317,11 +1638,12 @@ namespace RightClickTools
                 checkBoxCCM.Checked = Win10ContextMenu;
                 checkBoxCCM.AutoSize = true;
                 checkBoxCCM.Location = new Point((int)(12 * ScaleFactor), (int)(58 * ScaleFactor));
+                if (fLatCB) checkBoxCCM.FlatStyle = FlatStyle.Flat;
 
                 buttonYes = new Button();
                 buttonYes.Text = button1;
                 buttonYes.Font = new Font("Segoe UI", 9);
-                buttonYes.MinimumSize = new Size((int)(75 * ScaleFactor), (int)(26 * ScaleFactor));
+                buttonYes.MinimumSize = new Size((int)(bwidth * ScaleFactor), (int)(26 * ScaleFactor));
                 buttonYes.Left = (int)(10 * ScaleFactor);
                 buttonYes.Top = ClientSize.Height - buttonYes.Height - (int)(12 * ScaleFactor);
                 buttonYes.DialogResult = DialogResult.Yes;
@@ -1329,7 +1651,7 @@ namespace RightClickTools
                 buttonNo = new Button();
                 buttonNo.Text = button2;
                 buttonNo.Font = new Font("Segoe UI", 9);
-                buttonNo.MinimumSize = new Size((int)(75 * ScaleFactor), (int)(26 * ScaleFactor));
+                buttonNo.MinimumSize = new Size((int)(bwidth * ScaleFactor), (int)(26 * ScaleFactor));
                 buttonNo.Left = ClientSize.Width - b2Width - (int)(16 * ScaleFactor);
                 buttonNo.Top = ClientSize.Height - buttonNo.Height - (int)(12 * ScaleFactor);
                 buttonNo.DialogResult = DialogResult.No;
@@ -1339,9 +1661,13 @@ namespace RightClickTools
                     buttonYes.FlatStyle = FlatStyle.Flat;
                     buttonYes.FlatAppearance.BorderColor = SystemColors.Highlight;
                     buttonYes.FlatAppearance.BorderSize = 1;
+                    buttonYes.BackColor = Color.FromArgb(60, 60, 60);
+                    buttonYes.FlatAppearance.MouseOverBackColor = Color.Black;
                     buttonNo.FlatStyle = FlatStyle.Flat;
                     buttonNo.FlatAppearance.BorderColor = SystemColors.Highlight;
                     buttonNo.FlatAppearance.BorderSize = 1;
+                    buttonNo.BackColor = Color.FromArgb(60, 60, 60);
+                    buttonNo.FlatAppearance.MouseOverBackColor = Color.Black;
                     DarkTitleBar(Handle);
                     BackColor = Color.FromArgb(32, 32, 32);
                     ForeColor = Color.White;
@@ -1386,11 +1712,12 @@ namespace RightClickTools
         public class AddDelPathDialog : Form
         {
             private Label messageLabel;
-            private Button buttonHelp;
+            private Label buttonHelp;
             private Button buttonOK;
 
             public AddDelPathDialog(string message, string caption)
             {
+                GetCheckboxChoice();
                 message = $"\n\n\n\n{message}";
 
                 Icon = new Icon(myIcon);
@@ -1414,7 +1741,7 @@ namespace RightClickTools
                     Height = Math.Max(Height, (int)(size.Height + (int)(100 * ScaleFactor)));
                 }
 
-                buttonHelp = new Button();
+                buttonHelp = new Label();
                 Image image = Image.FromFile($@"{appParts}\Icons\Question.png");
                 Bitmap scaledImage = new Bitmap((int)(26 * ScaleFactor), (int)(26 * ScaleFactor));
                 using (Graphics g = Graphics.FromImage(scaledImage))
@@ -1426,10 +1753,8 @@ namespace RightClickTools
                 buttonHelp.BackgroundImageLayout = ImageLayout.Stretch;
                 buttonHelp.Size = new Size((int)(26 * ScaleFactor), (int)(26 * ScaleFactor));
                 buttonHelp.FlatStyle = FlatStyle.Flat;
-                buttonHelp.FlatAppearance.BorderSize = 0;
                 buttonHelp.Left = ClientSize.Width - (int)(30 * ScaleFactor);
                 buttonHelp.Top = (int)(4 * ScaleFactor);
-                buttonHelp.DialogResult = DialogResult.None;
                 buttonHelp.Click += ButtonHelp_Click;
                 helpPage = "add-or-remove-folder-in-path-variable";
 
@@ -1448,6 +1773,7 @@ namespace RightClickTools
                 userPathCheckbox.Checked = InUserPath;
                 userPathCheckbox.AutoSize = true;
                 userPathCheckbox.Location = new Point((int)(8 * ScaleFactor), (int)(16 * ScaleFactor));
+                if (fLatCB) userPathCheckbox.FlatStyle = FlatStyle.Flat;
 
                 systemPathCheckbox = new CheckBox();
                 systemPathCheckbox.Font = new Font("Segoe UI", 10);
@@ -1455,13 +1781,15 @@ namespace RightClickTools
                 systemPathCheckbox.Checked = InSystemPath;
                 systemPathCheckbox.AutoSize = true;
                 systemPathCheckbox.Location = new Point((int)(8 * ScaleFactor), (int)(40 * ScaleFactor));
+                if (fLatCB) systemPathCheckbox.FlatStyle = FlatStyle.Flat;
 
                 if (Dark)
                 {
                     buttonOK.FlatStyle = FlatStyle.Flat;
                     buttonOK.FlatAppearance.BorderColor = SystemColors.Highlight;
                     buttonOK.FlatAppearance.BorderSize = 1;
-
+                    buttonOK.BackColor = Color.FromArgb(60, 60, 60);
+                    buttonOK.FlatAppearance.MouseOverBackColor = Color.Black;
                     DarkTitleBar(Handle);
                     BackColor = Color.FromArgb(32, 32, 32);
                     ForeColor = Color.White;
@@ -1495,15 +1823,174 @@ namespace RightClickTools
             }
         }
 
+        // Dialog for Shell Refresh
+        public class ShellRefreshDialog : Form
+        {
+            private Label messageLabel;
+            private Label buttonHelp;
+            private Button buttonOK;
+
+            public ShellRefreshDialog(string message, string caption)
+            {
+                GetCheckboxChoice();
+                message = $"\n\n\n\n{message}";
+
+                Icon = new Icon(myIcon);
+                StartPosition = FormStartPosition.Manual;
+                FormBorderStyle = FormBorderStyle.FixedDialog;
+                Text = caption;
+                Width = (int)(300 * ScaleFactor);
+                Height = (int)(150 * ScaleFactor);
+                MaximizeBox = false;
+                MinimizeBox = false;
+
+                messageLabel = new Label();
+                messageLabel.Text = message;
+                messageLabel.Font = new Font("Segoe UI", 10);
+                messageLabel.TextAlign = ContentAlignment.TopCenter;
+                messageLabel.Dock = DockStyle.Fill;
+
+                using (Graphics g = CreateGraphics())
+                {
+                    SizeF size = g.MeasureString(message, new Font("Segoe UI", 10), Width);
+                    Height = Math.Max(Height, (int)(size.Height + (int)(100 * ScaleFactor)));
+                }
+
+                buttonHelp = new Label();
+                Image image1 = Image.FromFile($@"{appParts}\Icons\Question.png");
+                Bitmap scaledImage1 = new Bitmap((int)(26 * ScaleFactor), (int)(26 * ScaleFactor));
+                using (Graphics g = Graphics.FromImage(scaledImage1))
+                {
+                    g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                    g.DrawImage(image1, 0, 0, (int)(26 * ScaleFactor), (int)(26 * ScaleFactor));
+                }
+                Image image2 = Image.FromFile($@"{appParts}\Icons\Question.png");
+                Bitmap scaledImage2 = new Bitmap((int)(26 * ScaleFactor), (int)(26 * ScaleFactor));
+                using (Graphics g = Graphics.FromImage(scaledImage2))
+                {
+                    g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                    g.DrawImage(image2, 0, 0, (int)(26 * ScaleFactor), (int)(26 * ScaleFactor));
+                }
+                buttonHelp.BackgroundImage = scaledImage1;
+                buttonHelp.BackgroundImageLayout = ImageLayout.Stretch;
+                buttonHelp.Size = new Size((int)(26 * ScaleFactor), (int)(26 * ScaleFactor));
+                buttonHelp.FlatStyle = FlatStyle.Flat;
+                buttonHelp.Left = ClientSize.Width - (int)(30 * ScaleFactor);
+                buttonHelp.Top = (int)(4 * ScaleFactor);
+                buttonHelp.Click += ButtonHelp_Click;
+                helpPage = "refresh-shell";
+
+                buttonOK = new Button();
+                buttonOK.Text = sOK;
+                buttonOK.DialogResult = DialogResult.OK;
+                buttonOK.Font = new Font("Segoe UI", 9);
+                buttonOK.Width = (int)(75 * ScaleFactor);
+                buttonOK.Height = (int)(26 * ScaleFactor);
+                buttonOK.Left = (ClientSize.Width - buttonOK.Width) / 2;
+                buttonOK.Top = ClientSize.Height - buttonOK.Height - (int)(10 * ScaleFactor);
+
+                ShellRefreshCheckbox = new CheckBox();
+                ShellRefreshCheckbox.Font = new Font("Segoe UI", 10);
+                ShellRefreshCheckbox.Text = sShellRefresh;
+                ShellRefreshCheckbox.AutoSize = true;
+                ShellRefreshCheckbox.Location = new Point((int)(8 * ScaleFactor), (int)(16 * ScaleFactor));
+                ShellRefreshCheckbox.Checked = true;
+                ShellRefreshCheckbox.CheckedChanged += new EventHandler(CB1);
+                if (fLatCB) ShellRefreshCheckbox.FlatStyle = FlatStyle.Flat;
+
+                iconCacheCheckbox = new CheckBox();
+                iconCacheCheckbox.Font = new Font("Segoe UI", 10);
+                iconCacheCheckbox.Text = sResetIcons;
+                iconCacheCheckbox.AutoSize = true;
+                iconCacheCheckbox.Location = new Point((int)(8 * ScaleFactor), (int)(40 * ScaleFactor));
+                iconCacheCheckbox.CheckedChanged += new EventHandler(CB2);
+                if (fLatCB) iconCacheCheckbox.FlatStyle = FlatStyle.Flat;
+
+                thumbCacheCheckbox = new CheckBox();
+                thumbCacheCheckbox.Font = new Font("Segoe UI", 10);
+                thumbCacheCheckbox.Text = sResetThumbs;
+                thumbCacheCheckbox.AutoSize = true;
+                thumbCacheCheckbox.Location = new Point((int)(8 * ScaleFactor), (int)(64 * ScaleFactor));
+                thumbCacheCheckbox.CheckedChanged += new EventHandler(CB2);
+                if (fLatCB) thumbCacheCheckbox.FlatStyle = FlatStyle.Flat;
+
+                if (Dark)
+                {
+                    buttonOK.FlatStyle = FlatStyle.Flat;
+                    buttonOK.FlatAppearance.BorderColor = SystemColors.Highlight;
+                    buttonOK.FlatAppearance.BorderSize = 1;
+                    buttonOK.BackColor = Color.FromArgb(60, 60, 60);
+                    buttonOK.FlatAppearance.MouseOverBackColor = Color.Black;
+                    DarkTitleBar(Handle);
+                    BackColor = Color.FromArgb(32, 32, 32);
+                    ForeColor = Color.White;
+                }
+
+                Controls.Add(buttonHelp);
+                Controls.Add(ShellRefreshCheckbox);
+                Controls.Add(iconCacheCheckbox);
+                Controls.Add(thumbCacheCheckbox);
+                Controls.Add(buttonOK);
+                Controls.Add(messageLabel);
+
+                Point cursorPosition = Cursor.Position;
+                int dialogX = Cursor.Position.X - Width / 2;
+                int dialogY = Cursor.Position.Y - Height / 2 - (int)(50 * ScaleFactor);
+                Screen screen = Screen.FromPoint(cursorPosition);
+                int screenWidth = screen.WorkingArea.Width;
+                int screenHeight = screen.WorkingArea.Height;
+                int baseX = screen.Bounds.X;
+                int baseY = screen.Bounds.Y;
+                dialogX = Math.Max(baseX, Math.Min(baseX + screenWidth - Width, dialogX));
+                dialogY = Math.Max(baseY, Math.Min(baseY + screenHeight - Height, dialogY));
+                Location = new Point(dialogX, dialogY);
+            }
+
+            private void CB1(object sender, EventArgs e)
+            {
+                if (ShellRefreshCheckbox.Checked)
+                {
+                    iconCacheCheckbox.Checked = false;
+                    thumbCacheCheckbox.Checked = false;
+                }
+                if (!iconCacheCheckbox.Checked && !thumbCacheCheckbox.Checked)
+                {
+                    ShellRefreshCheckbox.Checked = true;
+                }
+
+            }
+            private void CB2(object sender, EventArgs e)
+            {
+                if (iconCacheCheckbox.Checked || thumbCacheCheckbox.Checked)
+                {
+                    ShellRefreshCheckbox.Checked = false;
+                }
+                else
+                {
+                    ShellRefreshCheckbox.Checked = true;
+                }
+            }
+
+
+            public static DialogResult Show(string message, string caption)
+            {
+                using (var ShellRefreshDialog = new ShellRefreshDialog(message, caption))
+                {
+                    return ShellRefreshDialog.ShowDialog();
+                }
+            }
+        }
+
         // Dialog for Clear History
         public class ClearHistoryDialog : Form
         {
             private Label messageLabel;
             private Button buttonOK;
-            private Button buttonHelp;
+            private Label buttonHelp;
 
             public ClearHistoryDialog(string message, string caption)
             {
+                GetCheckboxChoice();
                 message = $"\n\n\n\n\n\n\n{message}?";
 
                 Icon = new Icon(myIcon);
@@ -1527,7 +2014,7 @@ namespace RightClickTools
                     Height = Math.Max(Height, (int)(size.Height + (int)(100 * ScaleFactor)));
                 }
 
-                buttonHelp = new Button();
+                buttonHelp = new Label();
                 Image image = Image.FromFile($@"{appParts}\Icons\Question.png");
                 Bitmap scaledImage = new Bitmap((int)(26 * ScaleFactor), (int)(26 * ScaleFactor));
                 using (Graphics g = Graphics.FromImage(scaledImage))
@@ -1539,10 +2026,8 @@ namespace RightClickTools
                 buttonHelp.BackgroundImageLayout = ImageLayout.Stretch;
                 buttonHelp.Size = new Size((int)(26 * ScaleFactor), (int)(26 * ScaleFactor));
                 buttonHelp.FlatStyle = FlatStyle.Flat;
-                buttonHelp.FlatAppearance.BorderSize = 0;
                 buttonHelp.Left = ClientSize.Width - (int)(30 * ScaleFactor);
                 buttonHelp.Top = (int)(4 * ScaleFactor);
-                buttonHelp.DialogResult = DialogResult.None;
                 buttonHelp.Click += ButtonHelp_Click;
                 helpPage = "clear-history";
                 
@@ -1559,6 +2044,8 @@ namespace RightClickTools
                     buttonOK.FlatStyle = FlatStyle.Flat;
                     buttonOK.FlatAppearance.BorderColor = SystemColors.Highlight;
                     buttonOK.FlatAppearance.BorderSize = 1;
+                    buttonOK.BackColor = Color.FromArgb(60, 60, 60);
+                    buttonOK.FlatAppearance.MouseOverBackColor = Color.Black;
                     DarkTitleBar(Handle);
                     BackColor = Color.FromArgb(32, 32, 32);
                     ForeColor = Color.White;
@@ -1570,6 +2057,7 @@ namespace RightClickTools
                 RecentItemsCheckbox.Checked = false;
                 RecentItemsCheckbox.AutoSize = true;
                 RecentItemsCheckbox.Location = new Point((int)(8 * ScaleFactor), (int)(16 * ScaleFactor));
+                if (fLatCB) RecentItemsCheckbox.FlatStyle = FlatStyle.Flat;
 
                 AutoSuggestCheckbox = new CheckBox();
                 AutoSuggestCheckbox.Font = new Font("Segoe UI", 10);
@@ -1577,6 +2065,7 @@ namespace RightClickTools
                 AutoSuggestCheckbox.Checked = false;
                 AutoSuggestCheckbox.AutoSize = true;
                 AutoSuggestCheckbox.Location = new Point((int)(8 * ScaleFactor), (int)(40 * ScaleFactor));
+                if (fLatCB) AutoSuggestCheckbox.FlatStyle = FlatStyle.Flat;
 
                 TempFilesCheckbox = new CheckBox();
                 TempFilesCheckbox.Font = new Font("Segoe UI", 10);
@@ -1584,6 +2073,7 @@ namespace RightClickTools
                 TempFilesCheckbox.Checked = false;
                 TempFilesCheckbox.AutoSize = true;
                 TempFilesCheckbox.Location = new Point((int)(8 * ScaleFactor), (int)(64 * ScaleFactor));
+                if (fLatCB) TempFilesCheckbox.FlatStyle = FlatStyle.Flat;
 
                 DefenderCheckbox = new CheckBox();
                 DefenderCheckbox.Font = new Font("Segoe UI", 10);
@@ -1591,6 +2081,7 @@ namespace RightClickTools
                 DefenderCheckbox.Checked = false;
                 DefenderCheckbox.AutoSize = true;
                 DefenderCheckbox.Location = new Point((int)(8 * ScaleFactor), (int)(88 * ScaleFactor));
+                if (fLatCB) DefenderCheckbox.FlatStyle = FlatStyle.Flat;
 
                 Controls.Add(buttonHelp);
                 Controls.Add(RecentItemsCheckbox);
