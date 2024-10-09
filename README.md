@@ -36,7 +36,9 @@ All languages are supported. The included **language.ini** file includes many la
 ### Install Using Setup Program
 
 1. Download the installer using the link above.
-2. When the download is complete, run the exe and follow the prompts.
+2. Right-click **RightClickTools-Setup.exe**, select Properties, check **Unblock**, and click **OK**.
+3. Double-click **RightClickTools-Setup.exe** to start the installation.
+4. If you skipped step 4, then, in the SmartScreen window, click **More info** and then **Run anyway**.
 
 **Note**: The installer is only provided in English, but the right-click menu items will be created using your current Windows language, if that language is included in its **Language.ini** file.
 
