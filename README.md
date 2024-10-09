@@ -2,15 +2,17 @@
 
 Classic context menu:
 
-![image](https://github.com/LesFerch/RightClickTools/assets/79026235/577b48a4-d855-450b-97a6-e39cc50a6012)
+![image](https://github.com/user-attachments/assets/bc1529c1-2ee7-4185-bba7-f4a8298129fb)
+
 
 Windows 11 context menu:
 
-![image](https://github.com/LesFerch/RightClickTools/assets/79026235/1760b0fc-9a8f-4db6-942f-a698334c69ea)
+![image](https://github.com/user-attachments/assets/645850ab-d06d-4eec-8c0e-93263243f227)
+
 
 ## Summary
 
-**Version 1.0.3**\
+**Version 1.1.0**\
 lesferch@gmail.com
 
 This program adds a right-click context menu to Windows Explorer that provides a number of tools that are described in detail below. The tools are compatible with Windows 7 and above, 32 bit and 64 bit, standard and administrator users, multiple users on the same computer, and long paths.
@@ -23,11 +25,26 @@ All languages are supported. The included **language.ini** file includes many la
 
 ## How to Download and Install 
 
-[![image](https://github.com/LesFerch/WinSetView/assets/79026235/0188480f-ca53-45d5-b9ff-daafff32869e)Download the zip file](https://github.com/LesFerch/RightClickTools/releases/download/1.0.3/RightClickTools.zip)
+[![image](https://github.com/user-attachments/assets/3ec22521-9186-48da-ab3b-7a8aef90558f)Download the installer](https://github.com/LesFerch/RightClickTools/releases/download/1.1.0/RightClickTools-Setup.exe)
+
+[![image](https://github.com/LesFerch/WinSetView/assets/79026235/0188480f-ca53-45d5-b9ff-daafff32869e)Download the zip file](https://github.com/LesFerch/RightClickTools/releases/download/1.1.0/RightClickTools.zip)
 
 **Note**: Some antivirus software may falsely detect the download as a virus. This can happen any time you download a new executable and may require extra steps to whitelist the file.
 
-**Note**: Scanning Right-Click Tools with VirusTotal will show that many AV products out there detect it as a trojan (14 of 69 last check). Those are false positives. This is to be expected with a tool that creates a scheduled task in order to provide the convenience of promptless elevated Cmd, PowerShell, and RegEdit commands. Right-Click Tools is provided on GitHub as open source, the Exe is signed, and my identity is not hidden. I submit my apps to the Windows Defender team to ensure that Windows Defender is okay with them. I don't have the resources to do that for all AV products. Life is too short for that.
+**Note**: Scanning Right-Click Tools with VirusTotal will show that many AV products out there detect it as a trojan (14 of 69 last check). Those are false positives. This is to be expected with a tool that creates a scheduled task in order to provide the convenience of Administrator and Trusted Installer access without UAC prompts. Right-Click Tools is provided on GitHub as open source, the Exe is signed, and my identity is not hidden. I submit my apps to the Windows Defender team to ensure that Windows Defender is okay with them, but I don't have the resources to do that for all AV products.
+
+### Install Using Setup Program
+
+1. Download the installer using the link above.
+2. When the download is complete, run the exe and follow the prompts.
+
+**Note**: The installer is only provided in English, but the right-click menu items will be created using your current Windows language, if that language is included in its **Language.ini** file.
+
+The right-click menu items will be created for the user that is currently logged on interactively (i.e. desktop is displayed). If you wish to add the right-click menu items to *other* users, log on as each user and either run **RightClickTools-Setup.exe** again or navigate to the **RightClickTools** folder and double-click **RightClickTools.exe** (see **Install and Remove** below for details).
+
+If you don't have other users to set up, skip down to the **How to Use** section.
+
+### Portable Install
 
 1. Download the zip file using the link above.
 2. Extract the contents. You should see **RightClickTools.exe** and an **AppParts** folder.
@@ -37,9 +54,11 @@ All languages are supported. The included **language.ini** file includes many la
 6. If you skipped step 4, then, in the SmartScreen window, click **More info** and then **Run anyway**.
 7. Click **OK** when the **Done** message box appears.
 
+When Right-click Tools is installed as a portable app, you will NOT see the app listed under **Apps** or **Programs and Files**. 
+
 ## Install and Remove
 
-Right-click Tools is a portable app. That is, you can place the files wherever you like and you will NOT see the app listed under **Apps** or **Programs and Files**. However, there is an install/remove procedure that adds, or removes, the commands to/from the context menu. Those commands all use **RightClickTools.exe**, so the files must remain in place after doing the **Install**.
+The app's install/remove procedure adds, or removes, the commands to/from the context menu. Those commands all use **RightClickTools.exe**, so the files must remain in place after doing the **Install**.
 
 The **Remove** option removes the context menu entries and the scheduled task item (for administrators). It does not delete the app files.
 
@@ -47,7 +66,7 @@ On Windows 7 through Windows 10, you should see a simple Install/Remove prompt.
 
 ![image](https://github.com/LesFerch/RightClickTools/assets/79026235/986a33e3-f314-4111-8c8d-49e478b246ad)
 
-On Windows 11, there is an additional checkbox to allow selecting the context menu type. The box will be checked if you've already changed Windows 11 to use the classic context menu. Check or uncheck the box to select your preferred context menu type. The change, if any, will occur after clicking **Install** or **Remove**.
+On Windows 11, there's an additional checkbox to allow selecting the context menu type. The box will be checked if you've already changed Windows 11 to use the classic context menu. Check or uncheck the box to select your preferred context menu type. The change, if any, will occur after clicking **Install** or **Remove**.
 
 ![image](https://github.com/LesFerch/RightClickTools/assets/79026235/800dff00-bb4b-4bbc-9dfe-1c5ff6aef938)
 
@@ -79,6 +98,8 @@ Right-click a folder, the background of an open folder, or a drive to get to the
 
 Select the action you wish to perform. If nothing happens, then the Exe was likely moved after installing. In that case, just double-click the Exe to re-install.
 
+**Note**: Since Right-Click Tools is a .Net application, there can be some delay on first run of some menu items. Also Windows Defender (or other AV software) can add delays to intial launches as it scans the components. This is particularly noticeable with the **Privileged file manager here** feature. That option may fail to start up an elevated Explorer on the first few tries, but it should settle in and start working after a short wait. This appears to be less of an issue if you configure this option to use a third-party file manager.
+
 ## Commands
 
 ### Cmd Here and PowerShell Here
@@ -102,8 +123,6 @@ The enhancements and issues noted above for the regular **PowerShell Here** wind
 ### Cmd Here and PowerShell Here as TrustedInstaller
 
 This opens **Cmd** or **PowerShell** via the SYSTEM account with **TrustedInstaller** privileges. This is useful for accessing and making changes in protected folders, such as **WindowsApps**. Use with care.
-
-**Tip**: Create a folder, such as C:\Tools\OnPath, to contain scripts and executables that you want easy access to via Cmd or PowerShell. Add that folder to your search path using the **Add or Remove folder in Path variable** tool. Put a copy of a portable file manager in that folder, such as [Explorer++](https://explorerplusplus.com/) and give it a short name, such as **ep.exe**. Then, any time you need a file manager with TrustedInstaller access, just right-click, select **Cmd here as TrustedInstaller**, and enter **ep**.
 
 ### RegEdit as User
 
@@ -139,7 +158,7 @@ Defender history is the "Protection history" list in Windows Defender. Right-cli
 
 This gives you ownership and access to the selected folder. Right-click Tools uses the **SetACL** program to do the work. This allows it to set ownership and access on folders with Unicode characters in the name and ones that are in long paths.
 
-![image](https://github.com/LesFerch/RightClickTools/assets/79026235/b128dfcc-5b81-4307-b1d8-b50b2967f829)
+![image](https://github.com/user-attachments/assets/9e1f9975-b859-432e-9b8a-9c8d0a8ab45a)
 
 This option will not allow changing permissions on system folders and will display a message when that's attempted. The restrictions can be edited in the file **RightClickTools.ini**, but that should be avoided. If you need to make changes in a restricted folder, such as **WindowsApps**, you should access the folder using the Cmd or PowerShell Here as **TrustedInstaller** option.
 
@@ -155,11 +174,41 @@ This toggles between showing hidden and system files and hiding them. It immedia
 
 ### Refresh shell
 
-This refreshes the shell, which is most useful when you've changed an icon, but the old icon or a blank icon is displayed. It tells Explorer to refresh its icon cache and window views. It also tells Explorer to update its current settings (where possible) from the settings in the registry.
+This item provides options to do a quick shell refresh or a complete reset of the icon and/or thumbnail caches.
+
+![image](https://github.com/user-attachments/assets/9f25caee-9d38-49c5-8a3a-e989efdd8771)
+
+The default option, "Shell refresh only", quickly refreshes the shell, which is most useful when you've changed an icon, but the old icon or a blank icon is displayed. It tells Explorer to refresh its icon cache and window views. It also tells Explorer to update its current settings (where possible) from the settings in the registry.
+
+If the "Refresh shell only" option does not correct the display of icons and thumbnails then you can select either or both of the "Reset" options which will kill Explorer, wait 2 seconds, clear the icon and/or thumbnail cache, and then restart Explorer.
+
 
 ### Restart Explorer
 
 This restarts Explorer and opens a window to the currently selected folder.
+
+![image](https://github.com/user-attachments/assets/fda6dffc-061c-4dbb-b359-52efe48da39f)
+
+
+### Privileged file manager here
+
+This starts the file manager of your choice as **Administrator** or **Trusted Installer**. By default, it uses Explorer, if you are an Administrator user, or an Open File dialog (aka mini Explorer), if you are a Standard user.
+
+![image](https://github.com/user-attachments/assets/50887fd7-ada1-412b-a827-8a878796acbf)
+
+Edit the file **RightClickTools.ini** and, in the **FileManagerHere** section, uncomment (remove the semicolon) and change the **Exe=** entry to the path of your preferred file manager. The path for 7-Zip is provided as an example.
+
+**Note**: Explorer can only *navigate* long paths. If you need to make changes to long paths, consider using a [different file manager](https://gist.github.com/LesFerch/2facb07079394cf2324b6db459bd25d1) that fully supports long paths, such as 7-Zip. 
+
+Please note the following expected behaviors when using this feature:
+
+- On Windows 11, Explorer as **Trusted Installer** will open the old Windows 10 Explorer.
+- On Windows 11, Explorer as **Adminstrator** will open the new Windows 11 Explorer, even if you have set the old Explorer as the default using a tool such as [SwitchExplorer](https://lesferch.github.io/SwitchExplorer/).
+- When you open the file manager as **Trusted Installer**, the window that opens will be running in the context of the SYSTEM account, so you will get an error if you click on the shortcuts for Documents, Downloads, etc. but you can navigate to your data folders via `C:\Users`.
+- When an ***Administrator user*** opens file manager as **Adminstrator**, the window that opens will be running in the same context as the current user, but with privileges fully elevated to Administrator. All folders and links will be the same as a normal file manager window.
+- When a ***Standard user*** opens file manager as **Adminstrator**, the window that opens will be running in the context of the account used at the UAC prompt. Which personal folders and links are shown, and whether the window opens in light or dark mode, will depend on the account used. 
+
+**Note**: Normally Explorer does not allow itself to be "Run as Administrator", but that behavior can be disabled via a [registry setting](https://gist.github.com/LesFerch/a7e43762bb84f18c8ef6ccdfe606eff8) that requires TrustedInstaller privileges to change. Right-Click Tools temporarily changes that registry setting in order to run Explorer elevated (for Administrator users). Some details about why the restriction exists can be found in [this article and its comments](https://devblogs.microsoft.com/oldnewthing/20220524-00/?p=106682)
 
 ## It's Multilingual
 
@@ -167,21 +216,32 @@ The Right-click Tools **Install** will detect your Windows language and use it, 
 
 Here's a screenshot of Right-click Tools in German:
 
-![image](https://github.com/LesFerch/RightClickTools/assets/79026235/bcc41927-40a8-4140-a714-f8bbcbb23269)
+![image](https://github.com/user-attachments/assets/4ff11617-1eac-442a-a4ce-a9e6c8d47de9)
+
 
 ## Dark Theme Compatible
 
 Right-click Tools automatically detects and switches to a dark theme. For example:
 
-![image](https://github.com/LesFerch/RightClickTools/assets/79026235/c9b927f4-3a83-4fa4-8b0d-74caad33386a)
+![image](https://github.com/user-attachments/assets/329a4822-9990-4bcf-ad14-e94310617896)
+
 
 ## Customizations
 
-Customizations, such as removing an item you don't use, can be done with a context menu editor.
+### Checkbox Style
+
+The checkboxes in the Right-Click Tools dialogs can be configured to use one of two different styles. Edit the file **RightClickTools.ini** and change **AlternateCheckbox=0** to  **AlternateCheckbox=1** to change the style. Below is an example of the difference in Windows 10 dark mode:
+
+![image](https://github.com/user-attachments/assets/8c18bcef-3e77-411b-9bf6-e659afd4f84c)
+
+
+### Adding and Removing Context Menu Items
+
+Removing an item you don't use, or adding your own custom items, can be done with a context menu editor.
 
 If you are using Windows 11 with [Custom Context Menu](https://apps.microsoft.com/detail/9pc7bzz28g0x?hl=en-US&gl=US), use that tool to modify the entries in the Windows 11 context menu.
 
-You can use [ContextMenuManager](https://github.com/BluePointLilac/ContextMenuManager/blob/master/README-en.md) to modify the classic context menu.
+You can use [ContextMenuManager](https://github.com/BluePointLilac/ContextMenuManager/blob/master/README-en.md) to modify the classic context menu. The classic context menu can also be directly edited with RegEdit if you know what you're doing.
 
 \
 \
