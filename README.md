@@ -43,7 +43,7 @@ All languages are supported. The included **language.ini** file includes many la
 
 The right-click menu items will be created for the user that is currently logged on interactively (i.e. desktop is displayed). If you wish to add the right-click menu items to *other* users, log on as each user and either run **RightClickTools-Setup.exe** again or navigate to the **RightClickTools** folder and double-click **RightClickTools.exe** (see **Install and Remove** below for details).
 
-If you don't have other users to set up, skip down to the [**How to Use**](https://lesferch.github.io/RightClickTools/#how-to-use) section.
+If you don't have other users to set up, skip down to the [**How to Use**](#how-to-use) section.
 
 ### Portable Install
 
