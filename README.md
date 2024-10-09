@@ -235,6 +235,8 @@ The checkboxes in the Right-Click Tools dialogs can be configured to use one of 
 
 ![image](https://github.com/user-attachments/assets/8c18bcef-3e77-411b-9bf6-e659afd4f84c)
 
+**Tip**: When changing options in Right-Click Tools, it's easier to click the label beside the checkbox.
+
 
 ### Adding and Removing Context Menu Items
 
