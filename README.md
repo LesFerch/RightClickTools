@@ -31,7 +31,7 @@ All languages are supported. The included **language.ini** file includes many la
 
 **Note**: Some antivirus software may falsely detect the download as a virus. This can happen any time you download a new executable and may require extra steps to whitelist the file.
 
-**Note**: Scanning Right-Click Tools with VirusTotal will show that many AV products out there detect it as a trojan (14 of 69 last check). Those are false positives. This is to be expected with a tool that creates a scheduled task in order to provide the convenience of Administrator and Trusted Installer access without UAC prompts. Right-Click Tools is provided on GitHub as open source, the Exe is signed, and my identity is not hidden. I submit my apps to the Windows Defender team to ensure that Windows Defender is okay with them, but I don't have the resources to do that for all AV products.
+**Note**: Scanning Right-Click Tools with VirusTotal will show that many AV products out there detect it as a trojan (9 of 73 last check). Those are false positives. This is to be expected with a tool that creates a scheduled task in order to provide the convenience of Administrator and Trusted Installer access without UAC prompts. Right-Click Tools is provided on GitHub as open source, the Exe is signed, and my identity is not hidden. I submit my apps to the Windows Defender team to ensure that Windows Defender is okay with them, but I don't have the resources to do that for all AV products.
 
 ### Install Using Setup Program
 
@@ -39,7 +39,7 @@ All languages are supported. The included **language.ini** file includes many la
 2. Double-click **RightClickTools-Setup.exe** to start the installation.
 4. In the SmartScreen window, click **More info** and then **Run anyway**.
 
-**Note**: The installer is only provided in English, but the right-click menu items will be created using your current Windows language, if that language is included in its **Language.ini** file.
+**Note**: The installer is only provided in English, but the right-click menu items will be created using your current Windows language, if that language is included in the **Language.ini** file.
 
 The right-click menu items will be created for the user that is currently logged on interactively (i.e. desktop is displayed). If you wish to add the right-click menu items to *other* users, log on as each user and either run **RightClickTools-Setup.exe** again or navigate to the **RightClickTools** folder and double-click **RightClickTools.exe** (see **Install and Remove** below for details).
 
