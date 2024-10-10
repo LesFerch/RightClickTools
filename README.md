@@ -25,7 +25,7 @@ All languages are supported. The included **language.ini** file includes many la
 
 ## How to Download and Install 
 
-[![image](https://github.com/user-attachments/assets/3ec22521-9186-48da-ab3b-7a8aef90558f)Download the installer](https://github.com/LesFerch/RightClickTools/releases/download/1.1.0/RightClickTools-Setup.exe)
+[![image](https://github.com/user-attachments/assets/75e62417-c8ee-43b1-a8a8-a217ce130c91)Download the installer](https://github.com/LesFerch/RightClickTools/releases/download/1.1.0/RightClickTools-Setup.exe)
 
 [![image](https://github.com/LesFerch/WinSetView/assets/79026235/0188480f-ca53-45d5-b9ff-daafff32869e)Download the zip file](https://github.com/LesFerch/RightClickTools/releases/download/1.1.0/RightClickTools.zip)
 
