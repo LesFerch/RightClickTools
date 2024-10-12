@@ -5,7 +5,7 @@ Classic context menu:
 ![image](https://github.com/user-attachments/assets/bc1529c1-2ee7-4185-bba7-f4a8298129fb)
 
 
-Windows 11 context menu:
+Windows 11 context menu (requires Custom Context Menu):
 
 ![image](https://github.com/user-attachments/assets/645850ab-d06d-4eec-8c0e-93263243f227)
 
