@@ -21,7 +21,7 @@ The tools are added to the new Windows 11 context menu if you have the app [Cust
 
 For administrator users, there is only a single UAC prompt to install the tools. After that, all the tools run without any UAC prompts.
 
-All languages are supported. The included **language.ini** file includes many languages and can be edited to add other languages and/or change any of the labels. The included translations are machine generated, so they may need some editing.
+All languages are supported. The included **Language.ini** file includes many languages and can be edited to add other languages and/or change any of the labels. The included translations are machine generated, so they may need some editing.
 
 ## How to Download and Install 
 
