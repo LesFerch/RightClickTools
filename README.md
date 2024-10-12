@@ -1,11 +1,11 @@
 # RightClickTools
 
-Classic context menu:
+**Classic context menu**:
 
 ![image](https://github.com/user-attachments/assets/bc1529c1-2ee7-4185-bba7-f4a8298129fb)
 
 
-Windows 11 context menu (requires [Custom Context Menu](https://apps.microsoft.com/detail/9pc7bzz28g0x?hl=en-US&gl=US)):
+**Windows 11 context menu** (requires [Custom Context Menu](https://apps.microsoft.com/detail/9pc7bzz28g0x?hl=en-US&gl=US)):
 
 ![image](https://github.com/user-attachments/assets/645850ab-d06d-4eec-8c0e-93263243f227)
 
