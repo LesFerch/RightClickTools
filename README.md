@@ -193,20 +193,21 @@ This restarts Explorer and opens a window to the currently selected folder.
 
 ### Privileged file manager here
 
-This starts the file manager of your choice as **Administrator** or **Trusted Installer**. By default, it uses Explorer, if you are an Administrator user, or an Open File dialog (aka mini Explorer), if you are a Standard user.
+This starts the file manager of your choice as **Administrator** or **Trusted Installer**.
 
 ![image](https://github.com/user-attachments/assets/50887fd7-ada1-412b-a827-8a878796acbf)
 
 Edit the file **RightClickTools.ini** and, in the **FileManagerHere** section, uncomment (remove the semicolon) and change the **Exe=** entry to the path of your preferred file manager. The path for 7-Zip is provided as an example.
 
-**IMPORTANT**: Select one of the other "Trusted Installer" options, such as **Cmd here as Trusted Installler** at least once before trying **Privileged file manager here**. This helps to get Windows to complete background tasks (e.g. security scans and code caching) completed, allowing launching a privileged Explorer window to work correctly. If you are using a third-party file manager, such as 7-Zip, for this feature, then it should just work immediately, as there are less steps involved in that case.
+**Note**: If **Privileged file manager here** fails to open a window (may happen on first run due to .Net initialization), try one of the other "Trusted Installer" options, such as **Cmd here as Trusted Installler** and then try again.
 
 **Note**: Explorer can only *navigate* long paths. If you need to make changes to long paths, consider using a [different file manager](https://gist.github.com/LesFerch/2facb07079394cf2324b6db459bd25d1) that fully supports long paths, such as 7-Zip. 
 
 Please note the following expected behaviors when using this feature:
 
-- On Windows 11, Explorer as **Trusted Installer** will open the old Windows 10 Explorer.
-- On Windows 11, Explorer as **Adminstrator** will open the new Windows 11 Explorer, even if you have set the old Explorer as the default using a tool such as [SwitchExplorer](https://lesferch.github.io/SwitchExplorer/).
+- On Windows 11, Explorer as **Trusted Installer** will open a file dialog (aka mini Explorer) instead of a full Explorer window.
+- As an Administrator user on Windows 11, Explorer as **Adminstrator** will open the new Windows 11 Explorer, even if you have set the old Explorer as the default using a tool such as [SwitchExplorer](https://lesferch.github.io/SwitchExplorer/).
+- As a Standard user on Windows 11, Explorer as **Adminstrator** will open a file dialog (aka mini Explorer) unless the registry setting, that prohibits Explorer elevation, is not set (see below for details).
 - When you open the file manager as **Trusted Installer**, the window that opens will be running in the context of the SYSTEM account, so you will get an error if you click on the shortcuts for Documents, Downloads, etc. but you can navigate to your data folders via `C:\Users`.
 - When an ***Administrator user*** opens file manager as **Adminstrator**, the window that opens will be running in the same context as the current user, but with privileges fully elevated to Administrator. All folders and links will be the same as a normal file manager window.
 - When a ***Standard user*** opens file manager as **Adminstrator**, the window that opens will be running in the context of the account used at the UAC prompt. Which personal folders and links are shown, and whether the window opens in light or dark mode, will depend on the account used. 
