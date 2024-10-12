@@ -199,7 +199,7 @@ This starts the file manager of your choice as **Administrator** or **Trusted In
 
 Edit the file **RightClickTools.ini** and, in the **FileManagerHere** section, uncomment (remove the semicolon) and change the **Exe=** entry to the path of your preferred file manager. The path for 7-Zip is provided as an example.
 
-**IMPORTANT**: Select one of the other "Trusted Installer" options, such as **Cmd here as Trusted Installler** at least once before trying **Privileged file manager here**. This helps to get Windows to complete background tasks (e.g. such as security scans and code caching) completed, allowing launching a privileged Explorer window to work correctly. If you are using a third-party file manager, such as 7-Zip, for this feature, then it should just work immediately, as there are less steps involved in that case.
+**IMPORTANT**: Select one of the other "Trusted Installer" options, such as **Cmd here as Trusted Installler** at least once before trying **Privileged file manager here**. This helps to get Windows to complete background tasks (e.g. security scans and code caching) completed, allowing launching a privileged Explorer window to work correctly. If you are using a third-party file manager, such as 7-Zip, for this feature, then it should just work immediately, as there are less steps involved in that case.
 
 **Note**: Explorer can only *navigate* long paths. If you need to make changes to long paths, consider using a [different file manager](https://gist.github.com/LesFerch/2facb07079394cf2324b6db459bd25d1) that fully supports long paths, such as 7-Zip. 
 
