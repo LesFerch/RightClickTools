@@ -12,7 +12,7 @@
 
 ## Summary
 
-**Version 1.1.2**\
+**Version 1.1.3**\
 lesferch@gmail.com
 
 This program adds a right-click context menu to Windows Explorer that provides a number of tools that are described in detail below. The tools are compatible with Windows 7 and above, 32 bit and 64 bit, standard and administrator users, multiple users on the same computer, and long paths.
