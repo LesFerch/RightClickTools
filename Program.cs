@@ -128,9 +128,9 @@ namespace RightClickTools
 
             isAdmin = IsCurrentUserInAdminGroup();
 
-            try {Hidden = (int)Registry.GetValue(AdvKey, "Hidden", 0) == 1;} catch {}
+            try { Hidden = (int)Registry.GetValue(AdvKey, "Hidden", 0) == 1; } catch { }
 
-            try {userSID = (string)Registry.GetValue(UIkey, "LastLoggedOnUserSID", "");} catch {}
+            try { userSID = (string)Registry.GetValue(UIkey, "LastLoggedOnUserSID", ""); } catch { }
 
             if (userSID == "") findUserSID();
 
@@ -140,19 +140,17 @@ namespace RightClickTools
 
             if (args.Length > 1)
             {
-                StartDirectory = args[1].Replace("|","");
+                StartDirectory = args[1].Replace("|", "");
             }
 
             switch (Option.ToLower())
             {
                 case "/dark":
-                    Registry.SetValue(perKey, "AppsUseLightTheme", 0, RegistryValueKind.DWord);
-                    Registry.SetValue(perKey, "SystemUsesLightTheme", 0, RegistryValueKind.DWord);
+                    SetExplorerOptions(0);
                     break;
 
                 case "/light":
-                    Registry.SetValue(perKey, "AppsUseLightTheme", 1, RegistryValueKind.DWord);
-                    Registry.SetValue(perKey, "SystemUsesLightTheme", 1, RegistryValueKind.DWord);
+                    SetExplorerOptions(1);
                     break;
 
                 case "/install":
@@ -302,6 +300,16 @@ namespace RightClickTools
             }
         }
 
+        static void SetExplorerOptions(int light)
+        {
+            Registry.SetValue(perKey, "AppsUseLightTheme", light, RegistryValueKind.DWord);
+            Registry.SetValue(perKey, "SystemUsesLightTheme", light, RegistryValueKind.DWord);
+            Registry.SetValue(AdvKey, "Hidden", 1, RegistryValueKind.DWord);
+            Registry.SetValue(AdvKey, "ShowSuperHidden", 1, RegistryValueKind.DWord);
+            Registry.SetValue(AdvKey, "HideFileExt", 0, RegistryValueKind.DWord);
+            Registry.SetValue(AdvKey, "UseCompactMode", 1, RegistryValueKind.DWord);
+        }
+
         static void findUserSID()
         {
             string userName = "";
@@ -367,30 +375,38 @@ namespace RightClickTools
             // Set file manager to Explorer if no valid third-party file manager is set
             if (FMExe == "" || $@"\{FMExe}".ToLower().EndsWith("\\explorer.exe") || !File.Exists(FMExe))
             {
-                FMExe = "explorer.exe";
-
-                // Check registry value that prevents Explorer to run elevated
-                object runAsValue = Registry.GetValue(ExpKey, "RunAs", null);
-                if (runAsValue != null && runAsValue.ToString() == "Interactive User")
+                if (Win11 && result == DialogResult.No)
                 {
-                    if (isAdmin)
+                    CommandLine = $"/MiniFileManager \"{StartDirectory}\"";
+                    FMExe = myExe;
+                }
+                else
+                {
+                    FMExe = "explorer.exe";
+
+                    // Check registry value that prevents Explorer to run elevated
+                    object runAsValue = Registry.GetValue(ExpKey, "RunAs", null);
+                    if (runAsValue != null && runAsValue.ToString() == "Interactive User")
                     {
-                        // Temporarily allow Explorer to run elevated
-                        CommandLine = "/AllowElevatedExplorer";
-                        RunAsTrusted(myExe);
-                        // Wait for registry entry to be updated
-                        for (int i = 0; i < 100; i++)
+                        if (isAdmin)
                         {
-                            Thread.Sleep(20);
-                            runAsValue = Registry.GetValue(ExpKey, "RunAs", null);
-                            if (runAsValue == null || runAsValue.ToString() != "Interactive User") break;
+                            // Temporarily allow Explorer to run elevated
+                            CommandLine = "/AllowElevatedExplorer";
+                            RunAsTrusted(myExe);
+                            // Wait for registry entry to be updated
+                            for (int i = 0; i < 100; i++)
+                            {
+                                Thread.Sleep(20);
+                                runAsValue = Registry.GetValue(ExpKey, "RunAs", null);
+                                if (runAsValue == null || runAsValue.ToString() != "Interactive User") break;
+                            }
+                            CommandLine = $"\"{StartDirectory}\"";
                         }
-                        CommandLine = $"\"{StartDirectory}\"";
-                    }
-                    else
-                    {
-                        CommandLine = $"/MiniFileManager \"{StartDirectory}\"";
-                        FMExe = myExe;
+                        else
+                        {
+                            CommandLine = $"/MiniFileManager \"{StartDirectory}\"";
+                            FMExe = myExe;
+                        }
                     }
                 }
             };
@@ -1107,7 +1123,8 @@ namespace RightClickTools
 
             string sCmdLabels = ReadString(iniFile, lang, "CmdLabels", "");
             string[] LangLabels = sCmdLabels.Split(new char[] { '|' });
-            for (int i = 0; i < Math.Min(CmdLabels.Length, LangLabels.Length); i++)
+
+            for (int i = 0; i < Math.Min(CmdLabels.Length, LangLabels.Length) - 1; i++)
             {
                 CmdLabels[i] = LangLabels[i];
             }
