@@ -99,7 +99,7 @@ Right-click a folder, the background of an open folder, or a drive to get to the
 
 Select the action you wish to perform. If nothing happens, then the Exe was likely moved after installing. In that case, just double-click the Exe to re-install.
 
-**Note**: Since Right-Click Tools is a .Net application, there can be some delay on first run of some menu items. Also Windows Defender (or other AV software) can add delays to intial launches as it scans the components. This is particularly noticeable with the **Privileged file manager here** feature. That option may fail to start up an elevated Explorer on the first few tries, but it should settle in and start working after a short wait. This appears to be less of an issue if you configure this option to use a third-party file manager.
+**Note**: Since Right-Click Tools is a .Net application, there can be some delay on first run of some menu items. Also Windows Defender (or other AV software) can add delays to intial launches as it scans the components.
 
 ## Commands
 
