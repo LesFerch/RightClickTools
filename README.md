@@ -125,7 +125,7 @@ The enhancements and issues noted above for the regular **PowerShell Here** wind
 
 This opens **Cmd** or **PowerShell** via the SYSTEM account with **TrustedInstaller** privileges. This is useful for accessing and making changes in protected folders, such as **WindowsApps**. Use with care.
 
-## PowerShell Core configuration
+#### PowerShell Core configuration
 
 If you want the "PowerShell Here" commands to open PowerShell Core instead of PowerShell 5.1, edit the file **RightClickTools.ini** and, in the **PowerShellHere** section, uncomment (remove the semicolon) and change the **Exe=** entry to the path for PowerShell Core.
 
