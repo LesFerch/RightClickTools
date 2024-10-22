@@ -12,7 +12,7 @@
 
 ## Summary
 
-**Version 1.1.3**\
+**Version 1.1.4**\
 lesferch@gmail.com
 
 This program adds a right-click context menu to Windows Explorer that provides a number of tools that are described in detail below. The tools are compatible with Windows 7 and above, 32 bit and 64 bit, standard and administrator users, multiple users on the same computer, and long paths.
@@ -25,9 +25,9 @@ All languages are supported. The included **Language.ini** file includes many la
 
 ## How to Download and Install 
 
-[![image](https://github.com/user-attachments/assets/75e62417-c8ee-43b1-a8a8-a217ce130c91)Download the installer](https://github.com/LesFerch/RightClickTools/releases/download/1.1.3/RightClickTools-Setup.exe)
+[![image](https://github.com/user-attachments/assets/75e62417-c8ee-43b1-a8a8-a217ce130c91)Download the installer](https://github.com/LesFerch/RightClickTools/releases/download/1.1.4/RightClickTools-Setup.exe)
 
-[![image](https://github.com/LesFerch/WinSetView/assets/79026235/0188480f-ca53-45d5-b9ff-daafff32869e)Download the zip file](https://github.com/LesFerch/RightClickTools/releases/download/1.1.3/RightClickTools.zip)
+[![image](https://github.com/LesFerch/WinSetView/assets/79026235/0188480f-ca53-45d5-b9ff-daafff32869e)Download the zip file](https://github.com/LesFerch/RightClickTools/releases/download/1.1.4/RightClickTools.zip)
 
 **Note**: Some antivirus software may falsely detect the download as a virus. This can happen any time you download a new executable and may require extra steps to whitelist the file.
 
@@ -124,6 +124,10 @@ The enhancements and issues noted above for the regular **PowerShell Here** wind
 ### Cmd Here and PowerShell Here as TrustedInstaller
 
 This opens **Cmd** or **PowerShell** via the SYSTEM account with **TrustedInstaller** privileges. This is useful for accessing and making changes in protected folders, such as **WindowsApps**. Use with care.
+
+## PowerShell Core configuration
+
+If you want the "PowerShell Here" commands to open PowerShell Core instead of PowerShell 5.1, edit the file **RightClickTools.ini** and, in the **PowerShellHere** section, uncomment (remove the semicolon) and change the **Exe=** entry to the path for PowerShell Core.
 
 ### RegEdit as User
 
