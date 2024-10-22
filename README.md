@@ -99,7 +99,7 @@ Right-click a folder, the background of an open folder, or a drive to get to the
 
 Select the action you wish to perform. If nothing happens, then the Exe was likely moved after installing. In that case, just double-click the Exe to re-install.
 
-**Note**: Clicking the **X** in any dialog means do nothing. Therefore, there's no need for "No" or "Cancel" buttons.
+**Note**: Clicking the **`X`** in any dialog means do nothing. Therefore, there's no need for "No" or "Cancel" buttons.
 
 **Note**: Since Right-Click Tools is a .Net application, there can be some delay on first run of some menu items. Also Windows Defender (or other AV software) can add delays to intial launches as it scans the components.
 
