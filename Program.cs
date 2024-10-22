@@ -203,14 +203,17 @@ namespace RightClickTools
                     break;
 
                 case "/powershellhere":
+                    GetPSPath();
                     RunAsUser(PowerShellExe);
                     break;
 
                 case "/powershelladminhere":
+                    GetPSPath();
                     RunAsAdmin(PowerShellExe);
                     break;
 
                 case "/powershelltrustedhere":
+                    GetPSPath();
                     RunAsTrusted(PowerShellExe);
                     break;
 
@@ -298,6 +301,12 @@ namespace RightClickTools
                 default:
                     return;
             }
+        }
+
+        static void GetPSPath()
+        {
+            string PSPath = ReadString(myIniFile, "PowerShellHere", "Exe", "");
+            if (File.Exists(PSPath)) PowerShellExe = PSPath;
         }
 
         static void SetExplorerOptions(int light)
