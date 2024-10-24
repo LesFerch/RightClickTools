@@ -12,14 +12,14 @@
 
 ## Summary
 
-**Version 1.1.4**\
+**Version 1.2.0**\
 lesferch@gmail.com
 
 This program adds a right-click context menu to Windows Explorer that provides a number of tools that are described in detail below. The tools are compatible with Windows 7 and above, 32 bit and 64 bit, standard and administrator users, multiple users on the same computer, and long paths.
 
 The tools are added to the new Windows 11 context menu if you have the app [Custom Context Menu](https://apps.microsoft.com/detail/9pc7bzz28g0x?hl=en-US&gl=US) installed. Please note that its web page shows a price of $0.99, but if you click the link, you should see that the app is available for an unlimited free trial.
 
-For administrator users, there is only a single UAC prompt to install the tools. After that, all the tools run without any UAC prompts.
+For administrator users, that choose to install the optional privilege elevation task, there is only a single UAC prompt to install the tools. After that, all the tools run without any UAC prompts.
 
 All languages are supported. The included **Language.ini** file includes many languages and can be edited to add other languages and/or change any of the labels. The included translations are machine generated, so they may need some editing.
 
@@ -61,19 +61,25 @@ When Right-click Tools is installed as a portable app, you will NOT see the app 
 
 The app's install/remove procedure adds, or removes, the commands to/from the context menu. Those commands all use **RightClickTools.exe**, so the files must remain in place after doing the **Install**.
 
-The **Remove** option removes the context menu entries and the scheduled task item (for administrators). It does not delete the app files.
+The **Remove** option removes the context menu entries and the scheduled task item (if installed). It does not delete the app files.
 
-On Windows 7 through Windows 10, you should see a simple Install/Remove prompt.
+On Windows 7 through Windows 10, you should see an Install/Remove prompt with a checkbox to select whether the privilege elevation task is to be installed.
 
-![image](https://github.com/LesFerch/RightClickTools/assets/79026235/986a33e3-f314-4111-8c8d-49e478b246ad)
+![image](https://github.com/user-attachments/assets/1fc53cc7-5f24-45f4-9c67-d1c20a052b3a)
+
 
 On Windows 11, there's an additional checkbox to allow selecting the context menu type. The box will be checked if you've already changed Windows 11 to use the classic context menu. Check or uncheck the box to select your preferred context menu type. The change, if any, will occur after clicking **Install** or **Remove**.
 
-![image](https://github.com/LesFerch/RightClickTools/assets/79026235/800dff00-bb4b-4bbc-9dfe-1c5ff6aef938)
+![image](https://github.com/user-attachments/assets/97edd04c-a4b2-4a4e-a5c8-746d484ac5ab)
 
-If you're an administrator user, you will then see the following UAC prompt after clicking **Install** or **Remove**. This is required so that a scheduled task may be added or removed. The task allows right-click commands, such as **Cmd Here as Administrator** to open without popping up a UAC prompt.
 
-For Standard users, the task cannot be used, so it's not installed and therefore no UAC prompt pops up during installation. Instead, Standard users will get a UAC prompt every time they use an option that requires administrator privileges, such as **Cmd Here as Administrator**. 
+If you're an Administrator user, and the privilege elevation task option is checked, you will then see the following UAC prompt after clicking **Install** or **Remove**. This is required so that a scheduled task may be added or removed. The task allows right-click commands, such as **Cmd Here as Administrator** to open without popping up a UAC prompt.
+
+If you're a Standard user, or the privilege elevation task option is unchecked, there will be no UAC prompt dueing a portable install. Only the context menu will be created. In that case, a UAC prompt will pop up when any tools are used that require elevated privileges.
+
+**IMPORTANT**: Please note that, even though the **Privilege elevation task** is set up to only be used by Right-Click Tools, anyone, with some programming skill, could leverage the task to run any code without a UAC prompt. That's highly unlikely to happen because a niche utility, such as Right-Click Tools, is never going to be on enough computers to be of interest as an attack vector for bad actors. Nevertheless, it's up to you to decide to accept the risk and install the task. If you're on a work computer, I would advise against installing the task.
+
+**Note**: If you have already disabled UAC, the privilege elevation task does not add any addiitional risk, but it is then mostly unnecessary. There is a small difference for the **Privileged file manager here** option in that it will only launch a full Explorer window if the task is installed or the registry setting, that prevents Explorer elevation, is disabled (see details about that later in this document).
 
 ![image](https://github.com/LesFerch/RightClickTools/assets/79026235/4d1cb77e-3d13-4a2a-bf93-2db5e60bb4da)
 
@@ -91,6 +97,10 @@ This program does NOT create a context menu handler. That is, there is no code t
 
 If you're running Windows 11 and have [Custom Context Menu](https://apps.microsoft.com/detail/9pc7bzz28g0x?hl=en-US&gl=US) installed, Right-click Tools adds its entries to the menu, by creating the necessary JSON files in Custom Context Menu's data folder. The main menu entry is labelled **Open with** by default. You can change that label to whatever you like in the app settings for **Custom Context Menu**.
 
+## Language Selection
+
+By default, **Install** will create the context menu items in the current system language if that language is found in the **Language.ini** file. Otherwise, it will default to English. To force the context menu items to be created in a specific language, edit the **RightClickTools.ini** file and uncomment (remove the semicolon) and change the **Lang=en** entry to the two letter code of the desired language found in the **Language.ini*** file. Then, just double-click **RightClickTools.exe** and click **Install** to update the context menu entries to the new language.
+
 ## How to Use
 
 Right-click a folder, the background of an open folder, or a drive to get to the **Right-click Tools** context menu, as shown at the beginning of this document.
@@ -99,7 +109,7 @@ Right-click a folder, the background of an open folder, or a drive to get to the
 
 Select the action you wish to perform. If nothing happens, then the Exe was likely moved after installing. In that case, just double-click the Exe to re-install.
 
-**Note**: Clicking the **`X`** in any dialog means do nothing. Therefore, there's no need for "No" or "Cancel" buttons.
+**Note**: Clicking the **`X`** in any dialog means _do nothing_. Therefore, there's no need for "No" or "Cancel" buttons.
 
 **Note**: Since Right-Click Tools is a .Net application, there can be some delay on first run of some menu items. Also Windows Defender (or other AV software) can add delays to intial launches as it scans the components.
 
@@ -126,6 +136,8 @@ The enhancements and issues noted above for the regular **PowerShell Here** wind
 ### Cmd Here and PowerShell Here as TrustedInstaller
 
 This opens **Cmd** or **PowerShell** via the SYSTEM account with **TrustedInstaller** privileges. This is useful for accessing and making changes in protected folders, such as **WindowsApps**. Use with care.
+
+**Note**: Trusted Installer is not a user. It's a service that runs via the SYSTEM account. Therefore a **WhoAmI** command will display **nt authority\system**.
 
 #### PowerShell Core configuration
 
@@ -168,6 +180,8 @@ This gives you ownership and access to the selected folder. Right-click Tools us
 ![image](https://github.com/user-attachments/assets/9e1f9975-b859-432e-9b8a-9c8d0a8ab45a)
 
 This option will not allow changing permissions on system folders and will display a message when that's attempted. The restrictions can be edited in the file **RightClickTools.ini**, but that should be avoided. If you need to make changes in a restricted folder, such as **WindowsApps**, you should access the folder using the Cmd or PowerShell Here as **TrustedInstaller** option or the **Privileged file manager here** option as **Trusted Installer**.
+
+**Hidden feature**: Hold down the **Ctrl** key when clicking **OK** to keep the console window open. This can be useful to review the **SetACL** output.
 
 ### Add or Remove folder in Path variable
 
