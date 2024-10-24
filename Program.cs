@@ -33,6 +33,7 @@ namespace RightClickTools
         static int buildNumber = int.Parse(Registry.GetValue(NTkey, "CurrentBuild", "").ToString());
         static bool Win11 = buildNumber >= 21996;
         static bool Win11Install = false;
+        static bool AnyInstall = false;
         static string CCMfolder = FindCustomCommandsFolder(true);
         static string CCMA = @"Software\Classes\CLSID\{86CA1AA0-34AA-4E8B-A509-50C905BAE2A2}";
         static string CCMB = $@"{CCMA}\InprocServer32";
@@ -68,6 +69,7 @@ namespace RightClickTools
         static string sResetIcons = "Reset icon cache";
         static string sResetThumbs = "Reset thumbnail cache";
         static string sFileManager = "File Manager";
+        static string sInstallTask = "Elevation task";
 
         static string Option = "";
         static string StartDirectory = "";
@@ -76,8 +78,11 @@ namespace RightClickTools
         static float ScaleFactor = GetScale();
         static bool Dark = isDark();
         static bool isAdmin = false;
+        static bool isFullAdmin = false;
         static bool ctrlKey = false;
         static bool fLatCB = true;
+        static bool addTask = true;
+        static bool removeTask = true;
 
         static string UserKey = @"HKEY_CURRENT_USER\Environment";
         static string SystemKey = @"HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment";
@@ -110,7 +115,8 @@ namespace RightClickTools
         static CheckBox AutoSuggestCheckbox;
         static CheckBox TempFilesCheckbox;
         static CheckBox DefenderCheckbox;
-        static CheckBox checkBoxCCM;
+        static CheckBox checkboxCCM;
+        static CheckBox checkboxTask;
 
         [STAThread]
         static void Main(string[] args)
@@ -127,6 +133,7 @@ namespace RightClickTools
             Application.SetCompatibleTextRenderingDefault(false);
 
             isAdmin = IsCurrentUserInAdminGroup();
+            isFullAdmin = isAdmin && TaskExists();
 
             try { Hidden = (int)Registry.GetValue(AdvKey, "Hidden", 0) == 1; } catch { }
 
@@ -157,11 +164,26 @@ namespace RightClickTools
                     Install(false);
                     break;
 
+                case "/installmin":
+                    addTask = false;
+                    Install(false);
+                    break;
+
                 case "/remove":
                     Remove(false);
                     break;
 
+                case "/removemin":
+                    removeTask = false;
+                    Remove(false);
+                    break;
+
                 case "/hkuinstall":
+                    HKUInstall();
+                    break;
+
+                case "/hkuinstallmin":
+                    addTask = false;
                     HKUInstall();
                     break;
 
@@ -358,6 +380,20 @@ namespace RightClickTools
             return claims.Any(c => c.Value == adminClaimID);
         }
 
+        static bool TaskExists()
+        {
+            Process process = new Process();
+            process.StartInfo.FileName = "schtasks.exe";
+            process.StartInfo.Arguments = $"/query /tn {TaskName}";
+            process.StartInfo.RedirectStandardOutput = true;
+            process.StartInfo.RedirectStandardError = true;
+            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.CreateNoWindow = true;
+            process.Start();
+            process.WaitForExit();
+            return process.ExitCode == 0;
+        }
+
         static void RunUAC(string fileName)
         {
             Process p = new Process();
@@ -397,7 +433,7 @@ namespace RightClickTools
                     object runAsValue = Registry.GetValue(ExpKey, "RunAs", null);
                     if (runAsValue != null && runAsValue.ToString() == "Interactive User")
                     {
-                        if (isAdmin)
+                        if (isFullAdmin)
                         {
                             // Temporarily allow Explorer to run elevated
                             CommandLine = "/AllowElevatedExplorer";
@@ -796,7 +832,9 @@ namespace RightClickTools
             {
                 string cdFile = $@"{TempPath}ChangeDirectory.cmd";
                 StartDirectory = StartDirectory.Replace("%", "%%"); //Escape percent signs
-                File.WriteAllText(cdFile, $"@chcp 65001>nul\r\n@cd /d \"{StartDirectory}\"");
+                string Data = $"@echo off\r\nchcp 65001>nul\r\ncd /d \"{StartDirectory}\"";
+                Data += "\r\nstart /b \"\" cmd /c del \"%~f0\"";
+                File.WriteAllText(cdFile, Data);
                 CommandLine = $"/k \"{cdFile}\"";
             }
 
@@ -806,6 +844,7 @@ namespace RightClickTools
                 StartDirectory = StartDirectory.Replace("'", "''"); //Escape single quotes
                 string Data = $@"Set-Location -LiteralPath '{StartDirectory}'";
                 if (StartDirectory.Contains("~")) Data += "\r\nfunction Prompt {$shortPath = (New-Object -ComObject Scripting.FileSystemObject).GetFolder($pwd).ShortPath; return \"PS $($shortPath)> \"}";
+                Data += "\r\nStart-Sleep -Milliseconds 100; Remove-Item $MyInvocation.MyCommand.Path -Force\r\n"; //Delete itself when done
                 File.WriteAllText(cdFile, Data, Encoding.UTF8); //UTF-8 with BOM
                 CommandLine = $"-NoLogo -NoExit -NoProfile -ExecutionPolicy Bypass -file \"{cdFile}\"";
             }
@@ -818,9 +857,12 @@ namespace RightClickTools
             PS1Data += "$UserName = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name\r\n";
             PS1Data += $"& $SetACL -on '{StartDirectory}' -ot file -actn setowner -ownr \"n:$UserName\" -rec cont_obj\r\n";
             PS1Data += $"& $SetACL -on '{StartDirectory}' -ot file -actn setprot -op \"dacl:np;sacl:np\" -rec cont_obj\r\n";
+            PS1Data += "Start-Sleep -Milliseconds 100; Remove-Item $MyInvocation.MyCommand.Path -Force\r\n"; //Delete itself when done
             string PS1File = $@"{TempPath}TakeOwn.ps1";
             File.WriteAllText(PS1File, PS1Data, Encoding.UTF8);
-            CommandLine = $"-NoLogo -NoProfile -ExecutionPolicy Bypass -file \"{PS1File}\"";
+            ctrlKey = (GetAsyncKeyState(0x11) & 0x8000) != 0;
+            string NoExit = ""; if (ctrlKey) NoExit = "-NoExit";
+            CommandLine = $"{NoExit} -NoLogo -NoProfile -ExecutionPolicy Bypass -file \"{PS1File}\"";
         }
 
         static void RunAsUser(string EXEFilename)
@@ -870,6 +912,8 @@ namespace RightClickTools
             string Dark = ReadString(iniFile, "Process", "Dark", "false");
             bool dark = Dark == "True";
 
+            File.Delete(ElevateCfg);
+
             if (RunAs == "TrustedInstaller")
             {
                 ServiceController sc = new ServiceController
@@ -910,7 +954,7 @@ namespace RightClickTools
 
             File.WriteAllText(ElevateCfg, cfg);
 
-            if (isAdmin)
+            if (isFullAdmin)
             {
                 Process p = new Process();
                 p.StartInfo.FileName = SchTasksExe;
@@ -976,7 +1020,7 @@ namespace RightClickTools
 
             File.WriteAllText(ElevateCfg, cfg);
 
-            if (isAdmin)
+            if (isFullAdmin)
             {
                 Process p = new Process();
                 p.StartInfo.FileName = SchTasksExe;
@@ -999,7 +1043,7 @@ namespace RightClickTools
 
             File.WriteAllText(ElevateCfg, cfg);
 
-            if (isAdmin)
+            if (isFullAdmin)
             {
                 Process p = new Process();
                 p.StartInfo.FileName = SchTasksExe;
@@ -1129,11 +1173,12 @@ namespace RightClickTools
             sResetIcons = ReadString(iniFile, lang, "sResetIcons", sResetIcons);
             sResetThumbs = ReadString(iniFile, lang, "sResetThumbs", sResetThumbs);
             sFileManager = ReadString(iniFile, lang, "sFileManager", sFileManager);
+            sInstallTask = ReadString(iniFile, lang, "sInstallTask", sInstallTask);
 
             string sCmdLabels = ReadString(iniFile, lang, "CmdLabels", "");
             string[] LangLabels = sCmdLabels.Split(new char[] { '|' });
 
-            for (int i = 0; i < Math.Min(CmdLabels.Length, LangLabels.Length) - 1; i++)
+            for (int i = 0; i < Math.Min(CmdLabels.Length, LangLabels.Length); i++)
             {
                 CmdLabels[i] = LangLabels[i];
             }
@@ -1193,10 +1238,14 @@ namespace RightClickTools
         }
 
 
-        // Get the current system language
+        // Get language from INI file or system
         static string GetLang()
         {
-            string lang = "en";
+            string lang = ReadString(myIniFile, "General", "Lang", "");
+            if (lang != "") return lang;
+
+            lang = "en";
+
             try
             {
                 RegistryKey key = Registry.CurrentUser.OpenSubKey("Control Panel\\International");
@@ -1228,6 +1277,8 @@ namespace RightClickTools
 
         static void InstallRemove()
         {
+            AnyInstall = true;
+
             if (Win11)
             {
                 Win11Install = true;
@@ -1276,9 +1327,18 @@ namespace RightClickTools
                 return;
             }
 
-            CommandLine = "/TaskInstallQuiet";
-            if (interactive) CommandLine = "/TaskInstall";
-            RunUAC(myExe);
+            if (interactive) addTask = checkboxTask.Checked;
+
+            if (addTask)
+            {
+                CommandLine = "/TaskInstallQuiet";
+                if (interactive) CommandLine = "/TaskInstall";
+                RunUAC(myExe);
+            }
+            else
+            {
+                if (interactive) CustomMessageBox.Show(sDone, sMain);
+            }
         }
 
         static void Remove(bool interactive)
@@ -1291,16 +1351,24 @@ namespace RightClickTools
                 return;
             }
 
-            CommandLine = "/TaskRemoveQuiet";
-            if (interactive) CommandLine = "/TaskRemove";
-            RunUAC(myExe);
+            if (removeTask && TaskExists())
+            {
+                CommandLine = "/TaskRemoveQuiet";
+                if (interactive) CommandLine = "/TaskRemove";
+                RunUAC(myExe);
+            }
+            else
+            {
+                if (interactive) CustomMessageBox.Show(sDone, sMain);
+            }
+
         }
 
         static void HKUInstall()
         {
             CCMfolder = FindCustomCommandsFolder(false);
             ContextMenuInstall(false);
-            TaskInstall(false);
+            if (addTask) TaskInstall(false);
         }
 
         static void HKURemove()
@@ -1316,7 +1384,7 @@ namespace RightClickTools
 
             string H = @"HKEY_CURRENT_USER\";
 
-            if (checkBoxCCM.Checked && !Win10ContextMenu)
+            if (checkboxCCM.Checked && !Win10ContextMenu)
             {
                 try
                 {
@@ -1329,7 +1397,7 @@ namespace RightClickTools
                 }
             }
 
-            if (!checkBoxCCM.Checked && Win10ContextMenu)
+            if (!checkboxCCM.Checked && Win10ContextMenu)
             {
                 try
                 {
@@ -1364,6 +1432,8 @@ namespace RightClickTools
             p.StartInfo.CreateNoWindow = true;
             p.Start();
             p.WaitForExit();
+
+            File.Delete(XMLFile);
 
             if (interactive) CustomMessageBox.Show(sDone, sMain);
         }
@@ -1622,7 +1692,7 @@ namespace RightClickTools
                 StartPosition = FormStartPosition.Manual;
                 Text = caption;
                 Width = (int)(300 * ScaleFactor);
-                int h = 150; if (Win11Install) h = 164;
+                int h = 150; if (AnyInstall) h = 174; if (Win11Install) h = 194;
                 Height = (int)(h * ScaleFactor);
                 FormBorderStyle = FormBorderStyle.FixedDialog;
                 MaximizeBox = false;
@@ -1658,13 +1728,21 @@ namespace RightClickTools
 
                 messageLabel.Padding = new Padding(0, 0, (int)(26 * ScaleFactor), 0);
 
-                checkBoxCCM = new CheckBox();
-                checkBoxCCM.Font = new Font("Segoe UI", 10);
-                checkBoxCCM.Text = sCCM;
-                checkBoxCCM.Checked = Win10ContextMenu;
-                checkBoxCCM.AutoSize = true;
-                checkBoxCCM.Location = new Point((int)(12 * ScaleFactor), (int)(58 * ScaleFactor));
-                if (fLatCB) checkBoxCCM.FlatStyle = FlatStyle.Flat;
+                checkboxTask = new CheckBox();
+                checkboxTask.Font = new Font("Segoe UI", 10);
+                checkboxTask.Text = sInstallTask;
+                checkboxTask.Checked = true;
+                checkboxTask.AutoSize = true;
+                checkboxTask.Location = new Point((int)(12 * ScaleFactor), (int)(60 * ScaleFactor));
+                if (fLatCB) checkboxTask.FlatStyle = FlatStyle.Flat;
+
+                checkboxCCM = new CheckBox();
+                checkboxCCM.Font = new Font("Segoe UI", 10);
+                checkboxCCM.Text = sCCM;
+                checkboxCCM.Checked = Win10ContextMenu;
+                checkboxCCM.AutoSize = true;
+                checkboxCCM.Location = new Point((int)(12 * ScaleFactor), (int)(86 * ScaleFactor));
+                if (fLatCB) checkboxCCM.FlatStyle = FlatStyle.Flat;
 
                 buttonYes = new Button();
                 buttonYes.Text = button1;
@@ -1699,7 +1777,8 @@ namespace RightClickTools
                     ForeColor = Color.White;
                 }
 
-                if (Win11Install) Controls.Add(checkBoxCCM);
+                if (AnyInstall) Controls.Add(checkboxTask);
+                if (Win11Install) Controls.Add(checkboxCCM);
                 Controls.Add(buttonHelp);
                 Controls.Add(buttonYes);
                 Controls.Add(buttonNo);
