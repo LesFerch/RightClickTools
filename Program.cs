@@ -69,7 +69,7 @@ namespace RightClickTools
         static string sResetIcons = "Reset icon cache";
         static string sResetThumbs = "Reset thumbnail cache";
         static string sFileManager = "File Manager";
-        static string sInstallTask = "Elevation task";
+        static string sInstallTask = "Privilege elevation task";
 
         static string Option = "";
         static string StartDirectory = "";
