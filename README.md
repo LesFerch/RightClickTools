@@ -247,7 +247,7 @@ Here's a screenshot of Right-click Tools in German:
 
 Right-click Tools automatically detects and switches to a dark theme. For example:
 
-![image](https://github.com/user-attachments/assets/329a4822-9990-4bcf-ad14-e94310617896)
+![image](https://github.com/user-attachments/assets/0a0f18ea-4c68-470f-93fa-620e84a6c640)
 
 
 ## Customizations
