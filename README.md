@@ -99,7 +99,7 @@ If you're running Windows 11 and have [Custom Context Menu](https://apps.microso
 
 ## Language Selection
 
-By default, **Install** will create the context menu items in the current system language if that language is found in the **Language.ini** file. Otherwise, it will default to English. To force the context menu items to be created in a specific language, edit the **RightClickTools.ini** file and uncomment (remove the semicolon) and change the **Lang=en** entry to the two letter code of the desired language found in the **Language.ini*** file. Then, just double-click **RightClickTools.exe** and click **Install** to update the context menu entries to the new language.
+By default, **Install** will create the context menu items in the current system language if that language is found in the **Language.ini** file. Otherwise, it will default to English. To force the context menu items to be created in a specific language, edit the **RightClickTools.ini** file and uncomment (remove the semicolon) and change the **Lang=en** entry to the two letter code of the desired language found in the **Language.ini** file. Then, just double-click **RightClickTools.exe** and click **Install** to update the context menu entries to the new language.
 
 ## How to Use
 
