@@ -75,13 +75,13 @@ On Windows 11, there's an additional checkbox to allow selecting the context men
 
 If you're an Administrator user, and the privilege elevation task option is checked, you will then see the following UAC prompt after clicking **Install** or **Remove**. This is required so that a scheduled task may be added or removed. The task allows right-click commands, such as **Cmd Here as Administrator** to open without popping up a UAC prompt.
 
+![image](https://github.com/LesFerch/RightClickTools/assets/79026235/4d1cb77e-3d13-4a2a-bf93-2db5e60bb4da)
+
 If you're a Standard user, or the privilege elevation task option is unchecked, there will be no UAC prompt with a portable install. Only the context menu will be created. In that case, a UAC prompt will pop up when any tools are used that require elevated privileges.
 
 **IMPORTANT**: Please note that, even though the **Privilege elevation task** is set up to only be used by Right-Click Tools, anyone, with some programming skill, could leverage the task to run any code without a UAC prompt. That's highly unlikely to happen because a niche utility, such as Right-Click Tools, is never going to be on enough computers to be of interest as an attack vector for bad actors. Nevertheless, it's up to you to decide to accept the risk and install the task. If you're on a work computer, I would advise against installing the task.
 
 **Note**: If you have already disabled UAC, the privilege elevation task does not add any additional risk, but it is then mostly unnecessary. There is a small difference for the **Privileged file manager here** option in that it will only launch a full Explorer window if the task is installed or the registry setting, that prevents Explorer elevation, is disabled (see details about that later in this document).
-
-![image](https://github.com/LesFerch/RightClickTools/assets/79026235/4d1cb77e-3d13-4a2a-bf93-2db5e60bb4da)
 
 Upon completion the following dialog pops up. It may be hidden under another window, but can always be found on the taskbar.
 
