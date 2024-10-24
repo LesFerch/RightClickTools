@@ -127,9 +127,9 @@ This is identical to the built-in Windows commands with the following improvemen
 
 This opens **Cmd** or **PowerShell**, with Administrator privileges, in the selected location, using Console Host.
 
-For administrator users, the window will open with no UAC prompt and you will still be working within your user profile.
+Administrator users, with the privilege elevation task installed, will not see a UAC prompt. Otherwise a UAC prompt will appear for both Standard and Administrator users (unless UAC is disdabled).
 
-For standard users, there will be a UAC prompt and you will be working within the profile of the account used at the UAC prompt.
+Administrator users will be working within their own user profile. Standard users will be working within the profile of the account used at the UAC prompt.
 
 The enhancements and issues noted above for the regular **PowerShell Here** window also apply when running as Administrator.
 
@@ -151,7 +151,7 @@ This opens RegEdit as a standard user. As an administrator, this can be handy to
 
 ### RegEdit as Administrator
 
-This opens RegEdit as an administrator. As an administrator, this is the same as the normal method of opening RegEdit except that it eliminates the nuisance of the UAC prompt. For a standard user, this option pops up a UAC prompt and then regedit will be running under the profile of the account used at the UAC prompt.
+This opens RegEdit as an administrator. As an administrator, this is the same as the normal method of opening RegEdit except that it eliminates the nuisance of the UAC prompt (if the privilege elevation task is installed). For a standard user, this option pops up a UAC prompt and then regedit will be running under the profile of the account used at the UAC prompt.
 
 **Hidden feature**: For administrator users, hold down the **Ctrl** key when selecting this item to open RegEdit collapsed.
 
@@ -171,7 +171,7 @@ Auto-suggest items are the items that show in drop-down lists, such as the Run b
 
 Temporary files are all files that are not currently in use within the %Temp% location.
 
-Defender history is the "Protection history" list in Windows Defender. Right-click Tools creates a task to clear Windows Defender log files on next restart. The task removes itself after it runs. A UAC prompt will appear if you are logged in as a standard user.
+Defender history is the "Protection history" list in Windows Defender. Right-click Tools creates a task to clear Windows Defender log files on next restart. The task removes itself after it runs. A UAC prompt will appear if you are logged in as a standard user or the privilege elevation task is not installed.
 
 ### Take ownership and get access
 
