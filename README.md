@@ -127,7 +127,7 @@ This is identical to the built-in Windows commands with the following improvemen
 
 This opens **Cmd** or **PowerShell**, with Administrator privileges, in the selected location, using Console Host.
 
-Administrator users, with the privilege elevation task installed, will not see a UAC prompt. Otherwise a UAC prompt will appear for both Standard and Administrator users (unless UAC is disdabled).
+Administrator users, with the privilege elevation task installed, will not see a UAC prompt. Otherwise a UAC prompt will appear for both Standard and Administrator users (unless UAC is disabled).
 
 Administrator users will be working within their own user profile. Standard users will be working within the profile of the account used at the UAC prompt.
 
