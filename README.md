@@ -75,7 +75,7 @@ On Windows 11, there's an additional checkbox to allow selecting the context men
 
 If you're an Administrator user, and the privilege elevation task option is checked, you will then see the following UAC prompt after clicking **Install** or **Remove**. This is required so that a scheduled task may be added or removed. The task allows right-click commands, such as **Cmd Here as Administrator** to open without popping up a UAC prompt.
 
-If you're a Standard user, or the privilege elevation task option is unchecked, there will be no UAC prompt dueing a portable install. Only the context menu will be created. In that case, a UAC prompt will pop up when any tools are used that require elevated privileges.
+If you're a Standard user, or the privilege elevation task option is unchecked, there will be no UAC prompt with a portable install. Only the context menu will be created. In that case, a UAC prompt will pop up when any tools are used that require elevated privileges.
 
 **IMPORTANT**: Please note that, even though the **Privilege elevation task** is set up to only be used by Right-Click Tools, anyone, with some programming skill, could leverage the task to run any code without a UAC prompt. That's highly unlikely to happen because a niche utility, such as Right-Click Tools, is never going to be on enough computers to be of interest as an attack vector for bad actors. Nevertheless, it's up to you to decide to accept the risk and install the task. If you're on a work computer, I would advise against installing the task.
 
