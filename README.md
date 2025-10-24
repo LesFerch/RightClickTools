@@ -215,7 +215,7 @@ This restarts Explorer and opens a window to the currently selected folder.
 
 This starts the file manager of your choice as **Administrator** or **TrustedInstaller**.
 
-![image](https://github.com/user-attachments/assets/50887fd7-ada1-412b-a827-8a878796acbf)
+![image](https://github.com/user-attachments/assets/5de79a20-aaca-4a11-92fa-5c13f273c778)
 
 Edit the file **RightClickTools.ini** and, in the **FileManagerHere** section, uncomment (remove the semicolon) and change the **Exe=** entry to the path of your preferred file manager. The path for 7-Zip is provided as an example.
 
@@ -272,5 +272,6 @@ You can use [ContextMenuManager](https://github.com/BluePointLilac/ContextMenuMa
 \
 \
 [![image](https://github.com/LesFerch/WinSetView/assets/79026235/63b7acbc-36ef-4578-b96a-d0b7ea0cba3a)](https://github.com/LesFerch/RightClickTools)
+
 
 
