@@ -1061,10 +1061,6 @@ namespace RightClickTools
 
         static void ClearDefenderHistoryTask()
         {
-            string scans = @"C:\ProgramData\Microsoft\Windows Defender\Scans";
-            string service = $@"{scans}\History\Service";
-            string db = $@"{scans}\mpenginedb.db*";
-
             Process p = new Process();
             p.StartInfo.FileName = SchTasksExe;
             p.StartInfo.Arguments = $"/create /f /tn MyTasks\\DWDH /xml \"{appParts}\\DWDH.cfg\"";
