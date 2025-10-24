@@ -31,7 +31,7 @@ All languages are supported. The included **Language.ini** file includes many la
 
 **Note**: Some antivirus software may falsely detect the download as a virus. This can happen any time you download a new executable and may require extra steps to whitelist the file.
 
-**Note**: Scanning Right-Click Tools with VirusTotal will show that many AV products out there detect it as a trojan (9 of 73 last check). Those are false positives. This is to be expected with a tool that creates a scheduled task in order to provide the convenience of Administrator and Trusted Installer access without UAC prompts. Right-Click Tools is provided on GitHub as open source, the Exe is signed, and my identity is not hidden. I submit my apps to the Windows Defender team to ensure that Windows Defender is okay with them, but I don't have the resources to do that for all AV products.
+**Note**: Scanning Right-Click Tools with VirusTotal will show that many AV products out there detect it as a trojan (9 of 73 last check). Those are false positives. This is to be expected with a tool that creates a scheduled task in order to provide the convenience of Administrator and TrustedInstaller access without UAC prompts. Right-Click Tools is provided on GitHub as open source, the Exe is signed, and my identity is not hidden. I submit my apps to the Windows Defender team to ensure that Windows Defender is okay with them, but I don't have the resources to do that for all AV products.
 
 ### Install Using Setup Program
 
@@ -137,7 +137,7 @@ The enhancements and issues noted above for the regular **PowerShell Here** wind
 
 This opens **Cmd** or **PowerShell** via the SYSTEM account with **TrustedInstaller** privileges. This is useful for accessing and making changes in protected folders, such as **WindowsApps**. Use with care.
 
-**Note**: Trusted Installer is not a user. It's a service that runs via the SYSTEM account. Therefore a **WhoAmI** command will display **nt authority\system**.
+**Note**: TrustedInstaller is not a user. It's a service that runs via the SYSTEM account. Therefore a **WhoAmI** command will display **nt authority\system**.
 
 #### PowerShell Core configuration
 
@@ -179,7 +179,7 @@ This gives you ownership and access to the selected folder. Right-click Tools us
 
 ![image](https://github.com/user-attachments/assets/9e1f9975-b859-432e-9b8a-9c8d0a8ab45a)
 
-This option will not allow changing permissions on system folders and will display a message when that's attempted. The restrictions can be edited in the file **RightClickTools.ini**, but that should be avoided. If you need to make changes in a restricted folder, such as **WindowsApps**, you should access the folder using the Cmd or PowerShell Here as **TrustedInstaller** option or the **Privileged file manager here** option as **Trusted Installer**.
+This option will not allow changing permissions on system folders and will display a message when that's attempted. The restrictions can be edited in the file **RightClickTools.ini**, but that should be avoided. If you need to make changes in a restricted folder, such as **WindowsApps**, you should access the folder using the Cmd or PowerShell Here as **TrustedInstaller** option or the **Privileged file manager here** option as **TrustedInstaller**.
 
 **Hidden feature**: Hold down the **Ctrl** key when clicking **OK** to keep the console window open. This can be useful to review the **SetACL** output.
 
@@ -213,22 +213,22 @@ This restarts Explorer and opens a window to the currently selected folder.
 
 ### Privileged file manager here
 
-This starts the file manager of your choice as **Administrator** or **Trusted Installer**.
+This starts the file manager of your choice as **Administrator** or **TrustedInstaller**.
 
 ![image](https://github.com/user-attachments/assets/50887fd7-ada1-412b-a827-8a878796acbf)
 
 Edit the file **RightClickTools.ini** and, in the **FileManagerHere** section, uncomment (remove the semicolon) and change the **Exe=** entry to the path of your preferred file manager. The path for 7-Zip is provided as an example.
 
-**Note**: If **Privileged file manager here** fails to open a window (may happen on first run due to .Net initialization), try one of the other "Trusted Installer" options, such as **Cmd here as Trusted Installler** and then try again.
+**Note**: If **Privileged file manager here** fails to open a window (may happen on first run due to .Net initialization), try one of the other "TrustedInstaller" options, such as **Cmd here as TrustedInstalller** and then try again.
 
 **Note**: Explorer can only *navigate* long paths. If you need to make changes to long paths, consider using a [different file manager](https://gist.github.com/LesFerch/2facb07079394cf2324b6db459bd25d1) that fully supports long paths, such as 7-Zip. 
 
 Please note the following expected behaviors when using this feature:
 
-- On Windows 11, Explorer as **Trusted Installer** will open a file dialog (aka mini Explorer) instead of a full Explorer window.
+- On Windows 11, Explorer as **TrustedInstaller** will open a file dialog (aka mini Explorer) instead of a full Explorer window.
 - As an Administrator user on Windows 11, Explorer as **Adminstrator** will open the new Windows 11 Explorer, even if you have set the old Explorer as the default using a tool such as [SwitchExplorer](https://lesferch.github.io/SwitchExplorer/).
 - As a Standard user on Windows 11, Explorer as **Adminstrator** will open a file dialog (aka mini Explorer) unless the registry setting, that prohibits Explorer elevation, is not set (see below for details).
-- When you open the file manager as **Trusted Installer**, the window that opens will be running in the context of the SYSTEM account, so you will get an error if you click on the shortcuts for Documents, Downloads, etc. but you can navigate to your data folders via `C:\Users`.
+- When you open the file manager as **TrustedInstaller**, the window that opens will be running in the context of the SYSTEM account, so you will get an error if you click on the shortcuts for Documents, Downloads, etc. but you can navigate to your data folders via `C:\Users`.
 - When an ***Administrator user*** opens file manager as **Adminstrator**, the window that opens will be running in the same context as the current user, but with privileges fully elevated to Administrator. All folders and links will be the same as a normal file manager window.
 - When a ***Standard user*** opens file manager as **Adminstrator**, the window that opens will be running in the context of the account used at the UAC prompt. Which personal folders and links are shown, and whether the window opens in light or dark mode, will depend on the account used. 
 
@@ -272,4 +272,5 @@ You can use [ContextMenuManager](https://github.com/BluePointLilac/ContextMenuMa
 \
 \
 [![image](https://github.com/LesFerch/WinSetView/assets/79026235/63b7acbc-36ef-4578-b96a-d0b7ea0cba3a)](https://github.com/LesFerch/RightClickTools)
+
 
