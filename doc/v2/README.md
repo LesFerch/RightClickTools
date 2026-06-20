@@ -1,19 +1,18 @@
 # RightClickTools
 
+### Version
+
+**Windows 11 context menu**
+
+![image](https://github.com/user-attachments/assets/51608983-fe14-48fb-8ec5-b8251cac70da#gh-dark-mode-only)
+![image](https://github.com/user-attachments/assets/e459ccd4-9c33-425b-bbe3-113e12de2b6c#gh-light-mode-only)
+
+
 **Classic context menu**:
 
-![image](https://github.com/user-attachments/assets/bc1529c1-2ee7-4185-bba7-f4a8298129fb)
-
-
-**Windows 11 context menu** (requires [Custom Context Menu](https://apps.microsoft.com/detail/9pc7bzz28g0x?hl=en-US&gl=US)):
-
-![image](https://github.com/user-attachments/assets/645850ab-d06d-4eec-8c0e-93263243f227)
 
 
 ## Summary
-
-**Version 1.2.1.**\
-lesferch@gmail.com
 
 This program adds a right-click context menu to Windows Explorer that provides a number of tools that are described in detail below. The tools are compatible with Windows 7 and above, 32 bit and 64 bit, standard and administrator users, multiple users on the same computer, and long paths.
 
