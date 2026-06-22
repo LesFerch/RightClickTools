@@ -8,7 +8,7 @@
 
 ## Summary
 
-This program provides a set of powerful shortcuts and tools that are described in detail below. Where appropriate, the tools can be run as the current user, Administrator, or **TrustedInstaller**. The tool set is also user-extendable.
+This program provides a set of powerful shortcuts and tools that are described in detail below. Where appropriate, the tools can be run as the current user, Administrator, or **TrustedInstaller**. The tool set is user-extendable and may be configured for individual requirements. For example, the default elevation can be set for each tool and TrustedInstaller capability can be disabled if desired.
 
 The tools may be run directly via the built-in launcher or added to the Explorer right-click context menu. Both the classic and modern context menu are fully supported. See the installation section below for details.
 
@@ -26,15 +26,19 @@ The included **Language.ini** file includes 30 languages for the interface and c
 
 **Note**: Some antivirus software may falsely detect the download as a virus. This can happen any time you download a new executable and may require extra steps to whitelist the file.
 
-**Note**: Scanning Right-Click Tools with VirusTotal will show that many AV products out there detect it as a trojan (9 of 73 last check). Those are false positives. This is to be expected with a tool that creates a scheduled task in order to provide the convenience of Administrator and TrustedInstaller access without UAC prompts. Right-Click Tools is provided on GitHub as open source, the Exe is signed, and my identity is not hidden. I submit my apps to the Windows Defender team to ensure that Windows Defender is okay with them, but I don't have the resources to do that for all AV products.
+**Note**: Scanning Right-Click Tools with VirusTotal will show that many AV products detect it as a trojan (9 of 73 last check). Those are false positives. This is expected because the program optionally creates a scheduled task in order to provide the convenience of Administrator and TrustedInstaller access without UAC prompts. Right-Click Tools is provided on GitHub as open source, the executables are signed, and my identity is not hidden. I submit my apps to the Windows Defender team to ensure that Windows Defender is okay with them, but I don't have the resources to do that for all AV products.
 
 ### Install Using Setup Program
 
-Use this option if you want Right-Click Tools added to the modern (Windows 11) context menu.
+Use this option if you want to:
+
+- add Right-Click Tools to the modern (Windows 11) context menu.
+- install Right-Click Tools to the Program Files folder (using either context menu option).
 
 1. Download the installer using the link above.
 2. Double-click **RightClickTools-Setup.exe** to start the installation.
-4. In the SmartScreen window, click **More info** and then **Run anyway**.
+3. Click **Yes** when the UAC prompt appears.
+4. If you're installing to Windows 11 or higher, select the context menu type (see details below).
 
 The right-click menu items will be created for the user that is currently logged on interactively (i.e. desktop is displayed). If you wish to add the right-click menu items to *other* users, log on as each user and either run **RightClickTools-Setup.exe** again or navigate to the **RightClickTools** folder and double-click **Setup.exe** (see **Setup** below for details).
 
