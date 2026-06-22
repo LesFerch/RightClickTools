@@ -10,7 +10,7 @@
 
 This program provides a set of powerful shortcuts and tools that are described in detail below. Where appropriate, the tools can be run as the current user, Administrator, or **TrustedInstaller**. The tool set is also user-extendable.
 
-The tools may be run directly via the built-in launcher or added to the Explorer right-click context menu. Both the classic and new context menu are fully supported. See the installation section below for details.
+The tools may be run directly via the built-in launcher or added to the Explorer right-click context menu. Both the classic and modern context menu are fully supported. See the installation section below for details.
 
 The tools are compatible with Windows 7 and above, 32 bit and 64 bit, standard and administrator users, multiple users on the same computer, and long paths.
 
@@ -30,29 +30,31 @@ The included **Language.ini** file includes 30 languages for the interface and c
 
 ### Install Using Setup Program
 
+Use this option if you want Right-Click Tools added to the modern (Windows 11) context menu.
+
 1. Download the installer using the link above.
 2. Double-click **RightClickTools-Setup.exe** to start the installation.
 4. In the SmartScreen window, click **More info** and then **Run anyway**.
 
-**Note**: The installer is only provided in English, but the right-click menu items will be created using your current Windows language, if that language is included in the **Language.ini** file.
-
-The right-click menu items will be created for the user that is currently logged on interactively (i.e. desktop is displayed). If you wish to add the right-click menu items to *other* users, log on as each user and either run **RightClickTools-Setup.exe** again or navigate to the **RightClickTools** folder and double-click **RightClickTools.exe** (see **Install and Remove** below for details).
+The right-click menu items will be created for the user that is currently logged on interactively (i.e. desktop is displayed). If you wish to add the right-click menu items to *other* users, log on as each user and either run **RightClickTools-Setup.exe** again or navigate to the **RightClickTools** folder and double-click **Setup.exe** (see **Setup** below for details).
 
 If you don't have other users to set up, skip down to the [**How to Use**](#how-to-use) section.
 
 ### Portable Install
 
+Use this option if you only want
+
 1. Download the zip file using the link above.
-2. Extract the contents. You should see **RightClickTools.exe** and an **AppParts** folder.
+2. Extract the contents. You should see **RightClickTools.exe**, ***Setup.exe**, and an **AppParts** folder.
 3. Move the contents to a permanent location of your choice. For example **C:\Tools\RightClickTools**.
-3. Right-click **RightClickTools.exe**, select Properties, check **Unblock**, and click **OK**.
-5. Double-click **RightClickTools.exe** to open the Install/Remove dialog and click **Install** to add the tools to the Explorer right-click menu.
+3. Right-click **Setup.exe**, select Properties, check **Unblock**, and click **OK**.
+5. Double-click **Setup.exe** to open the Setup dialog and click **Install** to add the tools to the Explorer right-click menu.
 6. If you skipped step 4, then, in the SmartScreen window, click **More info** and then **Run anyway**.
 7. Click **OK** when the **Done** message box appears.
 
 When Right-click Tools is installed as a portable app, you will NOT see the app listed under **Apps** or **Programs and Files**. 
 
-## Install and Remove
+## Setup
 
 The app's install/remove procedure adds, or removes, the commands to/from the context menu. Those commands all use **RightClickTools.exe**, so the files must remain in place after doing the **Install**.
 
