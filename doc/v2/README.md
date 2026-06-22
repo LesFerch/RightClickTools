@@ -38,8 +38,9 @@ Use this option if you want to:
 1. Download the installer using the link above.
 2. Double-click **RightClickTools-Setup.exe** to start the installation.
 3. Click **Yes** when the UAC prompt appears.
-4. If you're installing to Windows 11 or higher, select the context menu type (see details below).
-5. For the "Enable privilege elevation task" option, see the note below to decide whether you want this option or not.
+4. On Windows 11 and higher, select the desired context menu option (see below for details).
+5. For the "Enable privilege elevation task" option, see the note below to decide if you want this.
+6. Click OK to continue with the installation.
 
 The right-click menu items will be created for the user that is currently logged on interactively (i.e. desktop is displayed). If you wish to add the right-click menu items to *other* users, log on as each user and either run **RightClickTools-Setup.exe** again or navigate to the **RightClickTools** folder and double-click **Setup.exe** (see **Setup** below for details).
 
