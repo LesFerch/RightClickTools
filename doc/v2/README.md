@@ -1,26 +1,22 @@
 # RightClickTools
 
-### Version
+### Version 2.0.0
 
-**Windows 11 context menu**
-
-![image](https://github.com/user-attachments/assets/51608983-fe14-48fb-8ec5-b8251cac70da#gh-dark-mode-only)
-![image](https://github.com/user-attachments/assets/e459ccd4-9c33-425b-bbe3-113e12de2b6c#gh-light-mode-only)
-
-
-**Classic context menu**:
-
+<img width="570" height="672" alt="image" src="https://github.com/user-attachments/assets/06f2d16b-e6d6-47d7-957e-6e71d1cd38e2" />
+<img width="568" height="676" alt="image" src="https://github.com/user-attachments/assets/067f7b88-89ba-472c-a374-268dd0dcf535" />
 
 
 ## Summary
 
-This program adds a right-click context menu to Windows Explorer that provides a number of tools that are described in detail below. The tools are compatible with Windows 7 and above, 32 bit and 64 bit, standard and administrator users, multiple users on the same computer, and long paths.
+This program provides a set of powerful shortcuts and tools that are described in detail below. Where appropriate, the tools can be run as the current user, Administrator, or **TrustedInstaller**. The tool set is also user-extendable.
 
-The tools are added to the new Windows 11 context menu if you have the app [Custom Context Menu](https://apps.microsoft.com/detail/9pc7bzz28g0x?hl=en-US&gl=US) installed. Please note that its web page shows a price of $0.99, but if you click the link, you should see that the app is available for an unlimited free trial.
+The tools may be run directly via the built-in launcher or added to the Explorer right-click context menu. Both the classic and new context menu are fully supported. See the installation section below for details.
+
+The tools are compatible with Windows 7 and above, 32 bit and 64 bit, standard and administrator users, multiple users on the same computer, and long paths.
 
 For administrator users, that choose to install the optional privilege elevation task, there is only a single UAC prompt to install the tools. After that, all the tools run without any UAC prompts.
 
-All languages are supported. The included **Language.ini** file includes many languages and can be edited to add other languages and/or change any of the labels. The included translations are machine generated, so they may need some editing.
+The included **Language.ini** file includes 30 languages for the interface and can be edited to add other languages and/or change any of the labels.
 
 ## How to Download and Install 
 
