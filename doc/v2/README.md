@@ -48,69 +48,71 @@ If you don't have other users to set up, skip down to the [**How to Use**](#how-
 
 ### Portable Install
 
-Use this option if you only want
+Use this option if you want to:
+
+- run Right-Click Tools from a drive or folder of your choice, including removable media.
+- run Right-Click Tools without adding it to the context menu.
+- add Right-Click Tools to the classic context menu, but not install it to Program Files.
+- Add Right-Click Tools to the program [Custom Context Menu](https://apps.microsoft.com/detail/9pc7bzz28g0x).
 
 1. Download the zip file using the link above.
 2. Extract the contents. You should see **RightClickTools.exe**, ***Setup.exe**, and an **AppParts** folder.
 3. Move the contents to a permanent location of your choice. For example **C:\Tools\RightClickTools**.
 3. Right-click **Setup.exe**, select Properties, check **Unblock**, and click **OK**.
-5. Double-click **Setup.exe** to open the Setup dialog and click **Install** to add the tools to the Explorer right-click menu.
+5. Double-click **Setup.exe** to open the Setup dialog.
 6. If you skipped step 4, then, in the SmartScreen window, click **More info** and then **Run anyway**.
-7. Click **OK** when the **Done** message box appears.
+7. Enable your desired options and then click **OK**
+8. Click **OK** when the **Done** message box appears.
 
 When Right-click Tools is installed as a portable app, you will NOT see the app listed under **Apps** or **Programs and Files**. 
 
 ## Setup
 
-The app's install/remove procedure adds, or removes, the commands to/from the context menu. Those commands all use **RightClickTools.exe**, so the files must remain in place after doing the **Install**.
+**NOTE**: You do NOT need to use **Setup.exe** if you installed Right-Click Tools using **RightClickTools-Setup.exe**.
 
-The **Remove** option removes the context menu entries and the scheduled task item (if installed). It does not delete the app files.
+<img width="373" height="293" alt="image" src="https://github.com/user-attachments/assets/13d7a317-3d56-4b1a-864d-0a44068fa668" />
 
-On Windows 7 through Windows 10, you should see an Install/Remove prompt with a checkbox to select whether the privilege elevation task is to be installed.
-
-![image](https://github.com/user-attachments/assets/1fc53cc7-5f24-45f4-9c67-d1c20a052b3a)
+<img width="375" height="295" alt="image" src="https://github.com/user-attachments/assets/5c2b9e0b-9d04-4f18-b1b6-baf0f8c395cd" />
 
 
-On Windows 11, there's an additional checkbox to allow selecting the context menu type. The box will be checked if you've already changed Windows 11 to use the classic context menu. Check or uncheck the box to select your preferred context menu type. The change, if any, will occur after clicking **Install** or **Remove**.
+The Setup dialog will show options that are applicable to your Windows installation. Each option is described below.
 
-![image](https://github.com/user-attachments/assets/97edd04c-a4b2-4a4e-a5c8-746d484ac5ab)
+The current state of each option is shown by its slider control. Changing a slider's position has no effect until **OK** is clicked.
 
+### Add to the classic context menu
 
-If you're an Administrator user, and the privilege elevation task option is checked, you will then see the following UAC prompt after clicking **Install** or **Remove**. This is required so that a scheduled task may be added or removed. The task allows right-click commands, such as **Cmd Here as Administrator** to open without popping up a UAC prompt.
+When enabled, Right-Click Tools is added to the classic context menu. This option adds the context menu via registry entries only (i.e. no separate menu handler code is added).
 
-![image](https://github.com/LesFerch/RightClickTools/assets/79026235/4d1cb77e-3d13-4a2a-bf93-2db5e60bb4da)
+By default, the context menu entries will be created in the current system language if that language is found in the **Language.ini** file. Otherwise, it will default to English. To force the context menu items to be created in a specific language, edit the **RightClickTools.ini** file and uncomment (remove the semicolon) and change the **Lang=en** entry to the two letter code of the desired language found in the **Language.ini** file. Then, just run **Setup.exe** again to update the context menu entries to the new language.
 
-If you're a Standard user, or the privilege elevation task option is unchecked, there will be no UAC prompt with a portable install. Only the context menu will be created. In that case, a UAC prompt will pop up when any tools are used that require elevated privileges.
+**Note**: If you move **RightClickTools.exe** after using **Setup**, the context menu entries will do nothing because the exe path will be incorrect. To fix that issue, just run **Setup** again.
 
-**IMPORTANT**: Please note that, even though the **Privilege elevation task** is set up to only be used by Right-Click Tools, anyone, with some programming skill, could leverage the task to run any code without a UAC prompt. That's highly unlikely to happen because a niche utility, such as Right-Click Tools, is never going to be on enough computers to be of interest as an attack vector for bad actors. Nevertheless, it's up to you to decide to accept the risk and install the task. If you're on a work computer, I would advise against installing the task.
+### Add the privilege elevation task
 
-**Note**: If you have already disabled UAC, the privilege elevation task does not add any additional risk, but it is then mostly unnecessary. There is a small difference for the **Privileged file manager here** option in that it will only launch a full Explorer window if the task is installed or the registry setting, that prevents Explorer elevation, is disabled (see details about that later in this document).
+When enabled, a privilege elevation task is added to Windows Task Scheduler for the current user that allows Right-Click Tools to run its commands as Administrator or TrustedInstaller without a UAC prompt popping up.
 
-Upon completion the following dialog pops up. It may be hidden under another window, but can always be found on the taskbar.
+**IMPORTANT**: Even though the **Privilege elevation task** is set up to only be used by Right-Click Tools, anyone, with some programming skill, could leverage the task to run any code without a UAC prompt. That's highly unlikely to happen because a niche utility, such as Right-Click Tools, is never going to be on enough computers to be of interest as an attack vector for bad actors. Nevertheless, it's up to you to decide to accept the risk and install the task. If you're on a work computer this task will likely raise a red flag with your IT department and therefore should not be installed.
 
-![image](https://github.com/LesFerch/RightClickTools/assets/79026235/0e063de7-d0bc-4dcd-9cce-fc07fcbb6ade)
+**Note**: If you have already disabled UAC, the privilege elevation task does not add any additional risk, but it is then mostly unnecessary. There is a small difference for the **File manager here** option in that it will only launch a full Explorer window if the task is installed or the registry setting, that prevents Explorer elevation, is disabled (see details about that later in this document).
 
-**Note**: If you move **RightClickTools.exe** after installing, the context menu entries will do nothing because the exe path will be incorrect. To fix that issue, just run the install again.
+### Add to Custom Context Menu
 
-### About the context menu
+This option only appears if you've installed the program [Custom Context Menu](https://apps.microsoft.com/detail/9pc7bzz28g0x) When enabled, Right-Click Tools is added to Custom Context Menu. Be sure to turn Custom Context Menu off and back on (via its interface) in order to see the changes. Since Right-Click Tools 2.x directly supports the modern context menu, this option is essentially redundant. It may appeal to users of Custom Context Menu that wish to minimize the number of context menu handlers that are added to Windows.
 
-The context menu item is created with registry entries only and simply provides submenus entries for each command. When one of those commands are selected, **RightClickTools.exe** is run with the appropriate arguments to open the selected option.
+### Show only the classic context menu
 
-This program does NOT create a context menu handler. That is, there is no code that runs when you right-click a folder. Code only runs when you actually select an action. Right-click Tools adds no overhead to your context menu, other than the insignificant impact of one more context menu item.
+This option appears on Windows 11 or higher. The slider will already be in the on position if you've already changed Windows 11 to use the classic context menu. When enabled, the Explorer context menu will be the classic version. When disabled, the Explorer context menu will be the modern version (i.e. Windows 11 default), with the classic version available by holding the **Shift** key when right-clicking.
 
-If you're running Windows 11 and have [Custom Context Menu](https://apps.microsoft.com/detail/9pc7bzz28g0x?hl=en-US&gl=US) installed, Right-click Tools adds its entries to the menu, by creating the necessary JSON files in Custom Context Menu's data folder. The main menu entry is labelled **Open with** by default. You can change that label to whatever you like in the app settings for **Custom Context Menu**.
-
-## Language Selection
-
-By default, **Install** will create the context menu items in the current system language if that language is found in the **Language.ini** file. Otherwise, it will default to English. To force the context menu items to be created in a specific language, edit the **RightClickTools.ini** file and uncomment (remove the semicolon) and change the **Lang=en** entry to the two letter code of the desired language found in the **Language.ini** file. Then, just double-click **RightClickTools.exe** and click **Install** to update the context menu entries to the new language.
 
 ## How to Use
 
 Right-click a folder, the background of an open folder, or a drive to get to the **Right-click Tools** context menu, as shown at the beginning of this document.
 
-**Note**: If you are using Windows 11, and do not have [Custom Context Menu](https://apps.microsoft.com/detail/9pc7bzz28g0x?hl=en-US&gl=US) installed or the classic context menu enabled, you will have to hold down the **Shift** key, when right-clicking, to access Right-Click Tools (or select "Show more options"). Also, if the classic context menu is not enabled, you will have to hold down the **Shift** key when right-clicking a *drive* (or select "Show more options").
+Right-Click Tools will NOT appear when right-clicking a file. It is a folder level tool set.
 
-Select the action you wish to perform. If nothing happens, then the Exe was likely moved after installing. In that case, just double-click the Exe to re-install.
+**Note**: You can also double-click Right-Click Tools to run it direcly without installation. See the **Launcher Mode** section for configuration options.
+
+Select the action you wish to perform. If nothing happens, then the Exe was likely moved after running Setup. In that case, run **Setup.exe** again.
 
 **Note**: Clicking the **`X`** in any dialog means _do nothing_. Therefore, there's no need for "No" or "Cancel" buttons.
 
