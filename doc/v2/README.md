@@ -42,7 +42,11 @@ Use this option if you want to:
 5. For the "Enable privilege elevation task" option, see the note below to decide if you want this.
 6. Click OK to continue with the installation.
 
-The right-click menu items will be created for the user that is currently logged on interactively. If you wish to add the right-click menu items to *other* users, log on as each user and run **RightClickTools-Setup.exe** again.
+**Note**: The installer will automatically run in your Windows current lanaguage. If you wish to force the installer to run in a different language, you can specific that language on the command line using its two letter code. For example:
+
+`RightClickTools-Setup /lang=en`
+
+**Note**: The right-click menu items will be created for the user that is currently logged on interactively. If you wish to add the right-click menu items to *other* users, log on as each user and run **RightClickTools-Setup.exe** again.
 
 ### Portable Install
 
@@ -62,9 +66,9 @@ Use this option if you want to:
 7. Enable your desired options and then click **OK**
 8. Click **OK** when the **Done** message box appears.
 
-When Right-click Tools is installed as a portable app, you will NOT see the app listed under **Apps** or **Programs and Files**.
+**Note**: When Right-click Tools is installed as a portable app, you will NOT see the app listed under **Apps** or **Programs and Files**.
 
-The right-click menu items will be created for the user that is currently logged on interactively. If you wish to add the right-click menu items to *other* users, log on as each user and run **Setup.exe** again.
+**Note**: The right-click menu items will be created for the user that is currently logged on interactively. If you wish to add the right-click menu items to *other* users, log on as each user and run **Setup.exe** again.
 
 ## Setup
 
