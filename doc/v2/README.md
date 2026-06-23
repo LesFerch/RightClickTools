@@ -42,9 +42,7 @@ Use this option if you want to:
 5. For the "Enable privilege elevation task" option, see the note below to decide if you want this.
 6. Click OK to continue with the installation.
 
-The right-click menu items will be created for the user that is currently logged on interactively (i.e. desktop is displayed). If you wish to add the right-click menu items to *other* users, log on as each user and either run **RightClickTools-Setup.exe** again or navigate to the **RightClickTools** folder and double-click **Setup.exe** (see **Setup** below for details).
-
-If you don't have other users to set up, skip down to the [**How to Use**](#how-to-use) section.
+The right-click menu items will be created for the user that is currently logged on interactively. If you wish to add the right-click menu items to *other* users, log on as each user and run **RightClickTools-Setup.exe** again.
 
 ### Portable Install
 
@@ -64,7 +62,9 @@ Use this option if you want to:
 7. Enable your desired options and then click **OK**
 8. Click **OK** when the **Done** message box appears.
 
-When Right-click Tools is installed as a portable app, you will NOT see the app listed under **Apps** or **Programs and Files**. 
+When Right-click Tools is installed as a portable app, you will NOT see the app listed under **Apps** or **Programs and Files**.
+
+The right-click menu items will be created for the user that is currently logged on interactively. If you wish to add the right-click menu items to *other* users, log on as each user and run **Setup.exe** again.
 
 ## Setup
 
@@ -216,7 +216,7 @@ This restarts Explorer and opens a window to the currently selected folder.
 ![image](https://github.com/user-attachments/assets/fda6dffc-061c-4dbb-b359-52efe48da39f)
 
 
-### Privileged file manager here
+### File manager here
 
 This starts the file manager of your choice as **Administrator** or **TrustedInstaller**.
 
@@ -239,40 +239,6 @@ Please note the following expected behaviors when using this feature:
 
 **Note**: Normally Explorer does not allow itself to be "Run as Administrator", but that behavior can be disabled via a [registry setting](https://gist.github.com/LesFerch/a7e43762bb84f18c8ef6ccdfe606eff8) that requires TrustedInstaller privileges to change. Right-Click Tools temporarily changes that registry setting in order to run Explorer elevated (for Administrator users). Some details about why the restriction exists can be found in [this article and its comments](https://devblogs.microsoft.com/oldnewthing/20220524-00/?p=106682)
 
-## It's Multilingual
-
-The Right-click Tools **Install** will detect your Windows language and use it, as long as it has your language in its **Language.ini** file. Edit the **Language.ini** file to set the labels to your preferences.
-
-Here's a screenshot of Right-click Tools in German:
-
-![image](https://github.com/user-attachments/assets/4ff11617-1eac-442a-a4ce-a9e6c8d47de9)
-
-
-## Dark Theme Compatible
-
-Right-click Tools automatically detects and switches to a dark theme. For example:
-
-![image](https://github.com/user-attachments/assets/0a0f18ea-4c68-470f-93fa-620e84a6c640)
-
-
-## Customizations
-
-### Checkbox Style
-
-The checkboxes in the Right-Click Tools dialogs can be configured to use one of two different styles. Edit the file **RightClickTools.ini** and change **AlternateCheckbox=0** to  **AlternateCheckbox=1** to change the style. Below is an example of the difference in Windows 10 dark mode:
-
-![image](https://github.com/user-attachments/assets/8c18bcef-3e77-411b-9bf6-e659afd4f84c)
-
-**Tip**: When changing options in Right-Click Tools, it's easier to click the label beside the checkbox.
-
-
-### Adding and Removing Context Menu Items
-
-Removing an item you don't use, or adding your own custom items, can be done with a context menu editor.
-
-If you are using Windows 11 with [Custom Context Menu](https://apps.microsoft.com/detail/9pc7bzz28g0x?hl=en-US&gl=US), use that tool to modify the entries in the Windows 11 context menu.
-
-You can use [ContextMenuManager](https://github.com/BluePointLilac/ContextMenuManager/blob/master/README-en.md) to modify the classic context menu. The classic context menu can also be directly edited with RegEdit if you know what you're doing.
 
 \
 \
