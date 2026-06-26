@@ -2,8 +2,8 @@
 
 ### Version 2.0.0
 
-<img width="570" height="672" alt="image" src="https://github.com/user-attachments/assets/06f2d16b-e6d6-47d7-957e-6e71d1cd38e2" />
-<img width="568" height="676" alt="image" src="https://github.com/user-attachments/assets/067f7b88-89ba-472c-a374-268dd0dcf535" />
+<img width="570" height="672" alt="image" src="https://github.com/user-attachments/assets/06f2d16b-e6d6-47d7-957e-6e71d1cd38e2#gh-dark-mode-only" />
+<img width="568" height="676" alt="image" src="https://github.com/user-attachments/assets/067f7b88-89ba-472c-a374-268dd0dcf535#gh-light-mode-only" />
 
 
 ## Summary
@@ -39,8 +39,10 @@ Use this option if you want to:
 2. Double-click **RightClickTools-Setup.exe** to start the installation.
 3. Click **Yes** when the UAC prompt appears.
 4. On Windows 11 and higher, select the desired context menu option (see below for details).
-5. For the "Enable privilege elevation task" option, see the note below to decide if you want this.
-6. Click OK to continue with the installation.
+5. For the **Enable privilege elevation task** option, see the **Setup** section below for more details.
+6. Click **OK** to continue with the installation.
+
+**Note**: The option **Context menu via registry (classic only)** is checked by default. This option uses registry keys to add Right-Click Tools to Explorer's classic context menu. This is a zero-overhead option, but you must use the classic context menu either by holding the **Shift** key when right-clicking or by making the classic menu the default (See *Setup** below). The option **Context menu handler (modern + classic)** installs a signed context menu handler that adds Right-Click Tools to both the modern and classic context menu.
 
 **Note**: The installer will automatically run in your Windows current lanaguage. If you wish to force the installer to run in a different language, you can specific that language on the command line using its two letter code. For example:
 
@@ -58,7 +60,7 @@ Use this option if you want to:
 - Add Right-Click Tools to the program [Custom Context Menu](https://apps.microsoft.com/detail/9pc7bzz28g0x).
 
 1. Download the zip file using the link above.
-2. Extract the contents. You should see **RightClickTools.exe**, ***Setup.exe**, and an **AppParts** folder.
+2. Extract the contents. You should see **RightClickTools.exe**, **Setup.exe**, and an **AppParts** folder.
 3. Move the contents to a permanent location of your choice. For example **C:\Tools\RightClickTools**.
 3. Right-click **Setup.exe**, select Properties, check **Unblock**, and click **OK**.
 5. Double-click **Setup.exe** to open the Setup dialog.
@@ -74,10 +76,8 @@ Use this option if you want to:
 
 **NOTE**: You do NOT need to use **Setup.exe** if you installed Right-Click Tools using **RightClickTools-Setup.exe**.
 
-<img width="373" height="293" alt="image" src="https://github.com/user-attachments/assets/13d7a317-3d56-4b1a-864d-0a44068fa668" />
-
-<img width="375" height="295" alt="image" src="https://github.com/user-attachments/assets/5c2b9e0b-9d04-4f18-b1b6-baf0f8c395cd" />
-
+<img width="373" height="291" alt="image" src="https://github.com/user-attachments/assets/103dd503-8002-4c0c-b51d-aa1879055e01#gh-dark-mode-only" />
+<img width="374" height="293" alt="image" src="https://github.com/user-attachments/assets/8d41c90c-cddd-4af3-953d-574c4ddbe646#gh-light-mode-only" />
 
 The Setup dialog will show options that are applicable to your Windows installation. Each option is described below.
 
@@ -91,6 +91,8 @@ By default, the context menu entries will be created in the current system langu
 
 **Note**: If you move **RightClickTools.exe** after using **Setup**, the context menu entries will do nothing because the exe path will be incorrect. To fix that issue, just run **Setup** again.
 
+**Note**: If you installed Right-Click Tools using **RightClickTools-Setup.exe** with the **Context menu handler** option and then ran **Setup.exe** and enabled **Add to the classic context menu**, you will see Right-Click Tools in the classic context menu twice. In that case, one menu is provided by the context menu handler and the other is provided by registry entries. Just run **Setup.exe** again and uncheck **Add to the classic context menu** to fix that.
+
 ### Add the privilege elevation task
 
 When enabled, a privilege elevation task is added to Windows Task Scheduler for the current user that allows Right-Click Tools to run its commands as Administrator or TrustedInstaller without a UAC prompt popping up.
@@ -101,7 +103,7 @@ When enabled, a privilege elevation task is added to Windows Task Scheduler for 
 
 ### Add to Custom Context Menu
 
-This option only appears if you've installed the program [Custom Context Menu](https://apps.microsoft.com/detail/9pc7bzz28g0x) When enabled, Right-Click Tools is added to Custom Context Menu. Be sure to turn Custom Context Menu off and back on (via its interface) in order to see the changes. Since Right-Click Tools 2.x directly supports the modern context menu, this option is essentially redundant. It may appeal to users of Custom Context Menu that wish to minimize the number of context menu handlers that are added to Windows.
+This option only appears if you've installed the program [Custom Context Menu](https://apps.microsoft.com/detail/9pc7bzz28g0x). When enabled, Right-Click Tools is added to Custom Context Menu. Be sure to turn Custom Context Menu off and back on (via its interface) in order to see the changes. Since Right-Click Tools 2.x directly supports the modern context menu, this option is essentially redundant. It may appeal to users of Custom Context Menu that wish to minimize the number of context menu handlers that are added to Windows.
 
 ### Show only the classic context menu
 
@@ -124,33 +126,24 @@ Select the action you wish to perform. If nothing happens, then the Exe was like
 
 ## Commands
 
-### Cmd Here and PowerShell Here
+### Cmd Here, PowerShell Here, and PowerShell Core Here
 
-This opens **Cmd** or **PowerShell**, with your normal privileges, in the selected location, using your default console program (**Console Host** or **Windows Terminal**).
+This opens a console or terminal window, with the selected shell, in the currently selected folder.
 
-This is identical to the built-in Windows commands with the following improvements: 1) For Cmd, folders with environment variables in their names, such as **%OS%** will not cause an error. 2) For PowerShell, folders with an apostrophe in the name, such as **Bob's Files** will not cause an error. 3) For PowerShell, opening a folder with a long path (i.e. > 260 characters) will create a prompt in the short (8.3) format. This lets you know that you're in a long path and prevents the prompt from taking too much screen space.
+By default, a dialog will pop up allowing you to run as **User**, **Administrator**, or **TrustedInstaller**. 
 
-**Note**: If you open a PowerShell prompt within a long path, running an executable, such as **whoami** will result in an error (or no output at all with PowerShell Core). This is a PowerShell problem. It has nothing to do with Right-click Tools and there is no known fix or workaround.
+You can also configure Right-Click Tools to open any of these tools at the Run-As level of your choice and only show the pop-up when the **Ctrl** key is held down.
 
-### Cmd Here and PowerShell Here as Administrator
+When run as the current user, the selected item will open using your default console program (**Console Host** or **Windows Terminal**). When running as Administrator, it will default to Windows Terminal (if available) but you can configure it to use the classic ConHost if prefered.
 
-This opens **Cmd** or **PowerShell**, with Administrator privileges, in the selected location, using Console Host.
-
-Administrator users, with the privilege elevation task installed, will not see a UAC prompt. Otherwise a UAC prompt will appear for both Standard and Administrator users (unless UAC is disabled).
-
-Administrator users will be working within their own user profile. Standard users will be working within the profile of the account used at the UAC prompt.
-
-The enhancements and issues noted above for the regular **PowerShell Here** window also apply when running as Administrator.
-
-### Cmd Here and PowerShell Here as TrustedInstaller
-
-This opens **Cmd** or **PowerShell** via the SYSTEM account with **TrustedInstaller** privileges. This is useful for accessing and making changes in protected folders, such as **WindowsApps**. Use with care.
-
-**Note**: TrustedInstaller is not a user. It's a service that runs via the SYSTEM account. Therefore a **WhoAmI** command will display **nt authority\system**.
-
-#### PowerShell Core configuration
-
-If you want the "PowerShell Here" commands to open PowerShell Core instead of PowerShell 5.1, edit the file **RightClickTools.ini** and, in the **PowerShellHere** section, uncomment (remove the semicolon) and change the **Exe=** entry to the path for PowerShell Core.
+**Notes**:
+- If the current user is an "Administrator", running a tool as Administrator elevates the current user and therefore runs within the current user's profile.
+- If the current user is a "Standard" user, running a tool as Administrator will prompt for a login and therefore run in the profile of the newly logged in administrator user.
+- TrustedInstaller is useful for accessing and making changes in protected folders, such as **WindowsApps**. Use with care.
+- TrustedInstaller is not a user. It's a service that runs via the SYSTEM account. Therefore a **WhoAmI** command will display **nt authority\system**.
+- When opening a folder with a long path (> 260 characters) the prompt will be in the short (8.3) format. This lets you know that you're in a long path and prevents the prompt from taking too much screen space.
+- When PowerShell is opened in a long path, running an executable, such as **whoami** will result in an error (or no output with PowerShell Core). This is a PowerShell problem. It has nothing to do with Right-click Tools and there is no known fix or workaround.
+- See the **Configuration** section later in this document for configuration details.
 
 ### RegEdit as User
 
