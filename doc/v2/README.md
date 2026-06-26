@@ -145,6 +145,30 @@ When run as the current user, the selected item will open using your default con
 - When PowerShell is opened in a long path, running an executable, such as **whoami** will result in an error (or no output with PowerShell Core). This is a PowerShell problem. It has nothing to do with Right-click Tools and there is no known fix or workaround.
 - See the **Configuration** section later in this document for configuration details.
 
+### File manager here
+
+This starts the file manager of your choice as the current user, Administrator, or TrustedInstaller.
+
+![image](https://github.com/user-attachments/assets/5de79a20-aaca-4a11-92fa-5c13f273c778)
+
+Edit the file **RightClickTools.ini** and, in the **FileManagerHere** section, uncomment (remove the semicolon) and change the **Exe=** entry to the path of your preferred file manager. The path for 7-Zip is provided as an example.
+
+**Note**: If **Privileged file manager here** fails to open a window (may happen on first run due to .Net initialization), try one of the other "TrustedInstaller" options, such as **Cmd here as TrustedInstalller** and then try again.
+
+**Note**: Explorer can only *navigate* long paths. If you need to make changes to long paths, consider using a [different file manager](https://gist.github.com/LesFerch/2facb07079394cf2324b6db459bd25d1) that fully supports long paths, such as 7-Zip. 
+
+Please note the following expected behaviors when using this feature:
+
+- On Windows 11, Explorer as **TrustedInstaller** will open a file dialog (aka mini Explorer) instead of a full Explorer window.
+- As an Administrator user on Windows 11, Explorer as **Adminstrator** will open the new Windows 11 Explorer, even if you have set the old Explorer as the default using a tool such as [SwitchExplorer](https://lesferch.github.io/SwitchExplorer/).
+- As a Standard user on Windows 11, Explorer as **Adminstrator** will open a file dialog (aka mini Explorer) unless the registry setting, that prohibits Explorer elevation, is not set (see below for details).
+- When you open the file manager as **TrustedInstaller**, the window that opens will be running in the context of the SYSTEM account, so you will get an error if you click on the shortcuts for Documents, Downloads, etc. but you can navigate to your data folders via `C:\Users`.
+- When an ***Administrator user*** opens file manager as **Adminstrator**, the window that opens will be running in the same context as the current user, but with privileges fully elevated to Administrator. All folders and links will be the same as a normal file manager window.
+- When a ***Standard user*** opens file manager as **Adminstrator**, the window that opens will be running in the context of the account used at the UAC prompt. Which personal folders and links are shown, and whether the window opens in light or dark mode, will depend on the account used. 
+
+**Note**: Normally Explorer does not allow itself to be "Run as Administrator", but that behavior can be disabled via a [registry setting](https://gist.github.com/LesFerch/a7e43762bb84f18c8ef6ccdfe606eff8) that requires TrustedInstaller privileges to change. Right-Click Tools temporarily changes that registry setting in order to run Explorer elevated (for Administrator users). Some details about why the restriction exists can be found in [this article and its comments](https://devblogs.microsoft.com/oldnewthing/20220524-00/?p=106682)
+
+
 ### RegEdit as User
 
 This opens RegEdit as a standard user. As an administrator, this can be handy to verify what a standard user can or cannot change in the registry without having to analyze the permissions. As a standard user, this option opens RegEdit as it would normally.
@@ -213,28 +237,6 @@ This restarts Explorer and opens a window to the currently selected folder.
 ![image](https://github.com/user-attachments/assets/fda6dffc-061c-4dbb-b359-52efe48da39f)
 
 
-### File manager here
-
-This starts the file manager of your choice as **Administrator** or **TrustedInstaller**.
-
-![image](https://github.com/user-attachments/assets/5de79a20-aaca-4a11-92fa-5c13f273c778)
-
-Edit the file **RightClickTools.ini** and, in the **FileManagerHere** section, uncomment (remove the semicolon) and change the **Exe=** entry to the path of your preferred file manager. The path for 7-Zip is provided as an example.
-
-**Note**: If **Privileged file manager here** fails to open a window (may happen on first run due to .Net initialization), try one of the other "TrustedInstaller" options, such as **Cmd here as TrustedInstalller** and then try again.
-
-**Note**: Explorer can only *navigate* long paths. If you need to make changes to long paths, consider using a [different file manager](https://gist.github.com/LesFerch/2facb07079394cf2324b6db459bd25d1) that fully supports long paths, such as 7-Zip. 
-
-Please note the following expected behaviors when using this feature:
-
-- On Windows 11, Explorer as **TrustedInstaller** will open a file dialog (aka mini Explorer) instead of a full Explorer window.
-- As an Administrator user on Windows 11, Explorer as **Adminstrator** will open the new Windows 11 Explorer, even if you have set the old Explorer as the default using a tool such as [SwitchExplorer](https://lesferch.github.io/SwitchExplorer/).
-- As a Standard user on Windows 11, Explorer as **Adminstrator** will open a file dialog (aka mini Explorer) unless the registry setting, that prohibits Explorer elevation, is not set (see below for details).
-- When you open the file manager as **TrustedInstaller**, the window that opens will be running in the context of the SYSTEM account, so you will get an error if you click on the shortcuts for Documents, Downloads, etc. but you can navigate to your data folders via `C:\Users`.
-- When an ***Administrator user*** opens file manager as **Adminstrator**, the window that opens will be running in the same context as the current user, but with privileges fully elevated to Administrator. All folders and links will be the same as a normal file manager window.
-- When a ***Standard user*** opens file manager as **Adminstrator**, the window that opens will be running in the context of the account used at the UAC prompt. Which personal folders and links are shown, and whether the window opens in light or dark mode, will depend on the account used. 
-
-**Note**: Normally Explorer does not allow itself to be "Run as Administrator", but that behavior can be disabled via a [registry setting](https://gist.github.com/LesFerch/a7e43762bb84f18c8ef6ccdfe606eff8) that requires TrustedInstaller privileges to change. Right-Click Tools temporarily changes that registry setting in order to run Explorer elevated (for Administrator users). Some details about why the restriction exists can be found in [this article and its comments](https://devblogs.microsoft.com/oldnewthing/20220524-00/?p=106682)
 
 
 \
