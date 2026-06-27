@@ -131,13 +131,17 @@ Select the action you wish to perform. If nothing happens, then the Exe was like
 
 ## Commands
 
+By default, where elevation is applicable to a tool, a dialog will pop up allowing you to run as **User**, **Administrator**, or **TrustedInstaller**. 
+
+You can also configure Right-Click Tools to open any of these tools at the Run-As level of your choice and only show the pop-up when the **Ctrl** key is held down.
+
+<img width="345" height="222" alt="image" src="https://github.com/user-attachments/assets/7c4fb3de-1c68-4444-b133-f241987f6562#gh-dark-mode-only" />
+<img width="346" height="223" alt="image" src="https://github.com/user-attachments/assets/0f58f579-15ac-41ff-aaf8-675ec377fdd6#gh-light-mode-only" />
+
+
 ### Cmd Here, PowerShell Here, and PowerShell Core Here
 
 This opens a console host or terminal window, with the selected shell, in the currently selected folder.
-
-By default, a dialog will pop up allowing you to run as **User**, **Administrator**, or **TrustedInstaller**. 
-
-You can also configure Right-Click Tools to open any of these tools at the Run-As level of your choice and only show the pop-up when the **Ctrl** key is held down.
 
 When run as the current user, the selected item will open using your default console program (**Console Host** or **Windows Terminal**). When running as Administrator, it will default to Windows Terminal (if available) but you can configure it to use the classic ConHost if prefered.
 
@@ -145,7 +149,7 @@ When run as the current user, the selected item will open using your default con
 
 This starts the file manager of your choice as the current user, Administrator, or TrustedInstaller, in the currently selected folder.
 
-Edit the file **RightClickTools.ini** and, in the **FileManagerHere** section, uncomment (remove the semicolon) and change the **Exe=** entry to the path of your preferred file manager. The path for 7-Zip is provided as an example.
+Edit the file **RightClickTools.ini** and, in the **FileManagerHere** section, uncomment (remove the semicolon) and change the **Exe=** entry to the path of your preferred file manager. The path for the 7-Zip file manager is provided as an example (and is a recommended configuration).
 
 By default, **File manager here** will run Explorer which is fine in most cases where you just need to manage files in a system folder with Administrator or TrustedInstaller access. If you need to manage files within a long path, then a [different file manager](https://gist.github.com/LesFerch/2facb07079394cf2324b6db459bd25d1) is needed because Explorer can only *navigate* long paths.
 
@@ -171,7 +175,7 @@ This starts RegEdit as the current user, Administrator, or TrustedInstaller.
 
 **TustedInstaller**: This opens **RegEdit** via the SYSTEM account with **TrustedInstaller** privileges. This is handy for changing protected settings. Use with care.
 
-**Hidden feature**: Hold down the **Shift** key when selecting this item to open RegEdit collapsed (not supported for TrustedInstaller or Standard user launching as Administrator).
+**Hidden feature**: Hold down the **Shift** key when selecting this item to open RegEdit collapsed (not supported for TrustedInstaller or Standard user launching as Administrator). **Warning**: This option will clear your Regedit favorites.
 
 
 ### Clear History
