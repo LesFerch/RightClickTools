@@ -103,40 +103,24 @@ When enabled, a privilege elevation task is added to Windows Task Scheduler for 
 
 ### Add to Custom Context Menu
 
-This option only appears if you've installed the program [Custom Context Menu](https://apps.microsoft.com/detail/9pc7bzz28g0x). When enabled, Right-Click Tools is added to Custom Context Menu. Be sure to turn Custom Context Menu off and back on (via its interface) in order to see the changes. Since Right-Click Tools 2.x directly supports the modern context menu, this option is essentially redundant. It may appeal to users of Custom Context Menu that wish to minimize the number of context menu handlers that are added to Windows.
+This option only appears if you've installed the program [Custom Context Menu](https://apps.microsoft.com/detail/9pc7bzz28g0x). When enabled, Right-Click Tools is added to Custom Context Menu. Be sure to turn Custom Context Menu off and back on (via its interface) in order to see the changes. Since Right-Click Tools 2.x directly supports the modern context menu, this option is essentially redundant. It may appeal to users of Custom Context Menu that wish to minimize the number of context menu handlers that are added to Windows or wish to pick and choose which tools appear in the menu.
 
 ### Show only the classic context menu
 
-This option appears on Windows 11 or higher. The slider will already be in the on position if you've already changed Windows 11 to use the classic context menu. When enabled, the Explorer context menu will be the classic version. When disabled, the Explorer context menu will be the modern version (i.e. Windows 11 default), with the classic version available by holding the **Shift** key when right-clicking.
+This option appears on Windows 11 or higher. The slider will be in the on position if you've already changed Windows 11 to use the classic context menu. When enabled, the Explorer context menu will be the classic version. When disabled, the Explorer context menu will be the modern version (i.e. Windows 11 default), with the classic version available by holding the **Shift** key when right-clicking.
 
 
 ## How to Use
 
-Right-click a folder, the background of an open folder, or a drive to get to the **Right-click Tools** context menu, as shown at the beginning of this document.
+Right-click a folder, the background of an open folder, or a drive to get to the **Right-click Tools** context menu, as shown at the beginning of this document. Right-Click Tools will NOT appear when right-clicking a file. It is a folder level tool set.
 
-Right-Click Tools will NOT appear when right-clicking a file. It is a folder level tool set.
-
-**Note**: You can also double-click Right-Click Tools to run it direcly without installation. See the **Launcher Mode** section for configuration options.
+You can also double-click Right-Click Tools to run it direcly without installation. See the **Launcher Mode** section for configuration options.
 
 Select the action you wish to perform. If nothing happens, then the Exe was likely moved after running Setup. In that case, run **Setup.exe** again.
 
-**Note**: Clicking the **`X`** in any dialog means _do nothing_. Therefore, there's no need for "No" or "Cancel" buttons.
-
-**Note**: Since Right-Click Tools is a .Net application, there can be some delay on first run of some menu items. Also Windows Defender (or other AV software) can add delays to intial launches as it scans the components.
-
-## Commands
-
-### Cmd Here, PowerShell Here, and PowerShell Core Here
-
-This opens a console or terminal window, with the selected shell, in the currently selected folder.
-
-By default, a dialog will pop up allowing you to run as **User**, **Administrator**, or **TrustedInstaller**. 
-
-You can also configure Right-Click Tools to open any of these tools at the Run-As level of your choice and only show the pop-up when the **Ctrl** key is held down.
-
-When run as the current user, the selected item will open using your default console program (**Console Host** or **Windows Terminal**). When running as Administrator, it will default to Windows Terminal (if available) but you can configure it to use the classic ConHost if prefered.
-
 **Notes**:
+- Clicking the **`X`** in any dialog means _do nothing_. Therefore, there's no need for "No" or "Cancel" buttons.
+- Since Right-Click Tools is a .Net application, there can be some delay on first run of some menu items. Also Windows Defender (or other AV software) can add delays to intial launches as it scans the components.
 - If the current user is an "Administrator", running a tool as Administrator elevates the current user and therefore runs within the current user's profile.
 - If the current user is a "Standard" user, running a tool as Administrator will prompt for a login and therefore run in the profile of the newly logged in administrator user.
 - TrustedInstaller is useful for accessing and making changes in protected folders, such as **WindowsApps**. Use with care.
@@ -145,19 +129,27 @@ When run as the current user, the selected item will open using your default con
 - When PowerShell is opened in a long path, running an executable, such as **whoami** will result in an error (or no output with PowerShell Core). This is a PowerShell problem. It has nothing to do with Right-click Tools and there is no known fix or workaround.
 - See the **Configuration** section later in this document for configuration details.
 
+## Commands
+
+### Cmd Here, PowerShell Here, and PowerShell Core Here
+
+This opens a console host or terminal window, with the selected shell, in the currently selected folder.
+
+By default, a dialog will pop up allowing you to run as **User**, **Administrator**, or **TrustedInstaller**. 
+
+You can also configure Right-Click Tools to open any of these tools at the Run-As level of your choice and only show the pop-up when the **Ctrl** key is held down.
+
+When run as the current user, the selected item will open using your default console program (**Console Host** or **Windows Terminal**). When running as Administrator, it will default to Windows Terminal (if available) but you can configure it to use the classic ConHost if prefered.
+
 ### File manager here
 
-This starts the file manager of your choice as the current user, Administrator, or TrustedInstaller.
-
-![image](https://github.com/user-attachments/assets/5de79a20-aaca-4a11-92fa-5c13f273c778)
+This starts the file manager of your choice as the current user, Administrator, or TrustedInstaller, in the currently selected folder.
 
 Edit the file **RightClickTools.ini** and, in the **FileManagerHere** section, uncomment (remove the semicolon) and change the **Exe=** entry to the path of your preferred file manager. The path for 7-Zip is provided as an example.
 
-**Note**: If **Privileged file manager here** fails to open a window (may happen on first run due to .Net initialization), try one of the other "TrustedInstaller" options, such as **Cmd here as TrustedInstalller** and then try again.
+By default, **File manager here** will run Explorer which is fine in most cases where you just need to manage files in a system folder with Administrator or TrustedInstaller access. If you need to manage files within a long path, then a [different file manager](https://gist.github.com/LesFerch/2facb07079394cf2324b6db459bd25d1) is needed because Explorer can only *navigate* long paths.
 
-**Note**: Explorer can only *navigate* long paths. If you need to make changes to long paths, consider using a [different file manager](https://gist.github.com/LesFerch/2facb07079394cf2324b6db459bd25d1) that fully supports long paths, such as 7-Zip. 
-
-Please note the following expected behaviors when using this feature:
+Please note the following expected behaviors when using this feature with the default (Explorer) configuration:
 
 - On Windows 11, Explorer as **TrustedInstaller** will open a file dialog (aka mini Explorer) instead of a full Explorer window.
 - As an Administrator user on Windows 11, Explorer as **Adminstrator** will open the new Windows 11 Explorer, even if you have set the old Explorer as the default using a tool such as [SwitchExplorer](https://lesferch.github.io/SwitchExplorer/).
@@ -169,21 +161,18 @@ Please note the following expected behaviors when using this feature:
 **Note**: Normally Explorer does not allow itself to be "Run as Administrator", but that behavior can be disabled via a [registry setting](https://gist.github.com/LesFerch/a7e43762bb84f18c8ef6ccdfe606eff8) that requires TrustedInstaller privileges to change. Right-Click Tools temporarily changes that registry setting in order to run Explorer elevated (for Administrator users). Some details about why the restriction exists can be found in [this article and its comments](https://devblogs.microsoft.com/oldnewthing/20220524-00/?p=106682)
 
 
-### RegEdit as User
+### RegEdit
 
-This opens RegEdit as a standard user. As an administrator, this can be handy to verify what a standard user can or cannot change in the registry without having to analyze the permissions. As a standard user, this option opens RegEdit as it would normally.
+This starts RegEdit as the current user, Administrator, or TrustedInstaller.
+
+**User**: This can be handy to verify what a standard user can or cannot change in the registry without having to analyze the permissions. As a standard user, this option opens RegEdit as it would normally.
+
+**Administrator**: For an "Administrator" user, this is the same as the normal method of opening RegEdit except that it eliminates the nuisance of the UAC prompt (if the privilege elevation task is installed). For a standard user, this option pops up a UAC prompt and then regedit will be running under the profile of the account used at the UAC prompt.
+
+**TustedInstaller**: This opens **RegEdit** via the SYSTEM account with **TrustedInstaller** privileges. This is handy for changing protected settings. Use with care.
 
 **Hidden feature**: Hold down the **Ctrl** key when selecting this item to open RegEdit collapsed.
 
-### RegEdit as Administrator
-
-This opens RegEdit as an administrator. As an administrator, this is the same as the normal method of opening RegEdit except that it eliminates the nuisance of the UAC prompt (if the privilege elevation task is installed). For a standard user, this option pops up a UAC prompt and then regedit will be running under the profile of the account used at the UAC prompt.
-
-**Hidden feature**: For administrator users, hold down the **Ctrl** key when selecting this item to open RegEdit collapsed.
-
-### RegEdit as TrustedInstaller
-
-This opens **RegEdit** via the SYSTEM account with **TrustedInstaller** privileges. This is handy for changing a protected setting. Use with care.
 
 ### Clear History
 
