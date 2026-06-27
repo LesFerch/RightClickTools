@@ -171,7 +171,7 @@ This starts RegEdit as the current user, Administrator, or TrustedInstaller.
 
 **TustedInstaller**: This opens **RegEdit** via the SYSTEM account with **TrustedInstaller** privileges. This is handy for changing protected settings. Use with care.
 
-**Hidden feature**: Hold down the **Ctrl** key when selecting this item to open RegEdit collapsed.
+**Hidden feature**: Hold down the **Shift** key when selecting this item to open RegEdit collapsed (not supported for TrustedInstaller or Standard user launching as Administrator).
 
 
 ### Clear History
