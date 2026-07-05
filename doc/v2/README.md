@@ -128,6 +128,10 @@ You can also double-click Right-Click Tools to run it direcly without installati
 - When PowerShell is opened in a long path, running an executable, such as **whoami** will result in an error (or no output with PowerShell Core). This is a PowerShell problem. It has nothing to do with Right-click Tools and there is no known fix or workaround.
 - See the **Configuration** section later in this document for configuration details.
 
+## Launcher Mode
+
+When `RightClickTools.exe` is double-clicked, it opens its own built-in tool launcher.
+
 ## Commands
 
 By default, where elevation is applicable to a tool, a dialog will pop up allowing you to run as **User**, **Administrator**, or **TrustedInstaller**. 
