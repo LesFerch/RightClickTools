@@ -114,9 +114,9 @@ This option appears on Windows 11 or higher. The slider will be in the on positi
 
 Right-click a folder, the background of an open folder, or a drive to get to the **Right-click Tools** context menu, as shown at the beginning of this document. Right-Click Tools will NOT appear when right-clicking a file. It is a folder level tool set.
 
-You can also double-click Right-Click Tools to run it direcly without installation. See the **Launcher Mode** section for configuration options.
-
 Select the action you wish to perform. If nothing happens, then the Exe was likely moved after running Setup. In that case, run **Setup.exe** again.
+
+You can also double-click Right-Click Tools to run it direcly without installation. See the **Launcher Mode** section for configuration options.
 
 **Notes**:
 - Clicking the **`X`** in any dialog means _do nothing_. Therefore, there's no need for "No" or "Cancel" buttons.
@@ -125,7 +125,7 @@ Select the action you wish to perform. If nothing happens, then the Exe was like
 - If the current user is a "Standard" user, running a tool as Administrator will prompt for a login and therefore run in the profile of the newly logged in administrator user.
 - TrustedInstaller is useful for accessing and making changes in protected folders, such as **WindowsApps**. Use with care.
 - TrustedInstaller is not a user. It's a service that runs via the SYSTEM account. Therefore a **WhoAmI** command will display **nt authority\system**.
-- When opening a folder with a long path (> 260 characters) the prompt will be in the short (8.3) format. This lets you know that you're in a long path and prevents the prompt from taking too much screen space.
+- When opening a folder with a long path (> 260 characters) a Cmd or PowerShell prompt will be in the short (8.3) format. This lets you know that you're in a long path and prevents the prompt from taking too much screen space.
 - When PowerShell is opened in a long path, running an executable, such as **whoami** will result in an error (or no output with PowerShell Core). This is a PowerShell problem. It has nothing to do with Right-click Tools and there is no known fix or workaround.
 - See the **Configuration** section later in this document for configuration details.
 
@@ -164,6 +164,24 @@ Please note the following expected behaviors when using this feature with the de
 
 **Note**: Normally Explorer does not allow itself to be "Run as Administrator", but that behavior can be disabled via a [registry setting](https://gist.github.com/LesFerch/a7e43762bb84f18c8ef6ccdfe606eff8) that requires TrustedInstaller privileges to change. Right-Click Tools temporarily changes that registry setting in order to run Explorer elevated (for Administrator users). Some details about why the restriction exists can be found in [this article and its comments](https://devblogs.microsoft.com/oldnewthing/20220524-00/?p=106682)
 
+### Search here
+
+<img width="543" height="592" alt="image" src="https://github.com/user-attachments/assets/042df66e-3893-47bf-9dd1-dfd7d4cdece5#gh-dark-mode-only" />
+<img width="545" height="595" alt="image" src="https://github.com/user-attachments/assets/54ebb6e3-de1c-4dbc-90d0-a8f0f4128832#gh-light-mode-only" />
+
+By default, this opens a dialog that helps you build a search term using Advanced Query Syntax (AQS) which is sent to Explorer using the search-ms: protocol. If the query is valid, Explorer should open a window with the search results for that query. The Search Helper does not evaluate your query. It only passes it to Explorer.
+
+If you prefer to use a third-party search tool such as [Everything](https://www.voidtools.com/) or [FileLocator Pro](https://www.mythicsoft.com/filelocatorpro/), you can configure this option to open the search tool of your choice at the current folder. See the **Configuration** section later in this document for details.
+
+**Note**: Windows 7 does not support the search-ms: protocol, so, for Windows 7, the Search Helper puts the AQS query on the clipboard and then opens an Explorer window where it can be pasted into the search box. 
+
+Please note that the results you get with an AQS query is up to Explorer. If you don't get the expected results, your query needs adjustment. It's very easy to construct a query that looks correct, but returns no results (or doesn't even open Explorer). For example, `*.*` for `Name:` will not work, but `*` will work. Also note that the design of the Search Helper dialog is meant to put the most common queries types as quick selections, but those options should not be interpreted as being exclusive. For example, the first pull down menu lets you select either `Kind:` or `Ext:` but in reality, AQS will allow a query to include both of those properties.
+
+If you wish to construct a query that extends beyond the provided quick picks, enable the `Custom` slider. This will add a field where you can manually edit the query. The query generated from your quick picks will initially be copied to that field. You can update the quick picks and re-copy the query by clicking the `Copy` button. The `More` button will let you add any property to your query.
+
+Clicking **OK** sends your query to Explorer.
+
+Your query history is shown in the box just above the OK button. You can execute a query from your history with a single click when the `Custom` slider is in the off position. When the `Custom` slider is in the on position, clicking a query in your history copies it to the Custom field. Then clicking **OK** executes the query. You can remove individual queries from the histroy with a **Ctrl-click** or you can click the **Edit** button to open and edit the `Searches.txt` file.
 
 ### RegEdit
 
