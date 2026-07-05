@@ -219,8 +219,7 @@ This clears the data for the selected items.
 ### Unblock files here
 
 <img width="392" height="234" alt="image" src="https://github.com/user-attachments/assets/4bc6e8bb-3900-45f4-8beb-7c902211969b#gh-light-mode-only" />
-<img width="392" height="234" alt="image" src="https://github.com/user-attachments/assets/540d40bf-8fd6-49d6-9de1-1643be0b11e4#gh-dark-mode-onl" />
-
+<img width="392" height="234" alt="image" src="https://github.com/user-attachments/assets/540d40bf-8fd6-49d6-9de1-1643be0b11e4#gh-dark-mode-only" />
 
 
 ### Take ownership and get access
