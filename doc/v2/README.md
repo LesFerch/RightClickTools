@@ -268,7 +268,7 @@ This dialog provides various options for configuring your folder views including
 
 **Always show icons, never thumbnails**: This is exactly the same option you can find in Explorer's settings.
 
-**Disable folder thumbnails**: This setting disables thumbnails for folders without disabling thumbnails for files. This same setting is also in [WinSetView](https://lesferch.github.io/WinSetView)
+**Disable folder thumbnails**: This setting disables thumbnails for folders without disabling thumbnails for files. This same setting is also in [WinSetView](https://lesferch.github.io/WinSetView).
 
 #### Force Folder type via desktop.ini
 
@@ -290,7 +290,35 @@ This allows you to set the folder's icon for a single folder or a whole folder t
 
 **Selected image**: This lets you pick an image file from which an icon will be automatically created and assigned to the folder.
 
-**Most recent image** and **First image alphabetically**: If the folder contains one or more images, the most recent (or first by name) will be used to generate an icon that is assigned to the folder. This is an alternative to Explorer's thumbnail feature that provides provides various options such as Fit, Fill, 2 up, and 4 up. A preview is shown for those options as long as the selected folder contains one or more images. If the `Also apply to subfolders` option is selected, a preview is shown using sample images.
+**Most recent image** and **First image alphabetically**: If the folder contains one or more images, the most recent (or first by name) will be used to generate an icon that is assigned to the folder. This is an alternative to Explorer's thumbnail feature that provides various options such as Fit, Fill, 2 up, and 4 up. A preview is shown for those options as long as the selected folder contains one or more images. If the `Also apply to subfolders` option is selected, a preview is shown using sample images.
+
+### Settings
+
+This provides quick access to the Right-Click Tools configuration files and provides shortcuts to most Windows settings.
+
+**Note**: The options `Windows Settings` and `Installed apps` do nothing on Windows 7 and 8.
+
+### More Tools
+
+This submenu provides two more tools (`Shortcut Tool` and `Date Time Tool`) and can be configured to add any other executables or scripts which may be run as User, Administrator, or TrustedInstaller. In Right-Click Tools, open **Settings** > **Right-Click Tool Settings** and edit the file **MoreTools.ini** to modify this submenu. See the commented-out example entries for details.
+
+### Shortcut Tool
+
+<img width="484" height="451" alt="image" src="https://github.com/user-attachments/assets/175ef0f6-5df5-47e7-acf3-23721b11da99#gh-light-mode-only" />
+<img width="484" height="451" alt="image" src="https://github.com/user-attachments/assets/ac890155-0e78-48b0-80fb-d7a71ab6a6df#gh-dark-mode-only" />
+
+The **Convert** section is used to convert URL type shortcuts to LNK type shortcuts. This is useful because URL shortcuts do not reliably show icons larger than size medium. That's an old bug that dates back to at least Windows 7 and continues with Windows 11.
+
+The **Search and Replace** saection allows dping a search and replace of text within fields in Windows LNK type shortcuts. Note that you must enter something to search for before the `Target`, `Start in`, and `Icon` options can be checked.
+
+### Date Time Tool
+
+<img width="485" height="468" alt="image" src="https://github.com/user-attachments/assets/662ddb93-6cd5-454d-9e59-c1c40fd8ad7a#gh-light-mode-only" />
+<img width="484" height="464" alt="image" src="https://github.com/user-attachments/assets/7f0eb037-d0bf-4b95-aa9b-1bc020465c1a#gh-dark-mode-only" />
+
+This is used to make changes to the dates/times for all file in a folder (or all subfolders if that option is checked). The options are self-explanatory.
+
+**Note**: If you need to change the date/time for only one file, or only selected files, you'll need a different tool such as [SKTimeStamp](https://tools.stefankueng.com/SKTimeStamp.html).
 
 ### Restart Explorer
 
