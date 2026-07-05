@@ -109,7 +109,6 @@ This option only appears if you've installed the program [Custom Context Menu](h
 
 This option appears on Windows 11 or higher. The slider will be in the on position if you've already changed Windows 11 to use the classic context menu. When enabled, the Explorer context menu will be the classic version. When disabled, the Explorer context menu will be the modern version (i.e. Windows 11 default), with the classic version available by holding the **Shift** key when right-clicking.
 
-
 ## How to Use
 
 Right-click a folder, the background of an open folder, or a drive to get to the **Right-click Tools** context menu, as shown at the beginning of this document. Right-Click Tools will NOT appear when right-clicking a file. It is a folder level tool set.
@@ -221,12 +220,14 @@ This clears the data for the selected items.
 <img width="392" height="234" alt="image" src="https://github.com/user-attachments/assets/4bc6e8bb-3900-45f4-8beb-7c902211969b#gh-light-mode-only" />
 <img width="392" height="234" alt="image" src="https://github.com/user-attachments/assets/540d40bf-8fd6-49d6-9de1-1643be0b11e4#gh-dark-mode-only" />
 
+This clears the Mark of the Web (MOTW) from files in the current folder (and optionally all subfolders). This is applicable to NTFS volumes only.
 
 ### Take ownership and get access
 
 This gives you ownership and access to the selected folder. Right-click Tools uses the **SetACL** program to do the work. This allows it to set ownership and access on folders with Unicode characters in the name and ones that are in long paths.
 
-![image](https://github.com/user-attachments/assets/9e1f9975-b859-432e-9b8a-9c8d0a8ab45a)
+<img width="394" height="201" alt="image" src="https://github.com/user-attachments/assets/2cc15377-8627-4bf1-afa9-1babe8f3544b#gh-light-mode-only" />
+<img width="393" height="202" alt="image" src="https://github.com/user-attachments/assets/3eb5df36-19cc-45ae-a40f-60c49487ee27#gh-dark-mode-only" />
 
 This option will not allow changing permissions on system folders and will display a message when that's attempted. The restrictions can be edited in the file **RightClickTools.ini**, but that should be avoided. If you need to make changes in a restricted folder, such as **WindowsApps**, you should access the folder using the Cmd or PowerShell Here as **TrustedInstaller** option or the **Privileged file manager here** option as **TrustedInstaller**.
 
@@ -236,7 +237,8 @@ This option will not allow changing permissions on system folders and will displ
 
 This will show whether the selected folder is currently part of the user or system path and will allow you to change that by checking or unchecking the appropriate box.
 
-![image](https://github.com/LesFerch/RightClickTools/assets/79026235/c0751d3c-a4fe-4e95-911a-54d872bf9e27)
+<img width="394" height="220" alt="image" src="https://github.com/user-attachments/assets/56cfb924-5482-4372-bf24-099fefd4ef1b#gh-light-mode-only" />
+<img width="392" height="217" alt="image" src="https://github.com/user-attachments/assets/e89b4a8f-a183-4c57-a4e9-9dbd1f84760f#gh-dark-mode-only" />
 
 ### Toggle display of hidden and system files
 
@@ -246,21 +248,56 @@ This toggles between showing hidden and system files and hiding them. It immedia
 
 This item provides options to do a quick shell refresh or a complete reset of the icon and/or thumbnail caches.
 
-![image](https://github.com/user-attachments/assets/9f25caee-9d38-49c5-8a3a-e989efdd8771)
+<img width="343" height="182" alt="image" src="https://github.com/user-attachments/assets/bb1299a6-32ba-4025-98db-20fa4c7fa47b#gh-light-mode-only" />
+<img width="344" height="181" alt="image" src="https://github.com/user-attachments/assets/de101cd4-3fca-4a02-8a0e-a468ccc71613#gh-dark-mode-only" />
 
 The default option, "Shell refresh only", quickly refreshes the shell, which is most useful when you've changed an icon, but the old icon or a blank icon is displayed. It tells Explorer to refresh its icon cache and window views. It also tells Explorer to update its current settings (where possible) from the settings in the registry.
 
 If the "Shell refresh only" option does not correct the display of icons and thumbnails then you can select either or both of the "Reset" options which will kill Explorer, wait 2 seconds, clear the icon and/or thumbnail cache, and then restart Explorer.
 
+### Folder Options here
+
+<img width="484" height="670" alt="image" src="https://github.com/user-attachments/assets/f49cefb3-cfa6-4ab0-9485-25ff5411587e#gh-light-mode-only" />
+<img width="482" height="665" alt="image" src="https://github.com/user-attachments/assets/2eb1ae85-efad-4236-ad26-3fba4871db20#gh-dark-mode-only" />
+
+This dialog provides various options for configuring your folder views including `Global settings`, `Folder type` settings, and `Folder icon` settings.
+
+#### Global Settings
+
+**Automatic Folder Type Discovery**: When this is enabled (Windows default) Explorer sets each folder's type (General items, Documents, Music, Pictures, Videos) based on the folder's contents. When it's disabled, all folders default to type `General items`. This is the same setting as `Make all folders Generic` in [WinSetView](https://lesferch.github.io/WinSetView). Note that automatic folder type discovery must be enabled to use `Force Folder type via desktop.ini`.
+
+**Always show icons, never thumbnails**: This is exactly the same option you can find in Explorer's settings.
+
+**Disable folder thumbnails**: This setting disables thumbnails for folders without disabling thumbnails for files. This same setting is also in [WinSetView](https://lesferch.github.io/WinSetView)
+
+#### Force Folder type via desktop.ini
+
+This allows you to set the folder type, overriding Explorer's automatic folder type discovery, for a single folder or a whole folder tree (if `Also apply to subfolders` is checked). It does this by setting the folder type via an entry in the hidden `desktop.ini` file within the folder.
+
+**Note**:
+
+- Explorer updates the view in the background as it notices the addition (or change) of the desktop.ini files. How long it will take is variable. It depends on the speed of the computer, what other processes are running, how many folders are affected, and so forth. But it can often take 30 seconds or so for all the folder views to update. So, before you jump onto GitHub and post an issue, relax, do something else for a minute and then go back and check your folders. You should see that Explorer did its thing and updated the view.
+
+- Explorer will not update the folder's view until the folder is closed. However, having an open folder only stops the view update for that particular folder level. The subfolder's views will update even if you have the parent folder open.
+
+#### Set Folder icon via desktop.ini
+
+This allows you to set the folder's icon for a single folder or a whole folder tree (if `Also apply to subfolders` is checked). It does this by setting the folder icon via an entry in the hidden `desktop.ini` file within the folder. The following options are provided:
+
+**Selected color**: This lets you pick a color (consistent with OneDrive folder coloring) that sets the folder's icon to a colored icon. Please note that this is simply an icon change, so you cannot get a thumbnail plus a colored folder.
+
+**Selected icon**: This opens a dialog where you can browse for and pick any valid icon you may have on hand.
+
+**Selected image**: This lets you pick an image file from which an icon will be automatically created and assigned to the folder.
+
+**Most recent image** and **First image alphabetically**: If the folder contains one or more images, the most recent (or first by name) will be used to generate an icon that is assigned to the folder. This is an alternative to Explorer's thumbnail feature that provides provides various options such as Fit, Fill, 2 up, and 4 up. A preview is shown for those options as long as the selected folder contains one or more images. If the `Also apply to subfolders` option is selected, a preview is shown using sample images.
 
 ### Restart Explorer
 
 This restarts Explorer and opens a window to the currently selected folder.
 
-![image](https://github.com/user-attachments/assets/fda6dffc-061c-4dbb-b359-52efe48da39f)
-
-
-
+<img width="344" height="154" alt="image" src="https://github.com/user-attachments/assets/43895481-7cae-4d8d-b914-f98a8e4e4226#gh-light-mode-only" />
+<img width="343" height="151" alt="image" src="https://github.com/user-attachments/assets/d904d69a-c4ba-49f6-b7a0-2af9027757e5#gh-dark-mode-only" />
 
 \
 \
