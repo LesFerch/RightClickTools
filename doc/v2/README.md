@@ -133,10 +133,10 @@ You can also double-click Right-Click Tools to run it direcly without installati
 
 By default, where elevation is applicable to a tool, a dialog will pop up allowing you to run as **User**, **Administrator**, or **TrustedInstaller**. 
 
-You can also configure Right-Click Tools to open any of these tools at the Run-As level of your choice and only show the pop-up when the **Ctrl** key is held down.
-
 <img width="345" height="222" alt="image" src="https://github.com/user-attachments/assets/7c4fb3de-1c68-4444-b133-f241987f6562#gh-dark-mode-only" />
 <img width="346" height="223" alt="image" src="https://github.com/user-attachments/assets/0f58f579-15ac-41ff-aaf8-675ec377fdd6#gh-light-mode-only" />
+
+You can also configure Right-Click Tools to open any of the applicable tools at the Run-As level of your choice and only show the pop-up when the **Ctrl** key is held down. See the **Configuration** section later in this document for details.
 
 
 ### Cmd Here, PowerShell Here, and PowerShell Core Here
@@ -181,7 +181,7 @@ If you wish to construct a query that extends beyond the provided quick picks, e
 
 Clicking **OK** sends your query to Explorer.
 
-Your query history is shown in the box just above the OK button. You can execute a query from your history with a single click when the `Custom` slider is in the off position. When the `Custom` slider is in the on position, clicking a query in your history copies it to the Custom field. Then clicking **OK** executes the query. You can remove individual queries from the histroy with a **Ctrl-click** or you can click the **Edit** button to open and edit the `Searches.txt` file.
+Your query history is shown in the box just above the OK button. You can execute a query from your history with a single click when the `Custom` slider is in the off position. When the `Custom` slider is in the on position, clicking a query in your history copies it to the Custom field. Then clicking **OK** executes the query. You can remove individual queries from the history with a **Ctrl-click** or you can click the **Edit** button to open and edit the `Searches.txt` file.
 
 ### RegEdit
 
@@ -193,22 +193,35 @@ This starts RegEdit as the current user, Administrator, or TrustedInstaller.
 
 **TustedInstaller**: This opens **RegEdit** via the SYSTEM account with **TrustedInstaller** privileges. This is handy for changing protected settings. Use with care.
 
-**Hidden feature**: Hold down the **Shift** key when selecting this item to open RegEdit collapsed (not supported for TrustedInstaller or Standard user launching as Administrator). **Warning**: This option will clear your Regedit favorites.
+**Hidden feature**: Hold down the **Shift** key when selecting this item to open RegEdit collapsed (not supported for TrustedInstaller or Standard user launching as Administrator).
 
 
 ### Clear History
 
 This clears the data for the selected items.
 
-![image](https://github.com/LesFerch/RightClickTools/assets/79026235/9724da1a-b634-4f3f-9903-8d2b808a88fa)
+<img width="344" height="299" alt="image" src="https://github.com/user-attachments/assets/0ce7a240-f497-4437-8c76-14cb18d30dbe#gh-light-mode-only" />
+<img width="342" height="295" alt="image" src="https://github.com/user-attachments/assets/e3f42685-f01d-4001-9b4a-c8cfb074030b#gh-dark-mode-only" />
 
-Recent items are the recent files and folders shown in Explorer's Home or Quick Access section.
 
-Auto-suggest items are the items that show in drop-down lists, such as the Run box.
+- `Recent items` are the recent files and folders shown in Explorer's Home or Quick Access section.
 
-Temporary files are all files that are not currently in use within the %Temp% location.
+- `Auto-suggest items` are the items that show in drop-down lists, such as the Run box.
 
-Defender history is the "Protection history" list in Windows Defender. Right-click Tools creates a task to clear Windows Defender log files on next restart. The task removes itself after it runs. A UAC prompt will appear if you are logged in as a standard user or the privilege elevation task is not installed.
+- `Temporary files` are all files that are not currently in use within the `%Temp%` location.
+
+- The `Recycle Bin` will be emptied when this option is selected.
+
+- `Defender history` is the "Protection history" list in Windows Defender. Right-click Tools creates a task to clear Windows Defender log files on next restart. The task removes itself after it runs. A UAC prompt will appear if you are logged in as a standard user or the privilege elevation task is not installed.
+
+- The `Specified folders` option will clear any folder paths listed in the `Cleanup.txt` file (one folder path per line without quotes). Folder paths specified without a trailing backslash will be emptied (if possible).  Folder paths specified with a trailing backslash will be removed completely (if possible).
+
+### Unblock files here
+
+<img width="392" height="234" alt="image" src="https://github.com/user-attachments/assets/4bc6e8bb-3900-45f4-8beb-7c902211969b#gh-light-mode-only" />
+<img width="392" height="234" alt="image" src="https://github.com/user-attachments/assets/540d40bf-8fd6-49d6-9de1-1643be0b11e4#gh-dark-mode-onl" />
+
+
 
 ### Take ownership and get access
 
