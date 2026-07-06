@@ -307,6 +307,9 @@ This restarts Explorer and opens a window to the currently selected folder.
 
 ### Settings
 
+<img width="344" height="400" alt="image" src="https://github.com/user-attachments/assets/9c5eeada-90c2-4981-a221-66cf9b64523a#gh-light-mode-only" />
+<img width="344" height="402" alt="image" src="https://github.com/user-attachments/assets/1cf72af7-4c62-4b5e-9091-d7e685818dc0#gh-dark-mode-only" />
+
 This provides quick access to the Right-Click Tools configuration files and provides shortcuts to most Windows settings.
 
 **Note**: The options `Windows Settings` and `Installed apps` do nothing on Windows 7 and 8.
