@@ -44,7 +44,7 @@ Use this option if you want to:
 
 **Note**: The option **Context menu via registry (classic only)** is checked by default. This option uses registry keys to add Right-Click Tools to Explorer's classic context menu. This is a zero-overhead option, but you must use the classic context menu either by holding the **Shift** key when right-clicking or by making the classic menu the default (See *Setup** below). The option **Context menu handler (modern + classic)** installs a signed context menu handler that adds Right-Click Tools to both the modern and classic context menu.
 
-**Note**: The installer will automatically run in your Windows current lanaguage. If you wish to force the installer to run in a different language, you can specific that language on the command line using its two letter code. For example:
+**Note**: The installer will automatically run in your Windows current lanaguage. If you wish to force the installer to run in a different language, you can specify that language on the command line using its two letter code. For example:
 
 `RightClickTools-Setup /lang=en`
 
@@ -123,7 +123,7 @@ You can also double-click Right-Click Tools to run it direcly without installati
 - If the current user is an "Administrator", running a tool as Administrator elevates the current user and therefore runs within the current user's profile.
 - If the current user is a "Standard" user, running a tool as Administrator will prompt for a login and therefore run in the profile of the newly logged in administrator user.
 - TrustedInstaller is useful for accessing and making changes in protected folders, such as **WindowsApps**. Use with care.
-- TrustedInstaller is not a user. It's a service that runs via the SYSTEM account. Therefore a **WhoAmI** command will display **nt authority\system**.
+- TrustedInstaller is not a user. It's a service that runs via the SYSTEM account. Therefore a **whoami** command will display **nt authority\system**.
 - When opening a folder with a long path (> 260 characters) a Cmd or PowerShell prompt will be in the short (8.3) format. This lets you know that you're in a long path and prevents the prompt from taking too much screen space.
 - When PowerShell is opened in a long path, running an executable, such as **whoami** will result in an error (or no output with PowerShell Core). This is a PowerShell problem. It has nothing to do with Right-click Tools and there is no known fix or workaround.
 - See the **Configuration** section later in this document for configuration details.
