@@ -339,6 +339,15 @@ This is used to make changes to the dates/times for all file in a folder (or all
 
 **Note**: If you need to change the date/time for only one file, or only selected files, you'll need a different tool such as [SKTimeStamp](https://tools.stefankueng.com/SKTimeStamp.html).
 
+## Configuration
+
+- To change the current configuation, edit the INI files within your `%%localappdata%`folder .
+- To change the default settings for portable use (e.g. when run from a flash drive), edit the INI files within the `AppParts` folder.
+
+| INI File | Section | Setting | Description |
+| --- | --- | --- | --- |
+| RightClickTools.ini |
+
 \
 \
 [![image](https://github.com/LesFerch/WinSetView/assets/79026235/63b7acbc-36ef-4578-b96a-d0b7ea0cba3a)](https://github.com/LesFerch/RightClickTools)
