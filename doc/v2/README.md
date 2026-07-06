@@ -296,6 +296,13 @@ This allows you to set the folder's icon for a single folder or a whole folder t
 
 **Most recent image** and **First image alphabetically**: If the folder contains one or more images, the most recent (or first by name) will be used to generate an icon that is assigned to the folder. This is an alternative to Explorer's thumbnail feature that provides various options such as Fit, Fill, 2 up, and 4 up. A preview is shown for those options as long as the selected folder contains one or more images. If the `Also apply to subfolders` option is selected, a preview is shown using sample images.
 
+### Restart Explorer
+
+This restarts Explorer and opens a window to the currently selected folder.
+
+<img width="344" height="154" alt="image" src="https://github.com/user-attachments/assets/43895481-7cae-4d8d-b914-f98a8e4e4226#gh-light-mode-only" />
+<img width="343" height="151" alt="image" src="https://github.com/user-attachments/assets/d904d69a-c4ba-49f6-b7a0-2af9027757e5#gh-dark-mode-only" />
+
 ### Settings
 
 This provides quick access to the Right-Click Tools configuration files and provides shortcuts to most Windows settings.
@@ -323,13 +330,6 @@ The **Search and Replace** saection allows dping a search and replace of text wi
 This is used to make changes to the dates/times for all file in a folder (or all subfolders if that option is checked). The options are self-explanatory.
 
 **Note**: If you need to change the date/time for only one file, or only selected files, you'll need a different tool such as [SKTimeStamp](https://tools.stefankueng.com/SKTimeStamp.html).
-
-### Restart Explorer
-
-This restarts Explorer and opens a window to the currently selected folder.
-
-<img width="344" height="154" alt="image" src="https://github.com/user-attachments/assets/43895481-7cae-4d8d-b914-f98a8e4e4226#gh-light-mode-only" />
-<img width="343" height="151" alt="image" src="https://github.com/user-attachments/assets/d904d69a-c4ba-49f6-b7a0-2af9027757e5#gh-dark-mode-only" />
 
 \
 \
