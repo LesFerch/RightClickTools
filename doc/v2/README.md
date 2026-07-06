@@ -134,7 +134,7 @@ When `RightClickTools.exe` is double-clicked, it opens its own built-in tool lau
 
 ## Commands
 
-By default, where elevation is applicable to a tool, a dialog will pop up allowing you to run as **User**, **Administrator**, or **Truhe stedInstaller**. 
+By default, where elevation is applicable to a tool, a dialog will pop up allowing you to run as **User**, **Administrator**, or **TrustedInstaller**. 
 
 <img width="345" height="222" alt="image" src="https://github.com/user-attachments/assets/7c4fb3de-1c68-4444-b133-f241987f6562#gh-dark-mode-only" />
 <img width="346" height="223" alt="image" src="https://github.com/user-attachments/assets/0f58f579-15ac-41ff-aaf8-675ec377fdd6#gh-light-mode-only" />
