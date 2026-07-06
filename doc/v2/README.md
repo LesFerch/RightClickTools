@@ -130,11 +130,11 @@ You can also double-click Right-Click Tools to run it direcly without installati
 
 ## Launcher Mode
 
-When `RightClickTools.exe` is double-clicked, it opens its own built-in tool launcher.
+When `RightClickTools.exe` is double-clicked, it opens its own built-in tool launcher. The launcher menu can be configured via the file **Launcher.ini**. See the commented out examples to see how you can add third party tools, such as grepWin and Bulk Rename Utility, to the menu. See the **Configuration** section for entry details.
 
 ## Commands
 
-By default, where elevation is applicable to a tool, a dialog will pop up allowing you to run as **User**, **Administrator**, or **TrustedInstaller**. 
+By default, where elevation is applicable to a tool, a dialog will pop up allowing you to run as **User**, **Administrator**, or **Truhe stedInstaller**. 
 
 <img width="345" height="222" alt="image" src="https://github.com/user-attachments/assets/7c4fb3de-1c68-4444-b133-f241987f6562#gh-dark-mode-only" />
 <img width="346" height="223" alt="image" src="https://github.com/user-attachments/assets/0f58f579-15ac-41ff-aaf8-675ec377fdd6#gh-light-mode-only" />
