@@ -314,7 +314,10 @@ This provides quick access to the Right-Click Tools configuration files and prov
 
 ### More Tools
 
-This submenu provides two more tools (`Shortcut Tool` and `Date Time Tool`) and can be configured to add any other executables or scripts which may be run as User, Administrator, or TrustedInstaller. In Right-Click Tools, open **Settings** > **Right-Click Tool Settings** and edit the file **MoreTools.ini** to modify this submenu. See the commented-out example entries for details.
+<img width="175" height="134" alt="image" src="https://github.com/user-attachments/assets/f808bfec-413a-4cb6-826f-9d2b39475fd5#gh-light-mode-only" />
+<img width="175" height="134" alt="image" src="https://github.com/user-attachments/assets/0702b3e2-9981-4687-9b6e-43e7f18acb3a#gh-dark-mode-only" />
+
+This submenu provides two more tools (`Shortcut Tool` and `Date Time Tool`) and can be configured to add any other executables or scripts which may be run as User, Administrator, or TrustedInstaller. In Right-Click Tools, open **Settings** > **Right-Click Tool Settings** and edit the file **MoreTools.ini** to modify this submenu. See the commented-out example entries for details. See the **Configuration** section for entry details.
 
 ### Shortcut Tool
 
