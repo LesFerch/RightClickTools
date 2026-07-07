@@ -349,16 +349,17 @@ This is used to make changes to the dates/times for all file in a folder (or all
 | RightClickTools | General | Lang | Use any two letter language code found in the `Language.ini` file |
 | RightClickTools | General | Editor | Set the path to your preferred text editor for RightClickTools edit functions |
 | RightClickTools | General | NoTrustedInstaller | 0 = Enable TrustedInstaller options <br> 1 = Disable TrustedInstaller options |
-| RightClickTools | Launcher <br> SearchHere <br> Settings | AutoClose | 0 = Keep Launcher open <br> 1 = Auto-close launcher after selecting a tool |
-| RightClickTools | Launcher <br> MoreTools | Style | 0 = Use style 2 on Win 11+, otherwise use style 1 <br> 1 = 9 point font and tight spacing <br> 2 = 10 point font and loose spacing |
+| RightClickTools | Launcher <br> MoreTools <br> SearchHere <br> Settings | AutoClose | 0 = Keep Launcher open <br> 1 = Auto-close launcher after selecting a tool |
+| RightClickTools | Launcher <br> MoreTools <br> MoreTools | Style | 0 = Use style 2 on Win 11+, otherwise use style 1 <br> 1 = 9 point font and tight spacing <br> 2 = 10 point font and loose spacing |
 | RightClickTools | CmdHere <br> PowerShellHere <br> PowerShellCoreHere <br> FileManagerHere <br> SearchHere <br> RegEdit | RunAs | 0 = Run as current user <br> 1 = Run as Administrator <br> 2 = Run as TrustedInstaller <br> 3 = Pop-up menu to select elevation <br><br> Optionally hold **Ctrl** key to get pop-up menu|
 | RightClickTools | CmdHere <br> PowerShellHere <br> PowerShellCoreHere | WTadmin | 0 = Use ConHost for Run as Administrator <br> 1 = Use Windows Terminal (if installed) for Run as Administrator |
 | RightClickTools | PowerShellCoreHere <br> FileManagerHere <br> SearchHere | Exe | Optional path to your preferred executable |
 | RightClickTools | TakeOwnHere | StopAll | Owner and permission changes will be refused for these paths and all their subfolders |
 | RightClickTools | TakeOwnHere | StopRoot | Owner and permission changes will be refused for these paths at the root only |
-| Launcher | All | Exe | Path to the executable <br><br> For internal commands, it's always `RightClickTools.exe` <br><br> For external commmands, it's the full path to the executable (without quotes) <br><br> For scripts, this must be the full path of the script interpreter (Cmd, PowerShell, WScript, Python, etc.)|
-| Launcher | All | CmdLine | Command line to pass to the executable <br><br> Include `"%V"` (with the quotes) to specify the selected path <br><br> For internal commands, the value will always be a single argument that specifies which tool to run <br><br> For scripts, this would typically be the full path to the script and possibly additional arguments |
-| Launcher | All | Icon | Path to icon to show in the launcher <br> If omitted, the executable's icon will be used |
+| Launcher <br> MoreTools | All | Exe | Path to the executable <br><br> For internal commands it's always `RightClickTools.exe` <br><br> For external commmands it's the full path to the executable (without quotes) <br><br> For scripts this must be the full path of the script interpreter (Cmd PowerShell WScript Python etc.) |
+| Launcher <br> MoreTools | All | CmdLine | Command line to pass to the executable <br><br> Include `"%V"` (with the quotes) to specify the selected path <br><br> For internal commands the value will always be a single argument that specifies which tool to run <br><br> For scripts this would typically be the full path to the script and possibly additional arguments |
+| Launcher <br> MoreTools | All | Icon | Path to icon to show in the launcher <br><br> If omitted the executable's icon will be used |
+| Launcher <br> MoreTools | All | RunAs | See RunAs description above for RightClickTools.ini |
 
 \
 \
