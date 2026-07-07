@@ -130,7 +130,7 @@ You can also double-click Right-Click Tools to run it direcly without installati
 - When PowerShell is opened in a long path, running an executable, such as **whoami** will result in an error (or no output with PowerShell Core). This is a PowerShell problem. It has nothing to do with Right-click Tools and there is no known fix or workaround.
 - See the **[Configuration](#configuration)** section later in this document for configuration details.
 
-## Launcher Mode
+## Launcher
 
 <img width="303" height="552" alt="image" src="https://github.com/user-attachments/assets/f8e9e12b-c87d-47cf-a136-f941a1ba39aa#gh-dark-mode-only" />
 <img width="305" height="553" alt="image" src="https://github.com/user-attachments/assets/21216b7f-ad8a-4db5-bedd-bac31b21d2f5#gh-light-mode-only" />
