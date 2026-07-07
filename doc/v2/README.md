@@ -358,7 +358,7 @@ This is used to make changes to the dates/times for all file in a folder (or all
 | RightClickTools | TakeOwnHere | StopRoot | Owner and permission changes will be refused for these paths at the root only |
 | Launcher <br> MoreTools | All | Exe | Path to the executable <br><br> For internal commands it's always `RightClickTools.exe` <br><br> For external commmands it's the full path to the executable (without quotes) <br><br> For scripts this must be the full path of the script interpreter (Cmd PowerShell WScript Python etc.) |
 | Launcher <br> MoreTools | All | CmdLine | Command line to pass to the executable <br><br> Include `"%V"` (with the quotes) to specify the selected path <br><br> For internal commands the value will always be a single argument that specifies which tool to run <br><br> For scripts this would typically be the full path to the script and possibly additional arguments |
-| Launcher <br> MoreTools | All | Icon | Path to icon to show in the launcher <br><br> If omitted the executable's icon will be used |
+| Launcher <br> MoreTools | All | Icon | Full path to an ICO file to show in the launcher <br><br> If omitted, the executable's icon will be used |
 | Launcher <br> MoreTools | All | RunAs | See RunAs description above for RightClickTools.ini |
 
 \
