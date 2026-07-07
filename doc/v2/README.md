@@ -2,9 +2,11 @@
 
 ### Version 2.0.0
 
-<img width="570" height="672" alt="image" src="https://github.com/user-attachments/assets/06f2d16b-e6d6-47d7-957e-6e71d1cd38e2#gh-dark-mode-only" />
-<img width="568" height="676" alt="image" src="https://github.com/user-attachments/assets/067f7b88-89ba-472c-a374-268dd0dcf535#gh-light-mode-only" />
-
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/06f2d16b-e6d6-47d7-957e-6e71d1cd38e2">
+  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/067f7b88-89ba-472c-a374-268dd0dcf535">
+  <img width="570" alt="screenshot" src="https://github.com/user-attachments/assets/067f7b88-89ba-472c-a374-268dd0dcf535">
+</picture>
 
 ## Summary
 
