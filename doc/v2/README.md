@@ -10,7 +10,7 @@
 
 This program provides a set of powerful shortcuts and tools that are described in detail below. Where appropriate, the tools can be run as the current user, Administrator, or **TrustedInstaller**. The tool set is user-extendable and may be configured for individual requirements. For example, the default elevation can be set for each tool and TrustedInstaller capability can be disabled if desired.
 
-The tools may be run directly via the built-in launcher or added to the Explorer right-click context menu. Both the classic and modern context menu are fully supported. See the [Installation](#installation) section below for details.
+The tools may be run directly via the built-in launcher or added to the Explorer right-click context menu. Both the classic and modern context menu are fully supported. See the [Install](#install) section below for details.
 
 The tools are compatible with Windows 7 and above, 32 bit and 64 bit, standard and administrator users, multiple users on the same computer, and long paths.
 
@@ -28,7 +28,7 @@ The included **Language.ini** file includes 30 languages for the interface and c
 
 **Note**: Scanning Right-Click Tools with VirusTotal will show that many AV products detect it as a trojan. Those are false positives. This is expected because the program optionally creates a scheduled task in order to provide the convenience of Administrator and TrustedInstaller access without UAC prompts. Right-Click Tools is provided on GitHub as open source, the executables are signed, and my identity is not hidden. I submit my apps to the Windows Defender team to ensure that Windows Defender is okay with them, but I don't have the resources to do that for all AV products.
 
-## Installation
+## Install
 
 ### Install Using Setup Program
 
