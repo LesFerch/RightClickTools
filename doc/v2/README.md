@@ -10,7 +10,7 @@
 
 This program provides a set of powerful shortcuts and tools that are described in detail below. Where appropriate, the tools can be run as the current user, Administrator, or **TrustedInstaller**. The tool set is user-extendable and may be configured for individual requirements. For example, the default elevation can be set for each tool and TrustedInstaller capability can be disabled if desired.
 
-The tools may be run directly via the built-in launcher or added to the Explorer right-click context menu. Both the classic and modern context menu are fully supported. See the installation section below for details.
+The tools may be run directly via the built-in launcher or added to the Explorer right-click context menu. Both the classic and modern context menu are fully supported. See the [Installation](#installation) section below for details.
 
 The tools are compatible with Windows 7 and above, 32 bit and 64 bit, standard and administrator users, multiple users on the same computer, and long paths.
 
@@ -18,7 +18,7 @@ For administrator users, that choose to install the optional privilege elevation
 
 The included **Language.ini** file includes 30 languages for the interface and can be edited to add other languages and/or change any of the labels.
 
-## How to Download and Install 
+## Download
 
 [![image](https://github.com/user-attachments/assets/75e62417-c8ee-43b1-a8a8-a217ce130c91)Download the installer](https://github.com/LesFerch/RightClickTools/releases/download/2.0.0/RightClickTools-Setup.exe)
 
@@ -27,6 +27,8 @@ The included **Language.ini** file includes 30 languages for the interface and c
 **Note**: Some antivirus software may falsely detect the download as a virus. This can happen any time you download a new executable and may require extra steps to whitelist the file.
 
 **Note**: Scanning Right-Click Tools with VirusTotal will show that many AV products detect it as a trojan. Those are false positives. This is expected because the program optionally creates a scheduled task in order to provide the convenience of Administrator and TrustedInstaller access without UAC prompts. Right-Click Tools is provided on GitHub as open source, the executables are signed, and my identity is not hidden. I submit my apps to the Windows Defender team to ensure that Windows Defender is okay with them, but I don't have the resources to do that for all AV products.
+
+## Installation
 
 ### Install Using Setup Program
 
@@ -39,7 +41,7 @@ Use this option if you want to:
 2. Double-click **RightClickTools-Setup.exe** to start the installation.
 3. Click **Yes** when the UAC prompt appears.
 4. On Windows 11 and higher, select the desired context menu option (see below for details).
-5. For the **Enable privilege elevation task** option, see the **Setup** section below for more details.
+5. For the **Enable privilege elevation task** option, see the [Setup](#setup) section below for more details.
 6. Click **OK** to continue with the installation.
 
 **Note**: The option **Context menu via registry (classic only)** is checked by default. This option uses registry keys to add Right-Click Tools to Explorer's classic context menu. This is a zero-overhead option, but you must use the classic context menu either by holding the **Shift** key when right-clicking or by making the classic menu the default (See *Setup** below). The option **Context menu handler (modern + classic)** installs a signed context menu handler that adds Right-Click Tools to both the modern and classic context menu.
@@ -115,7 +117,7 @@ Right-click a folder, the background of an open folder, or a drive to get to the
 
 Select the action you wish to perform. If nothing happens, then the Exe was likely moved after running Setup. In that case, run **Setup.exe** again.
 
-You can also double-click Right-Click Tools to run it direcly without installation. See the **Launcher Mode** section for configuration options.
+You can also double-click Right-Click Tools to run it direcly without installation. See the [Launcher](#launcher) section for configuration options.
 
 **Notes**:
 - Clicking the **`X`** in any dialog means _do nothing_. Therefore, there's no need for "No" or "Cancel" buttons.
@@ -126,14 +128,14 @@ You can also double-click Right-Click Tools to run it direcly without installati
 - TrustedInstaller is not a user. It's a service that runs via the SYSTEM account. Therefore a **whoami** command will display **nt authority\system**.
 - When opening a folder with a long path (> 260 characters) a Cmd or PowerShell prompt will be in the short (8.3) format. This lets you know that you're in a long path and prevents the prompt from taking too much screen space.
 - When PowerShell is opened in a long path, running an executable, such as **whoami** will result in an error (or no output with PowerShell Core). This is a PowerShell problem. It has nothing to do with Right-click Tools and there is no known fix or workaround.
-- See the **Configuration** section later in this document for configuration details.
+- See the **[Configuration](#configuration)** section later in this document for configuration details.
 
 ## Launcher Mode
 
 <img width="303" height="552" alt="image" src="https://github.com/user-attachments/assets/f8e9e12b-c87d-47cf-a136-f941a1ba39aa#gh-dark-mode-only" />
 <img width="305" height="553" alt="image" src="https://github.com/user-attachments/assets/21216b7f-ad8a-4db5-bedd-bac31b21d2f5#gh-light-mode-only" />
 
-When `RightClickTools.exe` is double-clicked, it opens its own built-in tool launcher. The launcher menu can be configured via the file **Launcher.ini**. In Right-Click Tools, open **Settings** > **Right-Click Tool Settings** and edit the file **Launcher.ini** to modify this submenu. See the commented out examples to see how you can add third party tools, such as grepWin and Bulk Rename Utility, to the menu. See the **Configuration** section for entry details.
+When `RightClickTools.exe` is double-clicked, it opens its own built-in tool launcher. The launcher menu can be configured via the file **Launcher.ini**. In Right-Click Tools, open **Settings** > **Right-Click Tool Settings** and edit the file **Launcher.ini** to modify this submenu. See the commented out examples to see how you can add third party tools to the menu. See the **[Configuration](#configuration)** section for entry details.
 
 ## Commands
 
@@ -142,7 +144,7 @@ By default, where elevation is applicable to a tool, a dialog will pop up allowi
 <img width="345" height="222" alt="image" src="https://github.com/user-attachments/assets/7c4fb3de-1c68-4444-b133-f241987f6562#gh-dark-mode-only" />
 <img width="346" height="223" alt="image" src="https://github.com/user-attachments/assets/0f58f579-15ac-41ff-aaf8-675ec377fdd6#gh-light-mode-only" />
 
-You can also configure Right-Click Tools to open any of the applicable tools at the Run-As level of your choice and only show the pop-up when the **Ctrl** key is held down. See the **Configuration** section later in this document for details.
+You can also configure Right-Click Tools to open any of the applicable tools at the Run-As level of your choice and only show the pop-up when the **Ctrl** key is held down. See the **[Configuration](#configuration)** section later in this document for details.
 
 
 ### Cmd Here, PowerShell Here, and PowerShell Core Here
@@ -177,7 +179,7 @@ Please note the following expected behaviors when using this feature with the de
 
 By default, this opens a dialog that helps you build a search term using Advanced Query Syntax (AQS) which is sent to Explorer using the search-ms: protocol. If the query is valid, Explorer should open a window with the search results for that query. The Search Helper does not evaluate your query. It only passes it to Explorer.
 
-If you prefer to use a third-party search tool such as [Everything](https://www.voidtools.com/) or [FileLocator Pro](https://www.mythicsoft.com/filelocatorpro/), you can configure this option to open the search tool of your choice at the current folder. See the **Configuration** section later in this document for details.
+If you prefer to use a third-party search tool such as [Everything](https://www.voidtools.com/) or [FileLocator Pro](https://www.mythicsoft.com/filelocatorpro/), you can configure this option to open the search tool of your choice at the current folder. See the **[Configuration](#configuration)** section later in this document for details.
 
 **Note**: Windows 7 does not support the search-ms: protocol, so, for Windows 7, the Search Helper puts the AQS query on the clipboard and then opens an Explorer window where it can be pasted into the search box. 
 
@@ -319,7 +321,7 @@ This provides quick access to the Right-Click Tools configuration files and prov
 <img width="175" height="134" alt="image" src="https://github.com/user-attachments/assets/f808bfec-413a-4cb6-826f-9d2b39475fd5#gh-light-mode-only" />
 <img width="175" height="134" alt="image" src="https://github.com/user-attachments/assets/0702b3e2-9981-4687-9b6e-43e7f18acb3a#gh-dark-mode-only" />
 
-This submenu provides two more tools (`Shortcut Tool` and `Date Time Tool`) and can be configured to add any other executables or scripts which may be run as User, Administrator, or TrustedInstaller. In Right-Click Tools, open **Settings** > **Right-Click Tool Settings** and edit the file **MoreTools.ini** to modify this submenu. See the commented-out example entries for details. See the **Configuration** section for entry details.
+This submenu provides two more tools (`Shortcut Tool` and `Date Time Tool`) and can be configured to add any other executables or scripts which may be run as User, Administrator, or TrustedInstaller. In Right-Click Tools, open **Settings** > **Right-Click Tool Settings** and edit the file **MoreTools.ini** to modify this submenu. See the commented-out example entries for details. See the **[Configuration](#configuration)** section for entry details.
 
 ### Shortcut Tool
 
