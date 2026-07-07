@@ -341,12 +341,16 @@ This is used to make changes to the dates/times for all file in a folder (or all
 
 ## Configuration
 
-- To change the current configuation, edit the INI files within your `%%localappdata%`folder .
+- To change the current configuation, edit the INI files within your `%localappdata%`folder .
 - To change the default settings for portable use (e.g. when run from a flash drive), edit the INI files within the `AppParts` folder.
 
-| INI File | Section | Setting | Description |
+| INI File | Section | Setting | Value |
 | --- | --- | --- | --- |
-| RightClickTools.ini |
+| RightClickTools | General | Lang | Use any two letter language code found in the `Language.ini` file |
+| RightClickTools | General | Editor | Set the path to your preferred text editor for RightClickTools edit functions |
+| RightClickTools | General | NoTrustedInstaller | 0 = enable TrustedInstaller options <br> 1 = disable TrustedInstaller options |
+| RightClickTools | Launcher | AutoClose | 0 = keep Launcher open <br> 1 = auto-close launcher after selecting a tool |
+
 
 \
 \
