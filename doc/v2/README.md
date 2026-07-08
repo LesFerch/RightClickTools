@@ -48,7 +48,7 @@ Use this option if you want to:
 
 **Note**: The option **Context menu via registry (classic only)** is checked by default. This option uses registry keys to add Right-Click Tools to Explorer's classic context menu. This is a zero-overhead option, but you must use the classic context menu either by holding the **Shift** key when right-clicking or by making the classic menu the default (See *Setup** below). The option **Context menu handler (modern + classic)** installs a signed context menu handler that adds Right-Click Tools to both the modern and classic context menu.
 
-**Note**: The installer will automatically run in your Windows current lanaguage. If you wish to force the installer to run in a different language, you can specify that language on the command line using its two letter code. For example:
+**Note**: The installer will automatically run in your Windows current language. If you wish to force the installer to run in a different language, you can specify that language on the command line using its two letter code. For example:
 
 `RightClickTools-Setup /lang=en`
 
@@ -122,11 +122,11 @@ Right-click a folder, the background of an open folder, or a drive to get to the
 
 Select the action you wish to perform. If nothing happens, then the Exe was likely moved after running Setup. In that case, run **Setup.exe** again.
 
-You can also double-click Right-Click Tools to run it direcly without installation. See the [Launcher](#launcher) section for configuration options.
+You can also double-click Right-Click Tools to run it directly without installation. See the [Launcher](#launcher) section for configuration options.
 
 **Notes**:
 - Clicking the **`X`** in any dialog means _do nothing_. Therefore, there's no need for "No" or "Cancel" buttons.
-- Since Right-Click Tools is a .Net application, there can be some delay on first run of some menu items. Also Windows Defender (or other AV software) can add delays to intial launches as it scans the components.
+- Since Right-Click Tools is a .Net application, there can be some delay on first run of some menu items. Also Windows Defender (or other AV software) can add delays to initial launches as it scans the components.
 - If the current user is an "Administrator", running a tool as Administrator elevates the current user and therefore runs within the current user's profile.
 - If the current user is a "Standard" user, running a tool as Administrator will prompt for a login and therefore run in the profile of the newly logged in administrator user.
 - TrustedInstaller is useful for accessing and making changes in protected folders, such as **WindowsApps**. Use with care.
@@ -175,11 +175,11 @@ By default, **File manager here** will run Explorer which is fine in most cases 
 Please note the following expected behaviors when using this feature with the default (Explorer) configuration:
 
 - On Windows 11, Explorer as **TrustedInstaller** will open a file dialog (aka mini Explorer) instead of a full Explorer window.
-- As an Administrator user on Windows 11, Explorer as **Adminstrator** will open the new Windows 11 Explorer, even if you have set the old Explorer as the default using a tool such as [SwitchExplorer](https://lesferch.github.io/SwitchExplorer/).
-- As a Standard user on Windows 11, Explorer as **Adminstrator** will open a file dialog (aka mini Explorer) unless the registry setting, that prohibits Explorer elevation, is not set (see below for details).
+- As an Administrator user on Windows 11, Explorer as **Administrator** will open the new Windows 11 Explorer, even if you have set the old Explorer as the default using a tool such as [SwitchExplorer](https://lesferch.github.io/SwitchExplorer/).
+- As a Standard user on Windows 11, Explorer as **Administrator** will open a file dialog (aka mini Explorer) unless the registry setting, that prohibits Explorer elevation, is not set (see below for details).
 - When you open the file manager as **TrustedInstaller**, the window that opens will be running in the context of the SYSTEM account, so you will get an error if you click on the shortcuts for Documents, Downloads, etc. but you can navigate to your data folders via `C:\Users`.
-- When an ***Administrator user*** opens file manager as **Adminstrator**, the window that opens will be running in the same context as the current user, but with privileges fully elevated to Administrator. All folders and links will be the same as a normal file manager window.
-- When a ***Standard user*** opens file manager as **Adminstrator**, the window that opens will be running in the context of the account used at the UAC prompt. Which personal folders and links are shown, and whether the window opens in light or dark mode, will depend on the account used. 
+- When an ***Administrator user*** opens file manager as **Administrator**, the window that opens will be running in the same context as the current user, but with privileges fully elevated to Administrator. All folders and links will be the same as a normal file manager window.
+- When a ***Standard user*** opens file manager as **Administrator**, the window that opens will be running in the context of the account used at the UAC prompt. Which personal folders and links are shown, and whether the window opens in light or dark mode, will depend on the account used. 
 
 **Note**: Normally Explorer does not allow itself to be "Run as Administrator", but that behavior can be disabled via a [registry setting](https://gist.github.com/LesFerch/a7e43762bb84f18c8ef6ccdfe606eff8) that requires TrustedInstaller privileges to change. Right-Click Tools temporarily changes that registry setting in order to run Explorer elevated (for Administrator users). Some details about why the restriction exists can be found in [this article and its comments](https://devblogs.microsoft.com/oldnewthing/20220524-00/?p=106682)
 
@@ -260,7 +260,7 @@ This gives you ownership and access to the selected folder. Right-click Tools us
   <img width="394" height="201" alt="image" src="https://github.com/user-attachments/assets/2cc15377-8627-4bf1-afa9-1babe8f3544b" />
 </picture>
 
-This option will not allow changing permissions on system folders and will display a message when that's attempted. The restrictions can be edited in the file **RightClickTools.ini**, but that should be avoided. If you need to make changes in a restricted folder, such as **WindowsApps**, you should access the folder using the Cmd or PowerShell Here as **TrustedInstaller** option or the **Privileged file manager here** option as **TrustedInstaller**.
+This option will not allow changing permissions on system folders and will display a message when that's attempted. The restrictions can be edited in the file **RightClickTools.ini**, but that should be avoided. If you need to make changes in a restricted folder, such as **WindowsApps**, you should access the folder using the Cmd or PowerShell Here as **TrustedInstaller** option or the **File manager here** option as **TrustedInstaller**.
 
 **Hidden feature**: Hold down the **Ctrl** key when clicking **OK** to keep the console window open. This can be useful to review the **SetACL** output.
 
@@ -374,7 +374,7 @@ This submenu provides two more tools (`Shortcut Tool` and `Date Time Tool`) and 
 
 The **Convert** section is used to convert URL type shortcuts to LNK type shortcuts. This is useful because URL shortcuts do not reliably show icons larger than size medium. That's an old bug that dates back to at least Windows 7 and continues with Windows 11.
 
-The **Search and Replace** saection allows dping a search and replace of text within fields in Windows LNK type shortcuts. Note that you must enter something to search for before the `Target`, `Start in`, and `Icon` options can be checked.
+The **Search and Replace** section allows doing a search and replace of text within fields in Windows LNK type shortcuts. Note that you must enter something to search for before the `Target`, `Start in`, and `Icon` options can be checked.
 
 ### Date Time Tool
 
@@ -390,7 +390,7 @@ This is used to make changes to the dates/times for all file in a folder (or all
 
 ## Configuration
 
-- To change the current configuation, edit the INI files within your `%localappdata%\RightClickTools`folder .
+- To change the current configuration, edit the INI files within your `%localappdata%\RightClickTools`folder .
 - To change the default (i.e. initial) settings for portable use (e.g. when run from a flash drive), edit the INI files within the `AppParts` folder.
 
 | INI File | Section | Setting | Value |
