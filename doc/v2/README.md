@@ -147,15 +147,15 @@ When `RightClickTools.exe` is double-clicked, it opens its own built-in tool lau
 
 ## Commands
 
-By default, where elevation is applicable to a tool, a dialog will pop up allowing you to run as **User**, **Administrator**, or **TrustedInstaller**. 
+By default, where elevation is applicable to a tool, a dialog will pop up allowing you to run as **User**, **Administrator**, or **TrustedInstaller**.
+
+You can also configure Right-Click Tools to open any of the applicable tools at the Run-As level of your choice and only show the pop-up when the **Ctrl** key is held down. See the **[Configuration](#configuration)** section later in this document for details.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/7c4fb3de-1c68-4444-b133-f241987f6562">
   <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/0f58f579-15ac-41ff-aaf8-675ec377fdd6">
   <img width="346" height="223" alt="image" src="https://github.com/user-attachments/assets/0f58f579-15ac-41ff-aaf8-675ec377fdd6" />
 </picture>
-
-You can also configure Right-Click Tools to open any of the applicable tools at the Run-As level of your choice and only show the pop-up when the **Ctrl** key is held down. See the **[Configuration](#configuration)** section later in this document for details.
 
 
 ### Cmd Here, PowerShell Here, and PowerShell Core Here
