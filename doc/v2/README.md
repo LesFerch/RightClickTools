@@ -162,7 +162,7 @@ You can also configure Right-Click Tools to open any of the applicable tools at 
 
 This opens a console host or terminal window, with the selected shell, in the currently selected folder.
 
-When run as the current user, the selected item will open using your default console program (**Console Host** or **Windows Terminal**). When running as Administrator, it will default to Windows Terminal (if available) but you can configure it to use the classic ConHost if prefered.
+When run as the current user, the selected item will open using your default console program (**Console Host** or **Windows Terminal**). When running as Administrator, it will default to Windows Terminal (if available) but you can configure it to use the classic ConHost if preferred.
 
 ### File manager here
 
