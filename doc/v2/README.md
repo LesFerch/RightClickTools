@@ -10,7 +10,7 @@
 
 ## Summary
 
-This program provides a set of powerful shortcuts and tools that are described in detail below. Where appropriate, the tools can be run as the current user, Administrator, or **TrustedInstaller**. The tool set is user-extendable and may be configured for individual requirements. For example, the default elevation can be set for each tool and TrustedInstaller capability can be disabled if desired.
+This program provides a set of powerful tools and shortcuts that are described in detail below. Where appropriate, the tools can be run as the current user, Administrator, or **TrustedInstaller**. The tool set is user-extendable and may be configured for individual requirements. For example, the default elevation can be set for each tool and TrustedInstaller capability can be disabled if desired.
 
 The tools may be run directly via the built-in launcher or added to the Explorer right-click context menu. Both the classic and modern context menu are fully supported. See the [Install](#install) section below for details.
 
