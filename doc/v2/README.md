@@ -4,8 +4,8 @@
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/2ea10bbc-7d1f-4a05-bfb2-6115be03bf9f">
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/067f7b88-89ba-472c-a374-268dd0dcf535">
-  <img alt="image" src="https://github.com/user-attachments/assets/067f7b88-89ba-472c-a374-268dd0dcf535" style="max-width: 100%; height: auto;" />
+  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/5d8929b4-b384-44cb-a7eb-513fd9ad9ea7">
+  <img alt="image" src="https://github.com/user-attachments/assets/5d8929b4-b384-44cb-a7eb-513fd9ad9ea7" style="max-width: 100%; height: auto;" />
 </picture>
 
 ## Summary
@@ -82,8 +82,8 @@ Use this option if you want to:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/d130aa49-3e63-43b8-8bc0-fd0f7e1a5efb">
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/8d41c90c-cddd-4af3-953d-574c4ddbe646">
-  <img alt="image" src="https://github.com/user-attachments/assets/8d41c90c-cddd-4af3-953d-574c4ddbe646" style="max-width: 100%; height: auto;" />
+  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/6124e5b6-f1ea-491a-bc88-e703b43a457e">
+  <img alt="image" src="https://github.com/user-attachments/assets/6124e5b6-f1ea-491a-bc88-e703b43a457e" style="max-width: 100%; height: auto;" />
 </picture>
 
 The Setup dialog will show options that are applicable to your Windows installation. Each option is described below.
@@ -139,8 +139,8 @@ You can also double-click Right-Click Tools to run it directly without installat
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/8b85ae4f-9587-480f-a3b1-7d69dbad5708">
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/21216b7f-ad8a-4db5-bedd-bac31b21d2f5">
-  <img alt="image" src="https://github.com/user-attachments/assets/21216b7f-ad8a-4db5-bedd-bac31b21d2f5" style="max-width: 100%; height: auto;" />
+  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/64a5f986-106c-4c83-bbf5-74bebff91d11">
+  <img alt="image" src="https://github.com/user-attachments/assets/64a5f986-106c-4c83-bbf5-74bebff91d11" style="max-width: 100%; height: auto;" />
 </picture>
 
 When `RightClickTools.exe` is double-clicked, it opens its own built-in tool launcher. The launcher menu can be configured via the file **Launcher.ini**. In Right-Click Tools, open **Settings** > **Right-Click Tool Settings** and edit the file **Launcher.ini** to modify this submenu. See the commented out examples to see how you can add third party tools to the menu. See the **[Configuration](#configuration)** section for entry details.
@@ -153,8 +153,8 @@ You can also configure Right-Click Tools to open any of the applicable tools at 
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/084ead87-2887-4e98-93aa-d56c5ed76f98">
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/0f58f579-15ac-41ff-aaf8-675ec377fdd6">
-  <img alt="image" src="https://github.com/user-attachments/assets/0f58f579-15ac-41ff-aaf8-675ec377fdd6" style="max-width: 100%; height: auto;" />
+  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/857e0a06-7c72-462e-b8d5-993bcb70edd3">
+  <img alt="image" src="https://github.com/user-attachments/assets/857e0a06-7c72-462e-b8d5-993bcb70edd3" style="max-width: 100%; height: auto;" />
 </picture>
 
 
@@ -187,8 +187,8 @@ Please note the following expected behaviors when using this feature with the de
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/63689d8e-cea8-4c04-9fa7-f3ba084595b4">
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/54ebb6e3-de1c-4dbc-90d0-a8f0f4128832">
-  <img alt="image" src="https://github.com/user-attachments/assets/54ebb6e3-de1c-4dbc-90d0-a8f0f4128832" style="max-width: 100%; height: auto;" />
+  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/311e4a0d-387a-4c2c-b551-21e7b4d0d968">
+  <img alt="image" src="https://github.com/user-attachments/assets/311e4a0d-387a-4c2c-b551-21e7b4d0d968" style="max-width: 100%; height: auto;" />
 </picture>
 
 By default, this opens a dialog that helps you build a search term using Advanced Query Syntax (AQS) which is sent to Explorer using the search-ms: protocol. If the query is valid, Explorer should open a window with the search results for that query. The Search Helper does not evaluate your query. It only passes it to Explorer.
@@ -223,8 +223,8 @@ This clears the data for the selected items.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/06b1314d-8eb0-44d4-953c-2522cdafa81d">
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/0ce7a240-f497-4437-8c76-14cb18d30dbe">
-  <img alt="image" src="https://github.com/user-attachments/assets/0ce7a240-f497-4437-8c76-14cb18d30dbe" style="max-width: 100%; height: auto;" />
+  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/fe3ff926-c7bf-4435-ac9a-0bdf6867feeb">
+  <img alt="image" src="https://github.com/user-attachments/assets/fe3ff926-c7bf-4435-ac9a-0bdf6867feeb" style="max-width: 100%; height: auto;" />
 </picture>
 
 
@@ -244,8 +244,8 @@ This clears the data for the selected items.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/aa4ccd0b-1c7b-40e9-aa7d-8554c8f09dd1">
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/4bc6e8bb-3900-45f4-8beb-7c902211969b">
-  <img alt="image" src="https://github.com/user-attachments/assets/4bc6e8bb-3900-45f4-8beb-7c902211969b" style="max-width: 100%; height: auto;" />
+  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/a6a45fef-4dd9-4674-b4d2-c241c8279fdc">
+  <img alt="image" src="https://github.com/user-attachments/assets/a6a45fef-4dd9-4674-b4d2-c241c8279fdc" style="max-width: 100%; height: auto;" />
 </picture>
 
 This clears the Mark of the Web (MOTW) from files in the current folder (and optionally all subfolders). This is applicable to NTFS volumes only.
@@ -256,8 +256,8 @@ This gives you ownership and access to the selected folder. Right-click Tools us
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/b55fce8e-87a3-40a7-aed1-1547cf6cfcd7">
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/2cc15377-8627-4bf1-afa9-1babe8f3544b">
-  <img alt="image" src="https://github.com/user-attachments/assets/2cc15377-8627-4bf1-afa9-1babe8f3544b" style="max-width: 100%; height: auto;" />
+  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/eb0bed42-c4c2-4426-a1a9-8dc397963ce0">
+  <img alt="image" src="https://github.com/user-attachments/assets/eb0bed42-c4c2-4426-a1a9-8dc397963ce0" style="max-width: 100%; height: auto;" />
 </picture>
 
 This option will not allow changing permissions on system folders and will display a message when that's attempted. The restrictions can be edited in the file **RightClickTools.ini**, but that should be avoided. If you need to make changes in a restricted folder, such as **WindowsApps**, you should access the folder using the Cmd or PowerShell Here as **TrustedInstaller** option or the **File manager here** option as **TrustedInstaller**.
@@ -270,8 +270,8 @@ This will show whether the selected folder is currently part of the user or syst
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/30b48a2d-b81a-42aa-be4b-8f24f974464b">
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/56cfb924-5482-4372-bf24-099fefd4ef1b">
-  <img alt="image" src="https://github.com/user-attachments/assets/56cfb924-5482-4372-bf24-099fefd4ef1b" style="max-width: 100%; height: auto;" />
+  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/225e403b-17e1-4b22-b655-f8049fc2d6d7">
+  <img alt="image" src="https://github.com/user-attachments/assets/225e403b-17e1-4b22-b655-f8049fc2d6d7" style="max-width: 100%; height: auto;" />
 </picture>
 
 ### Toggle display of hidden and system files
@@ -284,8 +284,8 @@ This item provides options to do a quick shell refresh or a complete reset of th
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/03b65c5a-536f-4cc1-8ef2-c0bdfb1e52bb">
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/bb1299a6-32ba-4025-98db-20fa4c7fa47b">
-  <img alt="image" src="https://github.com/user-attachments/assets/bb1299a6-32ba-4025-98db-20fa4c7fa47b" style="max-width: 100%; height: auto;" />
+  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/97223057-bbc9-432f-aae8-2e39aebe61aa">
+  <img alt="image" src="https://github.com/user-attachments/assets/97223057-bbc9-432f-aae8-2e39aebe61aa" style="max-width: 100%; height: auto;" />
 </picture>
 
 The default option, "Shell refresh only", quickly refreshes the shell, which is most useful when you've changed an icon, but the old icon or a blank icon is displayed. It tells Explorer to refresh its icon cache and window views. It also tells Explorer to update its current settings (where possible) from the settings in the registry.
@@ -296,8 +296,8 @@ If the "Shell refresh only" option does not correct the display of icons and thu
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/36fad1a2-450c-4fc1-9309-a6b9d8d1f32e">
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/f49cefb3-cfa6-4ab0-9485-25ff5411587e">
-  <img alt="image" src="https://github.com/user-attachments/assets/f49cefb3-cfa6-4ab0-9485-25ff5411587e" style="max-width: 100%; height: auto;" />
+  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/1c2cc97b-8001-42ff-bcd1-f58e5431c7e6">
+  <img alt="image" src="https://github.com/user-attachments/assets/1c2cc97b-8001-42ff-bcd1-f58e5431c7e6" style="max-width: 100%; height: auto;" />
 </picture>
 
 This dialog provides various options for configuring your folder views including `Global settings`, `Folder type` settings, and `Folder icon` settings.
@@ -338,16 +338,16 @@ This restarts Explorer and opens a window to the currently selected folder.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/3c4e5caf-37b1-40ff-8ce1-77be87932d40">
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/43895481-7cae-4d8d-b914-f98a8e4e4226">
-  <img alt="image" src="https://github.com/user-attachments/assets/43895481-7cae-4d8d-b914-f98a8e4e4226" style="max-width: 100%; height: auto;" />
+  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/8d272b7f-c7a3-401a-8cd3-249c42c4ba5e">
+  <img alt="image" src="https://github.com/user-attachments/assets/8d272b7f-c7a3-401a-8cd3-249c42c4ba5e" style="max-width: 100%; height: auto;" />
 </picture>
 
 ### Settings
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/ea40d1a1-517c-4a99-a87d-ba9f2b41ebfb">
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/9c5eeada-90c2-4981-a221-66cf9b64523a">
-  <img alt="image" src="https://github.com/user-attachments/assets/9c5eeada-90c2-4981-a221-66cf9b64523a" style="max-width: 100%; height: auto;" />
+  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/aae665eb-9a22-4c9f-ad7f-cd132612034b">
+  <img alt="image" src="https://github.com/user-attachments/assets/aae665eb-9a22-4c9f-ad7f-cd132612034b" style="max-width: 100%; height: auto;" />
 </picture>
 
 This provides quick access to the Right-Click Tools configuration files and provides shortcuts to most Windows settings.
@@ -358,8 +358,8 @@ This provides quick access to the Right-Click Tools configuration files and prov
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/8628b081-8086-4874-8487-2cef9cc3b0f9">
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/9cc0025b-3312-49f1-9922-3e29b44a0cdf">
-  <img alt="image" src="https://github.com/user-attachments/assets/9cc0025b-3312-49f1-9922-3e29b44a0cdf" style="max-width: 100%; height: auto;" />
+  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/b194ee4c-6997-4e98-a8d1-d6b0b9ffffef">
+  <img alt="image" src="https://github.com/user-attachments/assets/b194ee4c-6997-4e98-a8d1-d6b0b9ffffef" style="max-width: 100%; height: auto;" />
 </picture>
 
 This submenu provides two more tools (`Shortcut Tool` and `Date Time Tool`) and can be configured to add any other executables or scripts which may be run as User, Administrator, or TrustedInstaller. In Right-Click Tools, open **Settings** > **Right-Click Tool Settings** and edit the file **MoreTools.ini** to modify this submenu. See the commented-out example entries for details. See the **[Configuration](#configuration)** section for entry details.
@@ -368,8 +368,8 @@ This submenu provides two more tools (`Shortcut Tool` and `Date Time Tool`) and 
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/110db76c-c49a-4ac7-8a4c-54c7fe4a4926">
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/175ef0f6-5df5-47e7-acf3-23721b11da99">
-  <img alt="image" src="https://github.com/user-attachments/assets/175ef0f6-5df5-47e7-acf3-23721b11da99" style="max-width: 100%; height: auto;" />
+  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/7b17e806-f0e9-426b-bc6d-d387c30ce6b3">
+  <img alt="image" src="https://github.com/user-attachments/assets/7b17e806-f0e9-426b-bc6d-d387c30ce6b3" style="max-width: 100%; height: auto;" />
 </picture>
 
 The **Convert** section is used to convert URL type shortcuts to LNK type shortcuts. This is useful because URL shortcuts do not reliably show icons larger than size medium. That's an old bug that dates back to at least Windows 7 and continues with Windows 11.
@@ -380,8 +380,8 @@ The **Search and Replace** section allows doing a search and replace of text wit
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/519af13e-3f9a-4336-b3c2-bf9139c5b35e">
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/662ddb93-6cd5-454d-9e59-c1c40fd8ad7a">
-  <img alt="image" src="https://github.com/user-attachments/assets/662ddb93-6cd5-454d-9e59-c1c40fd8ad7a" style="max-width: 100%; height: auto;" />
+  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/b7727858-2c92-4aaa-8653-9c45ab6be7cc">
+  <img alt="image" src="https://github.com/user-attachments/assets/b7727858-2c92-4aaa-8653-9c45ab6be7cc" style="max-width: 100%; height: auto;" />
 </picture>
 
 This is used to make changes to the dates/times for all file in a folder (or all subfolders if that option is checked). The options are self-explanatory.
