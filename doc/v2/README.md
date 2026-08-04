@@ -4,7 +4,6 @@
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/2ea10bbc-7d1f-4a05-bfb2-6115be03bf9f">
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/5d8929b4-b384-44cb-a7eb-513fd9ad9ea7">
   <img alt="image" src="https://github.com/user-attachments/assets/5d8929b4-b384-44cb-a7eb-513fd9ad9ea7" style="max-width: 100%; height: auto;" />
 </picture>
 
@@ -82,7 +81,6 @@ Use this option if you want to:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/d130aa49-3e63-43b8-8bc0-fd0f7e1a5efb">
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/6124e5b6-f1ea-491a-bc88-e703b43a457e">
   <img alt="image" src="https://github.com/user-attachments/assets/6124e5b6-f1ea-491a-bc88-e703b43a457e" style="max-width: 100%; height: auto;" />
 </picture>
 
@@ -139,7 +137,6 @@ You can also double-click Right-Click Tools to run it directly without installat
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/8b85ae4f-9587-480f-a3b1-7d69dbad5708">
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/64a5f986-106c-4c83-bbf5-74bebff91d11">
   <img alt="image" src="https://github.com/user-attachments/assets/64a5f986-106c-4c83-bbf5-74bebff91d11" style="max-width: 100%; height: auto;" />
 </picture>
 
@@ -153,7 +150,6 @@ You can also configure Right-Click Tools to open any of the applicable tools at 
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/084ead87-2887-4e98-93aa-d56c5ed76f98">
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/857e0a06-7c72-462e-b8d5-993bcb70edd3">
   <img alt="image" src="https://github.com/user-attachments/assets/857e0a06-7c72-462e-b8d5-993bcb70edd3" style="max-width: 100%; height: auto;" />
 </picture>
 
@@ -187,7 +183,6 @@ Please note the following expected behaviors when using this feature with the de
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/63689d8e-cea8-4c04-9fa7-f3ba084595b4">
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/311e4a0d-387a-4c2c-b551-21e7b4d0d968">
   <img alt="image" src="https://github.com/user-attachments/assets/311e4a0d-387a-4c2c-b551-21e7b4d0d968" style="max-width: 100%; height: auto;" />
 </picture>
 
@@ -223,7 +218,6 @@ This clears the data for the selected items.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/06b1314d-8eb0-44d4-953c-2522cdafa81d">
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/fe3ff926-c7bf-4435-ac9a-0bdf6867feeb">
   <img alt="image" src="https://github.com/user-attachments/assets/fe3ff926-c7bf-4435-ac9a-0bdf6867feeb" style="max-width: 100%; height: auto;" />
 </picture>
 
@@ -408,7 +402,7 @@ This is used to make changes to the dates/times for all file in a folder (or all
 | Launcher <br> MoreTools | All | Exe | Path to the executable <br><br> For internal commands it's always `RightClickTools.exe` <br><br> For external commmands it's the full path to the executable (without quotes) <br><br> For scripts this must be the full path of the script interpreter (Cmd PowerShell WScript Python etc.) |
 | Launcher <br> MoreTools | All | CmdLine | Command line to pass to the executable <br><br> Include `"%V"` (with the quotes) to specify the selected path <br><br> For internal commands the value will always be a single argument that specifies which tool to run <br><br> For scripts this would typically be the full path to the script and possibly additional arguments |
 | Launcher <br> MoreTools | All | Icon | Full path to an ICO file to show in the launcher <br><br> If omitted, the executable's icon will be used |
-| Launcher <br> MoreTools | All | RunAs | See RunAs description above for RightClickTools.ini |
+| Launcher <br> MoreTools | All | RunAs | 0 = Run as current user <br> 1 = Run as Administrator <br> 2 = Run as TrustedInstaller <br> 3 = Pop-up menu to select elevation <br><br> Optionally hold **Ctrl** key to get pop-up menu |
 
 \
 \
