@@ -382,6 +382,10 @@ This is used to make changes to the dates/times for all file in a folder (or all
 
 **Note**: If you need to change the date/time for only one file, or only selected files, you'll need a different tool such as [SKTimeStamp](https://tools.stefankueng.com/SKTimeStamp.html).
 
+### Snip with border
+
+
+
 ## Configuration
 
 - To change the current configuration, edit the INI files within your `%localappdata%\RightClickTools`folder .
