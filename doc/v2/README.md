@@ -384,7 +384,11 @@ This is used to make changes to the dates/times for all file in a folder (or all
 
 ### Snip with border
 
+This is a screen capture tool specifically for capturing a window + border. All of the dialog screenshots in this document have a small border of background around them for contrast. They were all captured with the Snip with border tool. This is much faster, and much more accurate, than using the Snipping Tool and trying to select a consistent amount of border around a window.
 
+Once the tool is activated, it will appear in the taskbar. Clicking on the taskbar icon simply shows a small window that tells you the current shortcut key to do a capture. It's **Alt-Z** by default. Press **Alt-Z** to start a capture. The mouse cursor will change to a finger pointer. Click on the window you want to capture. It will be placed on the clipboard.
+
+You can change the shortcut key and/or the border width via the **RightClickTools.ini** file. See the **[Configuration](#configuration)** section for entry details. 
 
 ## Configuration
 
@@ -403,7 +407,8 @@ This is used to make changes to the dates/times for all file in a folder (or all
 | RightClickTools | PowerShellCoreHere <br> FileManagerHere <br> SearchHere | Exe | Optional path to your preferred executable |
 | RightClickTools | TakeOwnHere | StopAll | Owner and permission changes will be refused for these paths and all their subfolders |
 | RightClickTools | TakeOwnHere | StopRoot | Owner and permission changes will be refused for these paths at the root only |
-| Launcher <br> MoreTools | All | Exe | Path to the executable <br><br> For internal commands it's always `RightClickTools.exe` <br><br> For external commmands it's the full path to the executable (without quotes) <br><br> For scripts this must be the full path of the script interpreter (Cmd PowerShell WScript Python etc.) |
+| RightClickTools | SnipWithBorder | Key | Alt key combination (e.g. Alt-C) |
+| RightClickTools | SnipWithBorder | BorderWidth | Border width in pixels at 100% scaling. The border width will be scaled proportionally with your screen scaling setting. | Launcher <br> MoreTools | All | Exe | Path to the executable <br><br> For internal commands it's always `RightClickTools.exe` <br><br> For external commmands it's the full path to the executable (without quotes) <br><br> For scripts this must be the full path of the script interpreter (Cmd PowerShell WScript Python etc.) |
 | Launcher <br> MoreTools | All | CmdLine | Command line to pass to the executable <br><br> Include `"%V"` (with the quotes) to specify the selected path <br><br> For internal commands the value will always be a single argument that specifies which tool to run <br><br> For scripts this would typically be the full path to the script and possibly additional arguments |
 | Launcher <br> MoreTools | All | Icon | Full path to an ICO file to show in the launcher <br><br> If omitted, the executable's icon will be used |
 | Launcher <br> MoreTools | All | RunAs | 0 = Run as current user <br> 1 = Run as Administrator <br> 2 = Run as TrustedInstaller <br> 3 = Pop-up menu to select elevation <br><br> Optionally hold **Ctrl** key to get pop-up menu |
