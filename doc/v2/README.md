@@ -238,7 +238,6 @@ This clears the data for the selected items.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/aa4ccd0b-1c7b-40e9-aa7d-8554c8f09dd1">
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/a6a45fef-4dd9-4674-b4d2-c241c8279fdc">
   <img alt="image" src="https://github.com/user-attachments/assets/a6a45fef-4dd9-4674-b4d2-c241c8279fdc" style="max-width: 100%; height: auto;" />
 </picture>
 
@@ -250,7 +249,6 @@ This gives you ownership and access to the selected folder. Right-click Tools us
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/b55fce8e-87a3-40a7-aed1-1547cf6cfcd7">
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/eb0bed42-c4c2-4426-a1a9-8dc397963ce0">
   <img alt="image" src="https://github.com/user-attachments/assets/eb0bed42-c4c2-4426-a1a9-8dc397963ce0" style="max-width: 100%; height: auto;" />
 </picture>
 
@@ -264,7 +262,6 @@ This will show whether the selected folder is currently part of the user or syst
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/30b48a2d-b81a-42aa-be4b-8f24f974464b">
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/225e403b-17e1-4b22-b655-f8049fc2d6d7">
   <img alt="image" src="https://github.com/user-attachments/assets/225e403b-17e1-4b22-b655-f8049fc2d6d7" style="max-width: 100%; height: auto;" />
 </picture>
 
@@ -278,7 +275,6 @@ This item provides options to do a quick shell refresh or a complete reset of th
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/03b65c5a-536f-4cc1-8ef2-c0bdfb1e52bb">
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/97223057-bbc9-432f-aae8-2e39aebe61aa">
   <img alt="image" src="https://github.com/user-attachments/assets/97223057-bbc9-432f-aae8-2e39aebe61aa" style="max-width: 100%; height: auto;" />
 </picture>
 
@@ -290,7 +286,6 @@ If the "Shell refresh only" option does not correct the display of icons and thu
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/36fad1a2-450c-4fc1-9309-a6b9d8d1f32e">
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/1c2cc97b-8001-42ff-bcd1-f58e5431c7e6">
   <img alt="image" src="https://github.com/user-attachments/assets/1c2cc97b-8001-42ff-bcd1-f58e5431c7e6" style="max-width: 100%; height: auto;" />
 </picture>
 
@@ -332,16 +327,14 @@ This restarts Explorer and opens a window to the currently selected folder.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/3c4e5caf-37b1-40ff-8ce1-77be87932d40">
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/8d272b7f-c7a3-401a-8cd3-249c42c4ba5e">
   <img alt="image" src="https://github.com/user-attachments/assets/8d272b7f-c7a3-401a-8cd3-249c42c4ba5e" style="max-width: 100%; height: auto;" />
 </picture>
 
 ### Settings
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/ea40d1a1-517c-4a99-a87d-ba9f2b41ebfb">
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/aae665eb-9a22-4c9f-ad7f-cd132612034b">
-  <img alt="image" src="https://github.com/user-attachments/assets/aae665eb-9a22-4c9f-ad7f-cd132612034b" style="max-width: 100%; height: auto;" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/30bb8549-f5a1-4c3a-93f7-e29a5ae3cd58">
+  <img alt="image" src="https://github.com/user-attachments/assets/89bd4cac-d7a6-47dd-a25e-75ab221c737e" style="max-width: 100%; height: auto;" />
 </picture>
 
 This provides quick access to the Right-Click Tools configuration files and provides shortcuts to most Windows settings.
@@ -352,7 +345,6 @@ This provides quick access to the Right-Click Tools configuration files and prov
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/8628b081-8086-4874-8487-2cef9cc3b0f9">
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/b194ee4c-6997-4e98-a8d1-d6b0b9ffffef">
   <img alt="image" src="https://github.com/user-attachments/assets/b194ee4c-6997-4e98-a8d1-d6b0b9ffffef" style="max-width: 100%; height: auto;" />
 </picture>
 
@@ -362,7 +354,6 @@ This submenu provides two more tools (`Shortcut Tool` and `Date Time Tool`) and 
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/110db76c-c49a-4ac7-8a4c-54c7fe4a4926">
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/7b17e806-f0e9-426b-bc6d-d387c30ce6b3">
   <img alt="image" src="https://github.com/user-attachments/assets/7b17e806-f0e9-426b-bc6d-d387c30ce6b3" style="max-width: 100%; height: auto;" />
 </picture>
 
@@ -374,7 +365,6 @@ The **Search and Replace** section allows doing a search and replace of text wit
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/519af13e-3f9a-4336-b3c2-bf9139c5b35e">
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/b7727858-2c92-4aaa-8653-9c45ab6be7cc">
   <img alt="image" src="https://github.com/user-attachments/assets/b7727858-2c92-4aaa-8653-9c45ab6be7cc" style="max-width: 100%; height: auto;" />
 </picture>
 
