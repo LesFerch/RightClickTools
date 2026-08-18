@@ -339,6 +339,12 @@ This restarts Explorer and opens a window to the currently selected folder.
 
 This provides quick access to the Right-Click Tools configuration files and provides shortcuts to most Windows settings.
 
+The bottom row provides drop-down menus to set the display scale and light or dark colors. This is the same as going to Windows Settings > Display Settings and changing the Scale or going to Settings > Personalize > Colors and selecting Light or Dark.
+
+When setting the scale of the primary monitor, the Scale option in Right-Click Tools additionally updates the `AppliedDPI` registry value in `HKCU\Control Panel\Desktop\WindowMetrics\` which Windows Settings does not update until the next restart of Explorer.
+
+Also note that Right-Click Tools may show one more scale option than Windows Settings that has no effect. For example, on my primary monitor Windows shows scale options up to 200%. Right-Click Tools shows options up to 225%, but the 225% option tops out at 200%.
+
 **Note**: The options `Windows Settings` and `Installed apps` do nothing on Windows 7 and 8.
 
 ### More Tools
@@ -397,7 +403,7 @@ You can change the shortcut key and/or the border width via the **RightClickTool
 | RightClickTools | PowerShellCoreHere <br> FileManagerHere <br> SearchHere | Exe | Optional path to your preferred executable |
 | RightClickTools | TakeOwnHere | StopAll | Owner and permission changes will be refused for these paths and all their subfolders |
 | RightClickTools | TakeOwnHere | StopRoot | Owner and permission changes will be refused for these paths at the root only |
-| RightClickTools | SnipWithBorder | Key | Alt key combination (e.g. Alt-C) |
+| RightClickTools | SnipWithBorder | Key | Alt key combination (e.g. Alt-Z) |
 | RightClickTools | SnipWithBorder | BorderWidth | Border width in pixels at 100% scaling. The border width will be scaled proportionally with your screen scaling setting. | Launcher <br> MoreTools | All | Exe | Path to the executable <br><br> For internal commands it's always `RightClickTools.exe` <br><br> For external commmands it's the full path to the executable (without quotes) <br><br> For scripts this must be the full path of the script interpreter (Cmd PowerShell WScript Python etc.) |
 | Launcher <br> MoreTools | All | CmdLine | Command line to pass to the executable <br><br> Include `"%V"` (with the quotes) to specify the selected path <br><br> For internal commands the value will always be a single argument that specifies which tool to run <br><br> For scripts this would typically be the full path to the script and possibly additional arguments |
 | Launcher <br> MoreTools | All | Icon | Full path to an ICO file to show in the launcher <br><br> If omitted, the executable's icon will be used |
