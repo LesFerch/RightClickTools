@@ -75,6 +75,8 @@ Use this option if you want to:
 
 **Note**: The right-click menu items will be created for the user that is currently logged on interactively. If you wish to add the right-click menu items to *other* users, log on as each user and run **Setup.exe** again.
 
+**Note**: If you wish to have the program settings saved with the executable, see the `FullyPortable` option in the **[Configuration](#configuration)** section.
+
 ## Setup
 
 **NOTE**: You do NOT need to use **Setup.exe** if you installed Right-Click Tools using **RightClickTools-Setup.exe**.
@@ -131,7 +133,7 @@ You can also double-click Right-Click Tools to run it directly without installat
 - TrustedInstaller is not a user. It's a service that runs via the SYSTEM account. Therefore a **whoami** command will display **nt authority\system**.
 - When opening a folder with a long path (> 260 characters) a Cmd or PowerShell prompt will be in the short (8.3) format. This lets you know that you're in a long path and prevents the prompt from taking too much screen space.
 - When PowerShell is opened in a long path, running an executable, such as **whoami** will result in an error (or no output with PowerShell Core). This is a PowerShell problem. It has nothing to do with Right-click Tools and there is no known fix or workaround.
-- See the **[Configuration](#configuration)** section later in this document for configuration details.
+- See the **[Configuration](#configuration)** section for configuration details.
 
 ## Launcher
 
@@ -146,7 +148,7 @@ When `RightClickTools.exe` is double-clicked, it opens its own built-in tool lau
 
 By default, where elevation is applicable to a tool, a dialog will pop up allowing you to run as **User**, **Administrator**, or **TrustedInstaller**.
 
-You can also configure Right-Click Tools to open any of the applicable tools at the Run-As level of your choice and only show the pop-up when the **Ctrl** key is held down. See the **[Configuration](#configuration)** section later in this document for details.
+You can also configure Right-Click Tools to open any of the applicable tools at the Run-As level of your choice and only show the pop-up when the **Ctrl** key is held down. See the **[Configuration](#configuration)** section for details.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/084ead87-2887-4e98-93aa-d56c5ed76f98">
@@ -188,7 +190,7 @@ Please note the following expected behaviors when using this feature with the de
 
 By default, this opens a dialog that helps you build a search term using Advanced Query Syntax (AQS) which is sent to Explorer using the search-ms: protocol. If the query is valid, Explorer should open a window with the search results for that query. The Search Helper does not evaluate your query. It only passes it to Explorer.
 
-If you prefer to use a third-party search tool such as [Everything](https://www.voidtools.com/) or [FileLocator Pro](https://www.mythicsoft.com/filelocatorpro/), you can configure this option to open the search tool of your choice at the current folder. See the **[Configuration](#configuration)** section later in this document for details.
+If you prefer to use a third-party search tool such as [Everything](https://www.voidtools.com/) or [FileLocator Pro](https://www.mythicsoft.com/filelocatorpro/), you can configure this option to open the search tool of your choice at the current folder. See the **[Configuration](#configuration)** section for details.
 
 **Note**: Windows 7 does not support the search-ms: protocol, so, for Windows 7, the Search Helper puts the AQS query on the clipboard and then opens an Explorer window where it can be pasted into the search box. 
 
