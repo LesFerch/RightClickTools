@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -12,6 +12,21 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -45,9 +60,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -57,14 +74,74 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dialogs.cs" />
+    <Compile Include="CustomControls.cs" />
+    <Compile Include="Language.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MethodsClasses.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="Setup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".gitignore" />
     <None Include="App.config" />
+    <None Include="ARCHITECTURE_DIAGRAM.md" />
+    <None Include="BUILD-SYSTEM-SUMMARY.md" />
+    <None Include="BUILD-SYSTEM-UPGRADE.md" />
+    <None Include="Check-DLL-Exports.ps1" />
+    <None Include="CHECKLIST-BUILD-SETUP.md" />
+    <None Include="COMPLETE_FIX_VALIDATION.md" />
+    <None Include="CONVERSION_SUMMARY.md" />
+    <None Include="ConvertLanguageIniToUnicode.ps1" />
+    <None Include="Diagnose-MSIX-COM.ps1" />
+    <None Include="Diagnose-RightClickTools-VM-Fixed.ps1" />
+    <None Include="FIX_LANGUAGE_DETECTION_REGISTRY.md" />
+    <None Include="FIX_SUMMARY_ENCODING.md" />
+    <None Include="IMPLEMENTATION-COMPLETE.md" />
+    <None Include="IMPLEMENTATION_COMPLETE.md" />
+    <None Include="INSTALL-CERT-TO-LOCALMACHINE.ps1" />
+    <None Include="LANGUAGE_INI_ENCODING.md" />
+    <None Include="MANUAL_CHANGES_REQUIRED.md" />
+    <None Include="MSIX-AppParts-Analysis.md" />
+    <None Include="MSIX-Package-Contents.md" />
+    <None Include="QUICK-START-BUILD.md" />
+    <None Include="QUICK_START_CHECKLIST.md" />
+    <None Include="README-BUILD.md" />
+    <None Include="RightClickToolsHandler\ARCHITECTURE.md" />
+    <None Include="RightClickToolsHandler\Build.bat" />
+    <None Include="RightClickToolsHandler\Create-MSIXPackage.ps1" />
+    <None Include="RightClickToolsHandler\FILE_REFERENCE.md" />
+    <None Include="RightClickToolsHandler\fix-vcxproj.ps1" />
+    <None Include="RightClickToolsHandler\IMPLEMENTATION_GUIDE.md" />
+    <None Include="RightClickToolsHandler\INDEX.md" />
+    <None Include="RightClickToolsHandler\Package.appxmanifest.sample" />
+    <None Include="RightClickToolsHandler\QUICK_REFERENCE.md" />
+    <None Include="RightClickToolsHandler\QUICK_START.md" />
+    <None Include="RightClickToolsHandler\README.md" />
+    <None Include="RightClickToolsHandler\RightClickToolsHandler.vcxproj.template" />
+    <None Include="RightClickToolsHandler\START_HERE.md" />
+    <None Include="RightClickToolsHandler\SUMMARY.md" />
+    <None Include="RightClickToolsHandler\WIN11_ONLY_DETECTION.md" />
+    <None Include="RUN-CREATE-DEVCERT-ADMIN.bat" />
+    <None Include="RunAs-Prompt-Feature.md" />
+    <None Include="Setup.csproj" />
+    <None Include="SPARSE_PACKAGE_IMPLEMENTATION.md" />
+    <None Include="SPARSE_PACKAGE_SUMMARY.md" />
+    <None Include="TEST-VM-SETUP.md" />
+    <None Include="TESTING_FRENCH_LANGUAGE.md" />
+    <None Include="Verify-DevCert-OnVM.ps1" />
+    <None Include="Verify-DLL-Exports.ps1" />
+    <None Include="Verify-MSIX.ps1" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DEV-CERT-SETUP.txt" />
     <Content Include="RightClickTools.ico" />
+    <Content Include="RightClickToolsHandler\pch.cpp" />
+    <Content Include="RightClickToolsHandler\pch.h" />
+    <Content Include="RightClickToolsHandler\RightClickToolsHandler.cpp" />
+    <Content Include="RightClickToolsHandler\RightClickToolsHandler.def" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="SHDocVw">
@@ -76,6 +153,18 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.8 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
