@@ -47,7 +47,7 @@ Use this option if you want to:
 5. For the **Enable privilege elevation task** option, see the [Setup](#setup) section below for more details.
 6. Click **OK** to continue with the installation.
 
-**Note**: The option **Context menu via registry (classic only)** is checked by default. This option uses registry keys to add Right-Click Tools to Explorer's classic context menu. This is a zero-overhead option, but you must use the classic context menu either by holding the **Shift** key when right-clicking or by making the classic menu the default (See *Setup** below). The option **Context menu handler (modern + classic)** installs a signed context menu handler that adds Right-Click Tools to both the modern and classic context menu.
+**Note**: The option **Context menu handler (modern + classic)** (which only appears for Windows 11) installs a signed context menu handler that adds Right-Click Tools to both the modern and classic context menu. The option **Context menu via registry (classic only)** uses registry keys to add Right-Click Tools to Explorer's classic context menu. This is a zero-overhead option, but, if used on Windows 11, you must use the classic context menu either by holding the **Shift** key when right-clicking or by making the classic menu the default (See *Setup** below).
 
 **Note**: The installer will automatically run in your Windows current language. If you wish to force the installer to run in a different language, you can specify that language on the command line using its two letter code. For example:
 
