@@ -2,6 +2,8 @@
 
 ### Version 2.0.0
 
+The documentation for version 1.2.1 can be found [here](./Version121Readme.md).
+
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/2ea10bbc-7d1f-4a05-bfb2-6115be03bf9f">
   <img alt="image" src="https://github.com/user-attachments/assets/5d8929b4-b384-44cb-a7eb-513fd9ad9ea7" style="max-width: 100%; height: auto;" />
