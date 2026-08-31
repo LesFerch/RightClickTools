@@ -35,6 +35,8 @@ The included **Language.ini** file includes 30 languages for the interface and c
 
 ### Install Using Setup Program
 
+This option supports the modern context menu, but requires Administrator rights to do the install. To use this option with a Standard user account, temporarily make your Standard user an Administrator, do the installation, and then switch the user back to Standard.
+
 Use this option if you want to:
 
 - add Right-Click Tools to the modern (Windows 11) context menu.
@@ -56,6 +58,8 @@ Use this option if you want to:
 **Note**: The right-click menu items will be created for the user that is currently logged on interactively. If you wish to add the right-click menu items to *other* users, log on as each user and run **RightClickTools-Setup.exe** again.
 
 ### Portable Install
+
+This option does not require Administrator rights, but only supports the classic context menu.
 
 Use this option if you want to:
 
