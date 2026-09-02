@@ -35,7 +35,7 @@ The included **Language.ini** file includes 30 languages for the interface and c
 
 ### Install Using Setup Program
 
-This option supports the modern context menu, but requires Administrator rights to do the install. To use this option with a Standard user account, temporarily make your Standard user an Administrator, do the installation, and then switch the user back to Standard.
+This option supports both the classic and modern context menu. Administrator rights are required for the initial install to the machine.
 
 Use this option if you want to:
 
@@ -49,6 +49,8 @@ Use this option if you want to:
 5. For the **Enable privilege elevation task** option, see the [Setup](#setup) section below for more details.
 6. Click **OK** to continue with the installation.
 
+**IMPORTANT**: If you are installing for a Standard (i.e. non-admin) user, or any subsequent user after the initial install, login as that user, open `C:\Program Files\RightClickTools` and double-click `RightClickTools.msix` to add Right-Click Tools to the current user's context menu.
+
 **Note**: The option **Context menu handler (modern + classic)** (which only appears for Windows 11) installs a signed context menu handler that adds Right-Click Tools to both the modern and classic context menu. The option **Context menu via registry (classic only)** uses registry keys to add Right-Click Tools to Explorer's classic context menu. This is a zero-overhead option, but, if used on Windows 11, you must use the classic context menu either by holding the **Shift** key when right-clicking or by making the classic menu the default (See **Setup** below).
 
 **Note**: The installer will automatically run in your Windows current language. If you wish to force the installer to run in a different language, you can specify that language on the command line using its two letter code. For example:
@@ -59,7 +61,7 @@ Use this option if you want to:
 
 ### Portable Install
 
-This option does not require Administrator rights, but only supports the classic context menu.
+This option only supports the classic context menu.
 
 Use this option if you want to:
 
