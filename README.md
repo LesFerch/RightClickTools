@@ -21,6 +21,8 @@ For administrator users, that choose to install the optional privilege elevation
 
 The included **Language.ini** file includes 30 languages for the interface and can be edited to add other languages and/or change any of the labels.
 
+For a summary of the includes tools, click [here](./RightClickTools-Extended-Summary.md).
+
 ## Download
 
 [![image](https://github.com/user-attachments/assets/75e62417-c8ee-43b1-a8a8-a217ce130c91)Download the installer](https://github.com/LesFerch/RightClickTools/releases/download/2.0.0/RightClickTools-Setup.exe)
