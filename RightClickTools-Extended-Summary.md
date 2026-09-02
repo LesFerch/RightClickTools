@@ -38,4 +38,4 @@ The default settings provide a ready-to-use suite of tools, but many configurati
 
 - **More Tools** allows for more than 16 tools to be in the right-click menu, but still work without having to add a context menu handler. User-specified programs and scripts may be added to this menu by editing the MoreTools.ini file.
 
-- **launcher** mode opens when RightClickTools.exe is run without any arguments (i.e. double-click it). This provides a portable option to run any of the tools without having to add them to the right-click context menu. User-specified programs and scripts may be added to this menu by editing the Launcher.ini file.
+- **Launcher** mode opens when RightClickTools.exe is run without any arguments (i.e. double-click it). This provides a portable option to run any of the tools without having to add them to the right-click context menu. User-specified programs and scripts may be added to this menu by editing the Launcher.ini file.
