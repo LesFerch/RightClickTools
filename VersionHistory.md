@@ -10,7 +10,7 @@
 - New **Folder options here** provides options to set the folder type for a whole folder or tree, set folder colors and 1, 2 and 4 up thumbnails using icons that are generated automatically from image files.
 - New **Settings** menu provides shortcuts to all Windows settings, the app's configuration files, and Scale and Light/Dark selectors.
 - New **Shortcut Tool** allows search and replace on LNK files and an option to convert URL shortcuts to LNK shortcuts.
-- New **Date Time Tool** provides many options for copying one date format to another for a whole folder or whole tree.
+- New **Date Time Tool** provides many options for setting dates/times and copying one date/time property to another for a whole folder or whole tree.
 - New **Snip with border** utility provides an easy way to capture any window with a consistent amount of background border for contrast.
 - New **More Tools** menu allows for additional tools and user-specified tools to be added. For example, you could add a tool, such as grepWin, with the option to run it as User, Administrator, or TrustedInstaller.
 - New Launcher mode (double-click the main exe) allows all tools, including user-specified tools, to be run without any installation.
