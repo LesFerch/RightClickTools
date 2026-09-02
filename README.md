@@ -408,7 +408,7 @@ You can change the shortcut key and/or the border width via the **RightClickTool
 | RightClickTools | General | NoTrustedInstaller | 0 = Enable TrustedInstaller options <br> 1 = Disable TrustedInstaller options |
 | RightClickTools | General | FullyPortable | This value must be set in the `AppParts` INI file <br> 0 = Settings are stored in %localappdata% <br> 1 = Settings are stored in the `AppParts` INI file (if writeable) |
 | RightClickTools | Launcher <br> MoreTools <br> SearchHere <br> Settings | AutoClose | 0 = Keep dialog open <br> 1 = Auto-close dialog after making a selection |
-| RightClickTools | Launcher <br> MoreTools <br> MoreTools | Style | 0 = Use style 2 on Win 11+, otherwise use style 1 <br> 1 = 9 point font and tight spacing <br> 2 = 10 point font and loose spacing |
+| RightClickTools | Launcher <br> MoreTools | Style | 0 = Use style 2 on Win 11+, otherwise use style 1 <br> 1 = 9 point font and tight spacing <br> 2 = 10 point font and loose spacing |
 | RightClickTools | CmdHere <br> PowerShellHere <br> PowerShellCoreHere <br> FileManagerHere <br> SearchHere <br> RegEdit | RunAs | 0 = Run as current user <br> 1 = Run as Administrator <br> 2 = Run as TrustedInstaller <br> 3 = Pop-up menu to select elevation <br><br> Optionally hold **Ctrl** key to get pop-up menu|
 | RightClickTools | CmdHere <br> PowerShellHere <br> PowerShellCoreHere | WTadmin | 0 = Use ConHost for Run as Administrator <br> 1 = Use Windows Terminal (if installed) for Run as Administrator |
 | RightClickTools | PowerShellCoreHere <br> FileManagerHere <br> SearchHere | Exe | Optional path to your preferred executable |
@@ -417,7 +417,7 @@ You can change the shortcut key and/or the border width via the **RightClickTool
 | RightClickTools | Settings | MaxScale | Maximum scale value to show in the `Scale` dropdown menu within the Settings dialog (default=300) |
 | RightClickTools | SnipWithBorder | Key | Alt key combination (e.g. Alt-Z) |
 | RightClickTools | SnipWithBorder | BorderWidth | Border width in pixels at 100% scaling. The border width will be scaled proportionally with your screen scaling setting. |
-| Launcher <br> MoreTools | All | Exe | Path to the executable <br><br> For internal commands it's always `RightClickTools.exe` <br><br> For external commmands it's the full path to the executable (without quotes) <br><br> For scripts this must be the full path of the script interpreter (Cmd PowerShell WScript Python etc.) |
+| Launcher <br> MoreTools | All | Exe | Path to the executable (without quotes) <br><br> For internal commands it's always `RightClickTools.exe` <br><br> For external commmands it's either the full path or a relative path for tools located within `AppParts` <br><br> For scripts this must be the full path of the script interpreter (Cmd PowerShell WScript Python etc.) |
 | Launcher <br> MoreTools | All | CmdLine | Command line to pass to the executable <br><br> Include `"%V"` (with the quotes) to specify the selected path <br><br> For internal commands the value will always be a single argument that specifies which tool to run <br><br> For scripts this would typically be the full path to the script and possibly additional arguments |
 | Launcher <br> MoreTools | All | Icon | Full path to an ICO file to show in the launcher <br><br> If omitted, the executable's icon will be used |
 | Launcher <br> MoreTools | All | RunAs | 0 = Run as current user <br> 1 = Run as Administrator <br> 2 = Run as TrustedInstaller <br> 3 = Pop-up menu to select elevation <br><br> Optionally hold **Ctrl** key to get pop-up menu |
