@@ -57,8 +57,6 @@ Use this option if you want to:
 
 `RightClickTools-Setup /lang=en`
 
-**Note**: The right-click menu items will be created for the user that is currently logged on interactively. If you wish to add the right-click menu items to *other* users, log on as each user and run **RightClickTools-Setup.exe** again.
-
 ### Portable Install
 
 This option only supports the classic context menu.
