@@ -321,11 +321,11 @@ zh.RemovingContextHandler=正在删除上下文菜单处理程序... 这可能�
 ; ---------------------------------------------------
 [Files]
 
-Source: "RightClickTools\*"; DestDir: "{app}"; Flags: recursesubdirs createallsubdirs ignoreversion; Excludes: "*.msix,InstallMsix.ps1"
+Source: "RightClickTools\*"; DestDir: "{app}"; Flags: recursesubdirs createallsubdirs ignoreversion; Excludes: "*.msix,*.ps1"
 
-Source: "RightClickTools\RightClickTools.msix"; DestDir: "{tmp}"; Flags: deleteafterinstall
-Source: "RightClickTools\InstallMsix.ps1"; DestDir: "{tmp}"; Flags: deleteafterinstall
-Source: "RightClickTools\UninstallMsix.ps1"; DestDir: "{app}"
+Source: "RightClickTools\RightClickTools.msix"; DestDir: "{app}"; Check: IsWindows11
+Source: "RightClickTools\InstallMsix.ps1"; DestDir: "{app}"; Check: IsWindows11
+Source: "RightClickTools\UninstallMsix.ps1"; DestDir: "{app}"; Check: IsWindows11
 
 ; ---------------------------------------------------
 ; APP PATHS
@@ -346,7 +346,7 @@ Filename: "{app}\{#MyAppExeName}"; Parameters: "/HKUinstallMin /Lang={language}"
 Filename: "{app}\{#MyAppExeName}"; Parameters: "/HKUtaskonly /Lang={language}"; Check: IsModern and PrivTask
 
 Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -File ""{app}\UninstallMsix.ps1"""; StatusMsg: "{cm:RemovingContextHandler}"; Flags: runhidden waituntilterminated; Check: IsClassic and IsWindows11
-Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -File ""{tmp}\InstallMsix.ps1"""; StatusMsg: "{cm:InstallingContextHandler}"; Flags: runhidden waituntilterminated; Check: IsModern
+Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -File ""{app}\InstallMsix.ps1"""; StatusMsg: "{cm:InstallingContextHandler}"; Flags: runhidden waituntilterminated; Check: IsModern
 
 ; ---------------------------------------------------
 ; UNINSTALL
