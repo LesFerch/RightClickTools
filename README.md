@@ -49,7 +49,7 @@ Use this option if you want to:
 5. For the **Enable privilege elevation task** option, see the [Setup](#setup) section below for more details.
 6. Click **OK** to continue with the installation.
 
-**IMPORTANT**: If you are installing for a Standard (i.e. non-admin) user, or any subsequent user after the initial install, login as that user, open `C:\Program Files\RightClickTools` and double-click `RightClickTools.msix` to add Right-Click Tools to the current user's context menu.
+**IMPORTANT**: To add the tools to the Windows 11 modern context menu for a Standard (i.e. non-admin) user, or any subsequent user after the initial install, login as that user, open `C:\Program Files\RightClickTools` and double-click `RightClickTools.msix` to add Right-Click Tools to the current user's context menu. To remove the menu items added by the MSIX package, open `Settings > Installed Apps` and uninstall `Right-Click Tools Context Menu Handler`. For the classic context menu, use **Setup.exe** (described below) to add or remove the menu items to/from any user.
 
 **Note**: The option **Context menu handler (modern + classic)** (which only appears for Windows 11) installs a signed context menu handler that adds Right-Click Tools to both the modern and classic context menu. The option **Context menu via registry (classic only)** uses registry keys to add Right-Click Tools to Explorer's classic context menu. This is a zero-overhead option, but, if used on Windows 11, you must use the classic context menu either by holding the **Shift** key when right-clicking or by making the classic menu the default (See **Setup** below).
 
