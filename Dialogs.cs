@@ -1035,8 +1035,8 @@ namespace RightClickTools
                 int baseWidth = 550;
                 int dialogHeight = (int)(590 * ScaleFactor);
 
-                // Initialize history file path
-                historyFilePath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "RightClickTools", "Searches.txt");
+                // Initialize history file path (follow FullyPortable setting via Program.UserSettingsFolder)
+                historyFilePath = System.IO.Path.Combine(UserSettingsFolder, "Searches.txt");
 
                 // Read AutoClose setting from [SearchHere] section in RightClickTools.ini
                 autoClose = ReadString(myIniFile, "SearchHere", "AutoClose", "0") == "1";
@@ -6367,9 +6367,7 @@ namespace RightClickTools
                 SpecifiedFoldersCheckbox.CheckedChanged += (s, e) =>
                 {
                     if (!SpecifiedFoldersCheckbox.Checked) return;
-                    string cleanupFile = System.IO.Path.Combine(
-                        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                        "RightClickTools", "Cleanup.txt");
+                    string cleanupFile = System.IO.Path.Combine(UserSettingsFolder, "Cleanup.txt");
                     try
                     {
                         System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(cleanupFile));
@@ -6689,8 +6687,7 @@ namespace RightClickTools
                     {
                         try
                         {
-                            string localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-                            Process.Start("explorer.exe", $"{localAppData}\\RightClickTools");
+                            Process.Start("explorer.exe", UserSettingsFolder);
                             if (autoClose) settingsDialog.Close();
                         }
                         catch { }

@@ -119,6 +119,11 @@ namespace RightClickTools
         static Point savedDialogPosition = Point.Empty; // Save dialog position for theme change relaunch
         static bool useOriginalPosition = false; // Use saved dialog position on next dialog launch
 
+        // Folder where per-user settings are stored. When FullyPortable is enabled and the
+        // program folder is writable this will point to a local "AppData" subfolder, otherwise
+        // it defaults to %LocalAppData%\RightClickTools.
+        static string UserSettingsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "RightClickTools");
+
         [STAThread]
         static void Main(string[] args)
         {
@@ -523,6 +528,9 @@ namespace RightClickTools
             string userSettingsFolder = fullyPortable
                 ? portableFolder
                 : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "RightClickTools");
+
+            // Publish the chosen settings folder for other partial classes to use
+            UserSettingsFolder = userSettingsFolder;
 
             string userSettingsFile = Path.Combine(userSettingsFolder, $"{myName}.ini");
             string userMoreToolsFile = Path.Combine(userSettingsFolder, "MoreTools.ini");
@@ -1097,9 +1105,7 @@ namespace RightClickTools
 
         static void ClearSpecifiedFolders()
         {
-            string cleanupFile = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "RightClickTools", "Cleanup.txt");
+            string cleanupFile = Path.Combine(UserSettingsFolder, "Cleanup.txt");
 
             if (!File.Exists(cleanupFile)) return;
 
