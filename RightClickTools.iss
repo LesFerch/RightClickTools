@@ -1,5 +1,5 @@
 #define MyAppName "RightClickTools"
-#define MyAppVersion "2.0.2"
+#define MyAppVersion "2.0.3"
 #define MyAppPublisher "LesFerch"
 #define MyAppURL "https://lesferch.github.io/RightClickTools/"
 #define MyAppExeName "RightClickTools.exe"
