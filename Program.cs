@@ -323,24 +323,8 @@ namespace RightClickTools
                     CmdHere();
                     break;
 
-                case "/cmdadminhere":
-                    RunAsAdmin(CmdExe);
-                    break;
-
-                case "/cmdtrustedhere":
-                    RunAsTrusted(CmdExe);
-                    break;
-
                 case "/powershellhere":
                     PowerShellHere();
-                    break;
-
-                case "/powershelladminhere":
-                    RunAsAdmin(PowerShellExe);
-                    break;
-
-                case "/powershelltrustedhere":
-                    RunAsTrusted(PowerShellExe);
                     break;
 
                 case "/powershellcorehere":
@@ -348,15 +332,11 @@ namespace RightClickTools
                     PowerShellCoreHere();
                     break;
 
-                case "/searchadminhere":
-                    OpenSearchHelper();
+                case "/searchhere":
+                    SearchHere();
                     break;
 
-                case "/searchtrustedhere":
-                    OpenSearchHelper();
-                    break;
-
-                case "/searchuserhere":
+                case "/searchhelper":
                     OpenSearchHelper();
                     break;
 
@@ -452,10 +432,6 @@ namespace RightClickTools
                     DialogResult result = CustomMessageBox.Show($"{sRestartExplorer}?", sMain);
                     if (result == DialogResult.Cancel) return;
                     RestartExplorer();
-                    break;
-
-                case "/searchhere":
-                    SearchHere();
                     break;
 
                 case "/folderoptionshere":
@@ -1543,7 +1519,7 @@ namespace RightClickTools
             if (StartDirectory != "") Process.Start("explorer.exe", StartDirectory);
         }
 
-        static void CreateChangeDirectoryFile(string EXEFilename)
+        static string CreateChangeDirectoryFile(string EXEFilename, string mode = "")
         {
             if (EXEFilename == CmdExe)
             {
@@ -1553,6 +1529,27 @@ namespace RightClickTools
                 Data += "\r\nstart /b \"\" cmd /c del \"%~f0\"";
                 File.WriteAllText(cdFile, Data);
                 CommandLine = $"/k \"{cdFile}\"";
+                return EXEFilename;
+            }
+
+            // PowerShell Core installed via MSIX (WindowsApps) is an App Execution Alias.
+            // TrustedInstaller can't activate it directly - it runs in the wrong context.
+            // The workaround is to route through Cmd.exe instead, using a .cmd script that
+            // cds to StartDirectory and launches pwsh.exe's real, fully resolved path.
+            // (We can't just pass the resolved path and the ps1-launch args together on
+            // the Cmd.exe command line: the two separately-quoted arguments confuse Cmd's
+            // parser, since it sees more than one quoted segment.)
+            if (EXEFilename == PowerShellCoreExe && mode == "TrustedInstaller")
+            {
+                string resolvedPwsh = ResolveExecutable(PowerShellCoreExe);
+                string cdFile = $@"{TempPath}ChangeDirectory.cmd";
+                StartDirectory = StartDirectory.Replace("%", "%%"); //Escape percent signs
+                string Data = $"@echo off\r\ncd /d \"{StartDirectory}\"";
+                Data += "\r\nstart /b \"\" cmd /c del \"%~f0\"";
+                Data += $"\r\n\"{resolvedPwsh}\" -NoLogo -NoExit -NoProfile -ExecutionPolicy Bypass -Command $host.ui.RawUI.WindowTitle = 'Administrator: pwsh.exe'";
+                File.WriteAllText(cdFile, Data);
+                CommandLine = $"/c \"{cdFile}\"";
+                return CmdExe;
             }
 
             if (EXEFilename == PowerShellExe || EXEFilename == PowerShellCoreExe)
@@ -1564,7 +1561,10 @@ namespace RightClickTools
                 Data += "\r\nStart-Sleep -Milliseconds 100; Remove-Item $MyInvocation.MyCommand.Path -Force\r\n"; //Delete itself when done
                 File.WriteAllText(cdFile, Data, Encoding.UTF8); //UTF-8 with BOM
                 CommandLine = $"-NoLogo -NoExit -NoProfile -ExecutionPolicy Bypass -file \"{cdFile}\"";
+                return EXEFilename;
             }
+
+            return EXEFilename;
         }
 
         static void CreateTakeOwnHerePS1()
@@ -1702,7 +1702,7 @@ namespace RightClickTools
 
         static void RunElevated(string EXEFilename, string mode)
         {
-            CreateChangeDirectoryFile(EXEFilename);
+            EXEFilename = CreateChangeDirectoryFile(EXEFilename, mode);
 
             string actualExe = EXEFilename;
             string actualCmd = CommandLine;
@@ -1884,22 +1884,21 @@ namespace RightClickTools
                 }
                 else
                 {
+                    CommandLine = $"/searchhelper \"{StartDirectory}\"";
+
                     // No custom search program - launch Search Helper dialog with RunAs support
                     if (runAsResult == DialogResult.OK)
                     {
-                        CommandLine = "/searchuserhere";
                         RunAsUser(myExe);
                         return;
                     }
                     if (runAsResult == DialogResult.Yes)
                     {
-                        CommandLine = "/searchadminhere";
                         RunAsAdmin(myExe);
                         return;
                     }
                     if (runAsResult == DialogResult.No)
                     {
-                        CommandLine = "/searchtrustedhere";
                         RunAsTrusted(myExe);
                         return;
                     }
@@ -2858,17 +2857,7 @@ namespace RightClickTools
 
                     if (cmdLine.Contains("%V"))
                     {
-                        // Read StartDirectory from registry before replacing %V
-                        // This ensures external commands get the current directory
-                        string currentStartDirectory = (string)Registry.GetValue(@"HKEY_CURRENT_USER\Software\RightClickTools", "StartDirectory", "");
-                        if (!string.IsNullOrEmpty(currentStartDirectory) && Directory.Exists(currentStartDirectory))
-                        {
-                            cmdLine = cmdLine.Replace("%V", currentStartDirectory);
-                        }
-                        else
-                        {
-                            cmdLine = cmdLine.Replace("%V", StartDirectory);
-                        }
+                        cmdLine = cmdLine.Replace("%V", StartDirectory);
                     }
 
                     CommandLine = cmdLine;
@@ -2925,17 +2914,11 @@ namespace RightClickTools
 
                 if (cmdLine.Contains("%V"))
                 {
-                    // Read StartDirectory from registry before replacing %V
-                    // This ensures external commands get the current directory
-                    string currentStartDirectory = (string)Registry.GetValue(@"HKEY_CURRENT_USER\Software\RightClickTools", "StartDirectory", "");
-                    if (!string.IsNullOrEmpty(currentStartDirectory) && Directory.Exists(currentStartDirectory))
-                    {
-                        cmdLine = cmdLine.Replace("%V", currentStartDirectory);
-                    }
-                    else
-                    {
-                        cmdLine = cmdLine.Replace("%V", StartDirectory);
-                    }
+                    cmdLine = cmdLine.Replace("%V", StartDirectory);
+                }
+                else
+                {
+                    cmdLine = cmdLine + " " + $"\"{StartDirectory}\"";
                 }
 
                 CommandLine = cmdLine;

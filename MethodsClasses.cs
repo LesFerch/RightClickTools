@@ -2,7 +2,9 @@
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 using Microsoft.Win32;
+using Microsoft.Win32.SafeHandles;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using System.Windows.Forms;
@@ -1461,6 +1463,92 @@ namespace RightClickTools
                     return false;
                 }
             }
+        }
+
+        // Resolves a bare/alias executable name (e.g. "pwsh.exe") to its full path.
+        // This must run in the interactive user's context (before elevating to
+        // TrustedInstaller), since App Execution Alias stubs under
+        // %LocalAppData%\Microsoft\WindowsApps can only be resolved reliably there.
+        static string ResolveExecutable(string exe)
+        {
+            var aliasPath = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                @"Microsoft\WindowsApps", exe);
+            if (File.Exists(aliasPath))
+                return ResolveIfAppExecutionAlias(aliasPath);
+            return exe;
+        }
+
+        // App Execution Alias stubs (e.g. under %LocalAppData%\Microsoft\WindowsApps) are
+        // reparse points of type IO_REPARSE_TAG_APPEXECLINK. CreateProcess can't launch
+        // them directly outside of the interactive user's packaged-app activation context
+        // (such as under TrustedInstaller), so we read the reparse point here - while
+        // still running as the interactive user - to recover the real, fully qualified
+        // target exe path (e.g. under Program Files\WindowsApps\<package>\pwsh.exe).
+        const uint IO_REPARSE_TAG_APPEXECLINK = 0x8000001B;
+        const uint FSCTL_GET_REPARSE_POINT = 0x900A8;
+        const uint FILE_FLAG_OPEN_REPARSE_POINT = 0x00200000;
+        const uint FILE_FLAG_BACKUP_SEMANTICS = 0x02000000;
+        const uint GENERIC_READ = 0x80000000;
+        const uint FILE_SHARE_READ = 1;
+        const uint OPEN_EXISTING = 3;
+
+        [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
+        static extern SafeFileHandle CreateFile(string lpFileName, uint dwDesiredAccess, uint dwShareMode,
+            IntPtr lpSecurityAttributes, uint dwCreationDisposition, uint dwFlagsAndAttributes, IntPtr hTemplateFile);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        static extern bool DeviceIoControl(SafeFileHandle hDevice, uint dwIoControlCode, IntPtr lpInBuffer,
+            uint nInBufferSize, IntPtr lpOutBuffer, uint nOutBufferSize, out uint lpBytesReturned, IntPtr lpOverlapped);
+
+        static string ResolveIfAppExecutionAlias(string candidatePath)
+        {
+            const int bufferSize = 16384;
+            IntPtr buffer = IntPtr.Zero;
+            try
+            {
+                using (var handle = CreateFile(candidatePath, GENERIC_READ, FILE_SHARE_READ, IntPtr.Zero,
+                    OPEN_EXISTING, FILE_FLAG_OPEN_REPARSE_POINT | FILE_FLAG_BACKUP_SEMANTICS, IntPtr.Zero))
+                {
+                    if (handle == null || handle.IsInvalid) return candidatePath;
+
+                    buffer = Marshal.AllocHGlobal(bufferSize);
+                    uint bytesReturned;
+                    bool ok = DeviceIoControl(handle, FSCTL_GET_REPARSE_POINT, IntPtr.Zero, 0, buffer, bufferSize, out bytesReturned, IntPtr.Zero);
+                    if (!ok) return candidatePath;
+
+                    uint reparseTag = unchecked((uint)Marshal.ReadInt32(buffer, 0));
+                    if (reparseTag != IO_REPARSE_TAG_APPEXECLINK) return candidatePath;
+
+                    ushort reparseDataLength = unchecked((ushort)Marshal.ReadInt16(buffer, 4));
+
+                    // Header layout: ReparseTag(4) + ReparseDataLength(2) + Reserved(2) + Version(4) = 12 bytes,
+                    // followed by a run of back-to-back null-terminated UTF-16 strings (package family name,
+                    // AppUserModelId, the real target exe path, and the alias file name).
+                    int offset = 12;
+                    int end = 8 + reparseDataLength; // ReparseDataLength is measured from right after Reserved
+                    var candidates = new List<string>();
+                    while (offset < end)
+                    {
+                        string s = Marshal.PtrToStringUni(buffer + offset);
+                        if (string.IsNullOrEmpty(s)) break;
+                        candidates.Add(s);
+                        offset += (s.Length + 1) * 2;
+                    }
+
+                    foreach (var s in candidates)
+                    {
+                        if (s.IndexOf('\\') >= 0 && File.Exists(s))
+                            return s;
+                    }
+                }
+            }
+            catch { }
+            finally
+            {
+                if (buffer != IntPtr.Zero) Marshal.FreeHGlobal(buffer);
+            }
+            return candidatePath;
         }
     }
 }

@@ -77,9 +77,9 @@
     <Compile Include="Dialogs.cs" />
     <Compile Include="CustomControls.cs" />
     <Compile Include="Language.cs" />
+    <Compile Include="MethodsClasses.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MethodsClasses.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Setup.cs" />
@@ -87,28 +87,6 @@
   <ItemGroup>
     <None Include=".gitignore" />
     <None Include="App.config" />
-    <None Include="ARCHITECTURE_DIAGRAM.md" />
-    <None Include="BUILD-SYSTEM-SUMMARY.md" />
-    <None Include="BUILD-SYSTEM-UPGRADE.md" />
-    <None Include="Check-DLL-Exports.ps1" />
-    <None Include="CHECKLIST-BUILD-SETUP.md" />
-    <None Include="COMPLETE_FIX_VALIDATION.md" />
-    <None Include="CONVERSION_SUMMARY.md" />
-    <None Include="ConvertLanguageIniToUnicode.ps1" />
-    <None Include="Diagnose-MSIX-COM.ps1" />
-    <None Include="Diagnose-RightClickTools-VM-Fixed.ps1" />
-    <None Include="FIX_LANGUAGE_DETECTION_REGISTRY.md" />
-    <None Include="FIX_SUMMARY_ENCODING.md" />
-    <None Include="IMPLEMENTATION-COMPLETE.md" />
-    <None Include="IMPLEMENTATION_COMPLETE.md" />
-    <None Include="INSTALL-CERT-TO-LOCALMACHINE.ps1" />
-    <None Include="LANGUAGE_INI_ENCODING.md" />
-    <None Include="MANUAL_CHANGES_REQUIRED.md" />
-    <None Include="MSIX-AppParts-Analysis.md" />
-    <None Include="MSIX-Package-Contents.md" />
-    <None Include="QUICK-START-BUILD.md" />
-    <None Include="QUICK_START_CHECKLIST.md" />
-    <None Include="README-BUILD.md" />
     <None Include="RightClickToolsHandler\ARCHITECTURE.md" />
     <None Include="RightClickToolsHandler\Build.bat" />
     <None Include="RightClickToolsHandler\Create-MSIXPackage.ps1" />
@@ -124,19 +102,9 @@
     <None Include="RightClickToolsHandler\START_HERE.md" />
     <None Include="RightClickToolsHandler\SUMMARY.md" />
     <None Include="RightClickToolsHandler\WIN11_ONLY_DETECTION.md" />
-    <None Include="RUN-CREATE-DEVCERT-ADMIN.bat" />
-    <None Include="RunAs-Prompt-Feature.md" />
     <None Include="Setup.csproj" />
-    <None Include="SPARSE_PACKAGE_IMPLEMENTATION.md" />
-    <None Include="SPARSE_PACKAGE_SUMMARY.md" />
-    <None Include="TEST-VM-SETUP.md" />
-    <None Include="TESTING_FRENCH_LANGUAGE.md" />
-    <None Include="Verify-DevCert-OnVM.ps1" />
-    <None Include="Verify-DLL-Exports.ps1" />
-    <None Include="Verify-MSIX.ps1" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DEV-CERT-SETUP.txt" />
     <Content Include="RightClickTools.ico" />
     <Content Include="RightClickToolsHandler\pch.cpp" />
     <Content Include="RightClickToolsHandler\pch.h" />
