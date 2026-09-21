@@ -1908,6 +1908,8 @@ namespace RightClickTools
 
         static void OpenSearchHelper()
         {
+            helpPage = "search-here";
+
             DialogResult result = SearchHelperDialog.Show(sSearchHelper, sMain);
 
             if (result == DialogResult.Cancel) return;
