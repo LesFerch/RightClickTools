@@ -1,3 +1,16 @@
+## 2.0.3
+
+- Fixed help link for Search Helper tool.
+
+## 2.0.2
+
+- Fixed bug where current path was not passed to Search Helper, Shortcut Tool, and Date Time Tool
+- Fixed bug for PowerShell Core, when running from WindowsApps, was not opening as TrustedInstaller.
+
+## 2.0.1
+
+- Fixed location for Searches.txt, Cleanup.txt, and Settings shortcut when FullyPortable=1
+
 ## 2.0.0
 
 - Now directly supports the Windows 11 modern context menu.
