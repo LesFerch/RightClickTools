@@ -1,6 +1,6 @@
 # RightClickTools
 
-[Version 2.0.1](./VersionHistory.md)
+[Version 2.0.2](./VersionHistory.md)
 
 The documentation for version 1.2.1 can be found [here](./Version121Readme.md).
 
@@ -25,9 +25,9 @@ For a summary of the includes tools, click [here](./RightClickTools-Extended-Sum
 
 ## Download
 
-[![image](https://github.com/user-attachments/assets/75e62417-c8ee-43b1-a8a8-a217ce130c91)Download the installer](https://github.com/LesFerch/RightClickTools/releases/download/2.0.1/RightClickTools-Setup.exe)
+[![image](https://github.com/user-attachments/assets/75e62417-c8ee-43b1-a8a8-a217ce130c91)Download the installer](https://github.com/LesFerch/RightClickTools/releases/download/2.0.2/RightClickTools-Setup.exe)
 
-[![image](https://github.com/LesFerch/WinSetView/assets/79026235/0188480f-ca53-45d5-b9ff-daafff32869e)Download the zip file](https://github.com/LesFerch/RightClickTools/releases/download/2.0.1/RightClickTools.zip)
+[![image](https://github.com/LesFerch/WinSetView/assets/79026235/0188480f-ca53-45d5-b9ff-daafff32869e)Download the zip file](https://github.com/LesFerch/RightClickTools/releases/download/2.0.2/RightClickTools.zip)
 
 **Note**: Some antivirus software may falsely detect the download as a virus. This can happen any time you download a new executable and may require extra steps to whitelist the file.
 
