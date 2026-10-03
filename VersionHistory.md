@@ -1,3 +1,7 @@
+## 2.0.4
+
+- Fixed bug where More Tools was not opening at correct position on secondary displays where scale is different than primary display.
+
 ## 2.0.3
 
 - Fixed help link for Search Helper tool.
