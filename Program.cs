@@ -2283,8 +2283,22 @@ namespace RightClickTools
                 return;
             }
 
+            // This dialog has no caption/border chrome (ControlBox = false, ShowInTaskbar = false),
+            // so DWM does not apply its automatic DPI bitmap-stretch virtualization to it like it does
+            // for normal top-level windows. Since the process is only system-DPI-aware, coordinate APIs
+            // such as Cursor.Position, MonitorFromPoint and Screen.FromPoint/WorkingArea are normally
+            // DPI-virtualized relative to the primary monitor's scale - mismatched with this window's
+            // real (non-virtualized) physical pixels on a secondary monitor with a different scale.
+            // Switching this thread to per-monitor-DPI-aware for the dialog's lifetime makes the window
+            // itself genuinely per-monitor DPI aware (mixed-mode UI hosting), so every coordinate API
+            // used below reports true physical pixels consistent with how the window actually renders.
+            IntPtr dpiCtx = SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
+            try
+            {
             using (var dialog = new CustomFormNoTitle())
             {
+                float localScale = GetScaleForPoint(Cursor.Position);
+
                 if (Dark)
                 {
                     dialog.BackColor = Color.FromArgb(43, 43, 43);
@@ -2296,18 +2310,18 @@ namespace RightClickTools
                     dialog.ForeColor = Color.Black;
                 }
 
-                int fontSize = 9;
+                int fontSize = 7;
                 int itemHeightBase = 24;
                 int moreToolsStyle = 0;
                 int.TryParse(ReadString(myIniFile, "MoreTools", "Style", "0"), out moreToolsStyle);
                 bool useWin11Style = moreToolsStyle == 0 ? Win11 : moreToolsStyle == 2;
                 if (useWin11Style)
                 {
-                    fontSize = 10;
+                    fontSize = 8;
                     itemHeightBase = 30;
                 }
 
-                dialog.Font = new Font("Segoe UI", fontSize);
+                dialog.Font = new Font("Segoe UI", fontSize * localScale);
                 dialog.FormBorderStyle = FormBorderStyle.FixedSingle;
                 dialog.ControlBox = false;
                 dialog.MaximizeBox = false;
@@ -2341,10 +2355,10 @@ namespace RightClickTools
 
                 int yOffset = 0;
                 int maxWidth = 0;
-                int minWidth = (int)(120 * ScaleFactor);
-                int iconSize = (int)(16 * ScaleFactor);
-                int iconPadding = (int)(6 * ScaleFactor);
-                int itemHeight = (int)(itemHeightBase * ScaleFactor);
+                int minWidth = (int)(120 * localScale);
+                int iconSize = (int)(16 * localScale);
+                int iconPadding = (int)(6 * localScale);
+                int itemHeight = (int)(itemHeightBase * localScale);
 
                 foreach (var entry in toolEntries)
                 {
@@ -2365,7 +2379,7 @@ namespace RightClickTools
                     {
                         Width = iconSize,
                         Height = iconSize,
-                        Location = new Point((int)(4 * ScaleFactor), (itemHeight - iconSize) / 2),
+                        Location = new Point((int)(4 * localScale), (itemHeight - iconSize) / 2),
                         SizeMode = PictureBoxSizeMode.StretchImage,
                         Image = icon?.ToBitmap(),
                         BackColor = dialog.BackColor
@@ -2377,7 +2391,7 @@ namespace RightClickTools
                         Cursor = Cursors.Default,
                         Width = maxWidth,
                         Height = itemHeight,
-                        Location = new Point((int)(4 * ScaleFactor) + iconSize + iconPadding, 0),
+                        Location = new Point((int)(4 * localScale) + iconSize + iconPadding, 0),
                         AutoSize = false,
                         BackColor = dialog.BackColor,
                         TextAlign = ContentAlignment.MiddleLeft
@@ -2385,7 +2399,7 @@ namespace RightClickTools
 
                     var panel = new Panel
                     {
-                        Width = (int)(4 * ScaleFactor) + iconSize + iconPadding + maxWidth + (int)(8 * ScaleFactor),
+                        Width = (int)(4 * localScale) + iconSize + iconPadding + maxWidth + (int)(8 * localScale),
                         Height = itemHeight,
                         Location = new Point(0, yOffset),
                         Cursor = Cursors.Default,
@@ -2481,13 +2495,18 @@ namespace RightClickTools
                 if (dialog.Height > screenHeight)
                 {
                     dialog.Height = screenHeight;
-                    dialog.Width += (int)(16 * ScaleFactor);
+                    dialog.Width += (int)(16 * localScale);
                     dialog.AutoSize = false;
                 }
 
                 dialog.Location = GetDialogPosition(dialog);
 
                 dialog.ShowDialog();
+            }
+            }
+            finally
+            {
+                SetThreadDpiAwarenessContext(dpiCtx);
             }
         }
 
@@ -3429,6 +3448,29 @@ namespace RightClickTools
                 float dpiX = graphics.DpiX;
                 return dpiX / 96;
             }
+        }
+
+        // Get the real per-monitor scaling factor for the monitor under the given point.
+        // This process only runs with system DPI awareness by default, so Graphics.DpiX / Screen
+        // APIs normally report the primary monitor's DPI. Temporarily switching the thread to
+        // per-monitor DPI awareness lets GetDpiForMonitor return the monitor's true scale.
+        static float GetScaleForPoint(Point pt)
+        {
+            IntPtr oldCtx = SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
+            try
+            {
+                IntPtr hMon = MonitorFromPoint(pt, 2 /*MONITOR_DEFAULTTONEAREST*/);
+                if (GetDpiForMonitor(hMon, 0 /*MDT_EFFECTIVE_DPI*/, out uint dpiX, out uint dpiY) == 0 && dpiX > 0)
+                {
+                    return dpiX / 96f;
+                }
+            }
+            catch { }
+            finally
+            {
+                SetThreadDpiAwarenessContext(oldCtx);
+            }
+            return ScaleFactor;
         }
 
         // Determine if dark colors (theme) are being used
