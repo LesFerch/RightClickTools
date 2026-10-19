@@ -1,4 +1,4 @@
-# RightClickTools
+# RightClickTools 1.x (old version)
 
 **Classic context menu**:
 
