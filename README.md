@@ -251,7 +251,9 @@ This clears the data for the selected items.
   <img alt="image" src="https://github.com/user-attachments/assets/a6a45fef-4dd9-4674-b4d2-c241c8279fdc" style="max-width: 100%; height: auto;" />
 </picture>
 
-This clears the Mark of the Web (MOTW) from files in the current folder (and optionally all subfolders). This is applicable to NTFS volumes only.
+This unblocks (i.e. clears the Mark Of The Web) from files in the current folder (and optionally all subfolders). This is applicable to NTFS volumes only.
+
+**Note**: This option provides no status. It does not tell you if any files in the current folder are blocked. It simply removes any blocking data streams that are associated with the files in the current folder.
 
 ### Take ownership and get access
 
