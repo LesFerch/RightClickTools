@@ -23,16 +23,6 @@ For administrator users, that choose to install the optional privilege elevation
 
 All languages are supported. The included **Language.ini** file includes many languages and can be edited to add other languages and/or change any of the labels. The included translations are machine generated, so they may need some editing.
 
-## How to Download and Install 
-
-[![image](https://github.com/user-attachments/assets/75e62417-c8ee-43b1-a8a8-a217ce130c91)Download the installer](https://github.com/LesFerch/RightClickTools/releases/download/1.2.1/RightClickTools-Setup.exe)
-
-[![image](https://github.com/LesFerch/WinSetView/assets/79026235/0188480f-ca53-45d5-b9ff-daafff32869e)Download the zip file](https://github.com/LesFerch/RightClickTools/releases/download/1.2.1/RightClickTools.zip)
-
-**Note**: Some antivirus software may falsely detect the download as a virus. This can happen any time you download a new executable and may require extra steps to whitelist the file.
-
-**Note**: Scanning Right-Click Tools with VirusTotal will show that many AV products out there detect it as a trojan (9 of 73 last check). Those are false positives. This is to be expected with a tool that creates a scheduled task in order to provide the convenience of Administrator and TrustedInstaller access without UAC prompts. Right-Click Tools is provided on GitHub as open source, the Exe is signed, and my identity is not hidden. I submit my apps to the Windows Defender team to ensure that Windows Defender is okay with them, but I don't have the resources to do that for all AV products.
-
 ### Install Using Setup Program
 
 1. Download the installer using the link above.
