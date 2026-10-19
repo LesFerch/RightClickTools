@@ -231,17 +231,6 @@ Right-click Tools automatically detects and switches to a dark theme. For exampl
 ![image](https://github.com/user-attachments/assets/0a0f18ea-4c68-470f-93fa-620e84a6c640)
 
 
-## Customizations
-
-### Checkbox Style
-
-The checkboxes in the Right-Click Tools dialogs can be configured to use one of two different styles. Edit the file **RightClickTools.ini** and change **AlternateCheckbox=0** to  **AlternateCheckbox=1** to change the style. Below is an example of the difference in Windows 10 dark mode:
-
-![image](https://github.com/user-attachments/assets/8c18bcef-3e77-411b-9bf6-e659afd4f84c)
-
-**Tip**: When changing options in Right-Click Tools, it's easier to click the label beside the checkbox.
-
-
 ### Adding and Removing Context Menu Items
 
 Removing an item you don't use, or adding your own custom items, can be done with a context menu editor.
