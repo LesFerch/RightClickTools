@@ -219,18 +219,6 @@ Please note the following expected behaviors when using this feature:
 
 The Right-click Tools **Install** will detect your Windows language and use it, as long as it has your language in its **Language.ini** file. Edit the **Language.ini** file to set the labels to your preferences.
 
-Here's a screenshot of Right-click Tools in German:
-
-![image](https://github.com/user-attachments/assets/4ff11617-1eac-442a-a4ce-a9e6c8d47de9)
-
-
-## Dark Theme Compatible
-
-Right-click Tools automatically detects and switches to a dark theme. For example:
-
-![image](https://github.com/user-attachments/assets/0a0f18ea-4c68-470f-93fa-620e84a6c640)
-
-
 ### Adding and Removing Context Menu Items
 
 Removing an item you don't use, or adding your own custom items, can be done with a context menu editor.
