@@ -59,6 +59,7 @@ namespace RightClickTools
 
         static string Option = "";
         static string StartDirectory = "";
+        static string StartDirectoryCmdLine = "";
         static string CommandLine = "";
 
         internal static float ScaleFactor = GetScale();
@@ -225,6 +226,8 @@ namespace RightClickTools
                 }
             }
             catch { }
+
+            StartDirectoryCmdLine = StartDirectory.Contains(' ') ? $"\"{StartDirectory}\"" : StartDirectory;
 
             // Main execution loop - restart if theme changes
             do
@@ -684,6 +687,8 @@ namespace RightClickTools
                     }
                 }
 
+                StartDirectoryCmdLine = StartDirectory.Contains(' ') ? $"\"{StartDirectory}\"" : StartDirectory;
+
                 // Now execute the command using the existing switch statement
                 ExecuteCommand();
             }
@@ -917,7 +922,7 @@ namespace RightClickTools
 
             RunFromDialog("FileManagerHere", sFileManagerHere, (result) =>
             {
-                CommandLine = $"\"{StartDirectory}\"";
+                CommandLine = StartDirectoryCmdLine;
 
                 string FMExe = ReadString(myIniFile, "FileManagerHere", "Exe", "");
 
@@ -926,7 +931,7 @@ namespace RightClickTools
                 {
                     if (Win11 && result == DialogResult.No)
                     {
-                        CommandLine = $"/MiniFileManager \"{StartDirectory}\"";
+                        CommandLine = $"/MiniFileManager {StartDirectoryCmdLine}";
                         FMExe = myExe;
                     }
                     else
@@ -955,11 +960,11 @@ namespace RightClickTools
                                     runAsValue = Registry.GetValue(ExpKey, "RunAs", null);
                                     if (runAsValue == null || runAsValue.ToString() != "Interactive User") break;
                                 }
-                                CommandLine = $"\"{StartDirectory}\"";
+                                CommandLine = StartDirectoryCmdLine;
                             }
                             else
                             {
-                                CommandLine = $"/MiniFileManager \"{StartDirectory}\"";
+                                CommandLine = $"/MiniFileManager {StartDirectoryCmdLine}";
                                 FMExe = myExe;
                             }
                         }
@@ -1874,7 +1879,7 @@ namespace RightClickTools
                     // Replace %V with StartDirectory path
                     if (cmdLine.Contains("%V"))
                     {
-                        cmdLine = cmdLine.Replace("%V", StartDirectory);
+                        cmdLine = cmdLine.Replace("%V", StartDirectoryCmdLine);
                     }
 
                     CommandLine = cmdLine;
@@ -1884,7 +1889,7 @@ namespace RightClickTools
                 }
                 else
                 {
-                    CommandLine = $"/searchhelper \"{StartDirectory}\"";
+                    CommandLine = $"/searchhelper {StartDirectoryCmdLine}";
 
                     // No custom search program - launch Search Helper dialog with RunAs support
                     if (runAsResult == DialogResult.OK)
@@ -2878,7 +2883,7 @@ namespace RightClickTools
 
                     if (cmdLine.Contains("%V"))
                     {
-                        cmdLine = cmdLine.Replace("%V", StartDirectory);
+                        cmdLine = cmdLine.Replace("%V", StartDirectoryCmdLine);
                     }
 
                     CommandLine = cmdLine;
@@ -2935,11 +2940,11 @@ namespace RightClickTools
 
                 if (cmdLine.Contains("%V"))
                 {
-                    cmdLine = cmdLine.Replace("%V", StartDirectory);
+                    cmdLine = cmdLine.Replace("%V", StartDirectoryCmdLine);
                 }
                 else
                 {
-                    cmdLine = cmdLine + " " + $"\"{StartDirectory}\"";
+                    cmdLine = cmdLine + " " + StartDirectoryCmdLine;
                 }
 
                 CommandLine = cmdLine;
