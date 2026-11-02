@@ -1,3 +1,7 @@
+## 2.0.5
+
+- Fixed bug where root folder path was not passed to Search Helper, Shortcut Tool, and Date Time Tool when run as TrustedInstaller.
+
 ## 2.0.4
 
 - Fixed bug where More Tools was not opening at correct position on secondary displays where scale is different than primary display.
