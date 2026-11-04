@@ -59,6 +59,18 @@ Use this option if you want to:
 
 `RightClickTools-Setup /lang=en`
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/8852cbb7-3a96-4773-a7a0-213d839b226c">
+  <img alt="image" src="https://github.com/user-attachments/assets/c646d5c7-ae7a-4007-842a-5b9cc97cb141" style="max-width: 100%; height: auto;" />
+</picture>
+
+**Note**: If you have the latest context menu, which includes the `Customize menu` option (see image above), and you do not see `Right-Click Tools` in the menu, after running `RightClickTools-Setup.exe`, click `Customize menu` and ensure that `Right-Click Tools Context Menu Handler` is turned `On`, as shown in the image below.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/75eea627-de1c-4161-9cd4-159a04d3ab6e">
+  <img alt="image" src="https://github.com/user-attachments/assets/6d1e9cb5-ca68-4c59-85cd-6c376d8f1b10" style="max-width: 100%; height: auto;" />
+</picture>
+
 ### Portable Install
 
 This option only supports the classic context menu.
@@ -123,6 +135,8 @@ This option only appears if you've installed the program [Custom Context Menu](h
 ### Show only the classic context menu
 
 This option appears on Windows 11 or higher. The slider will be in the on position if you've already changed Windows 11 to use the classic context menu. When enabled, the Explorer context menu will be the classic version. When disabled, the Explorer context menu will be the modern version (i.e. Windows 11 default), with the classic version available by holding the **Shift** key when right-clicking.
+
+**Note**: This option will have no effect if you have the latest context menu, which includes the `Customize menu` option.
 
 ## How to Use
 
