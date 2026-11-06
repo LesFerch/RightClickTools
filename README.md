@@ -136,7 +136,7 @@ This option only appears if you've installed the program [Custom Context Menu](h
 
 This option appears on Windows 11 or higher. The slider will be in the on position if you've already changed Windows 11 to use the classic context menu. When enabled, the Explorer context menu will be the classic version. When disabled, the Explorer context menu will be the modern version (i.e. Windows 11 default), with the classic version available by holding the **Shift** key when right-clicking.
 
-**Note**: This option will have no effect if you have the latest context menu, which includes the `Customize menu` option.
+> **Note**: This option will have no effect if you have the latest context menu, which includes the `Customize menu` option.
 
 ## How to Use
 
