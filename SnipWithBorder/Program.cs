@@ -45,6 +45,7 @@ namespace SnipWithBorder
         [DllImport("user32.dll")] private static extern bool SetSystemCursor(IntPtr hCursor, uint id);
         [DllImport("user32.dll")] private static extern bool SystemParametersInfo(uint action, uint uiParam, IntPtr pvParam, uint fWinIni);
         [DllImport("user32.dll")] private static extern int GetSystemMetrics(int nIndex);
+        [DllImport("user32.dll")] private static extern short GetAsyncKeyState(int vKey);
         [DllImport("user32.dll")] private static extern bool SetProcessDPIAware();
         [DllImport("shcore.dll")] private static extern int SetProcessDpiAwareness(int value);
         [DllImport("shcore.dll")] private static extern int GetDpiForMonitor(IntPtr hMonitor, int dpiType, out uint dpiX, out uint dpiY);
@@ -59,15 +60,19 @@ namespace SnipWithBorder
         private const int  WM_LBUTTONDOWN           = 0x0201;
         private const int  WM_RBUTTONDOWN           = 0x0204;
         private const int  WM_KEYDOWN               = 0x0100;
+        private const int  WM_KEYUP                 = 0x0101;
+        private const int  WM_SYSKEYUP              = 0x0105;
         private const uint GA_ROOT                  = 2;
         private const uint MONITOR_DEFAULTTONEAREST = 2;
         private const int  MDT_EFFECTIVE_DPI        = 0;
         private const uint OCR_NORMAL               = 32512;  // System arrow cursor id
         private const uint SPI_SETCURSORS           = 0x0057;
         private const uint VK_ESCAPE                = 0x1B;
+        private const int  VK_SHIFT                 = 0x10;
+        private const int  VK_CONTROL               = 0x11;
+        private const int  VK_MENU                  = 0x12;
         private const uint VK_Z                     = 0x5A;   // default trigger key (Alt+Z)
         private const int  WM_SYSKEYDOWN            = 0x0104;  // sent while Alt is held
-        private const uint LLKHF_ALTDOWN            = 0x20;   // flag bit in KBDLLHOOKSTRUCT.flags
         private const int  DWMWA_EXTENDED_FRAME_BOUNDS = 9;    // visible window rect, excludes transparent resize border
         private static int  BorderAt96Dpi               = 6;    // base border width in physical pixels at 96 DPI; overridden by config
 
@@ -87,6 +92,11 @@ namespace SnipWithBorder
         private static AppState      _state    = AppState.Waiting;
         private static bool             _done;
         private static uint             _triggerVk = VK_Z;   // overridden by config at startup
+        private static bool             _triggerNeedsAlt = true;
+        private static bool             _triggerNeedsCtrl;
+        private static bool             _triggerNeedsShift;
+        private static bool             _triggerKeyDown;
+        private static string           _triggerDisplay = "Alt-Z";
 
         [STAThread]
         static void Main()
@@ -128,7 +138,7 @@ namespace SnipWithBorder
             {
                 mainForm.Controls.Add(new Label
                 {
-                    Text     = "Alt-" + (char)_triggerVk,
+                    Text     = _triggerDisplay,
                     AutoSize = true,
                     Location = new Point(8, 14),
                 });
@@ -162,7 +172,20 @@ namespace SnipWithBorder
             var buf = new System.Text.StringBuilder(64);
 
             GetPrivateProfileString("SnipWithBorder", "Key", "Alt-Z", buf, (uint)buf.Capacity, iniPath);
-            _triggerVk = ParseAltKey(buf.ToString().Trim());
+            uint triggerVk;
+            bool triggerNeedsAlt;
+            bool triggerNeedsCtrl;
+            bool triggerNeedsShift;
+            string triggerDisplay;
+            if (TryParseTriggerKey(buf.ToString().Trim(), out triggerVk, out triggerNeedsAlt, out triggerNeedsCtrl,
+                                   out triggerNeedsShift, out triggerDisplay))
+            {
+                _triggerVk = triggerVk;
+                _triggerNeedsAlt = triggerNeedsAlt;
+                _triggerNeedsCtrl = triggerNeedsCtrl;
+                _triggerNeedsShift = triggerNeedsShift;
+                _triggerDisplay = triggerDisplay;
+            }
 
             GetPrivateProfileString("SnipWithBorder", "BorderWidth", "6", buf, (uint)buf.Capacity, iniPath);
             int bw;
@@ -170,20 +193,116 @@ namespace SnipWithBorder
                 BorderAt96Dpi = bw;
         }
 
-        // Parses "Alt-X" or "Alt+X" (case-insensitive) into a virtual-key code.
-        // Returns VK_Z (the default) if the string cannot be parsed.
-        private static uint ParseAltKey(string value)
+        // Parses combinations such as "Alt-Z", "Ctrl+Z", "Ctrl-Shift-Z", "Alt-Ctrl-1".
+        private static bool TryParseTriggerKey(string value, out uint key, out bool needsAlt,
+                                               out bool needsCtrl, out bool needsShift, out string display)
         {
+            key = VK_Z;
+            needsAlt = false;
+            needsCtrl = false;
+            needsShift = false;
+            display = "Alt-Z";
+
             char[] separators = { '-', '+' };
             foreach (string part in value.Split(separators, StringSplitOptions.RemoveEmptyEntries))
             {
                 string p = part.Trim();
-                if (string.Equals(p, "Alt", StringComparison.OrdinalIgnoreCase))
+                if (p.Length == 0)
                     continue;
-                if (p.Length == 1 && (char.IsLetter(p[0]) || char.IsDigit(p[0])))
-                    return (uint)char.ToUpperInvariant(p[0]);
+
+                if (string.Equals(p, "Alt", StringComparison.OrdinalIgnoreCase))
+                {
+                    needsAlt = true;
+                    continue;
+                }
+
+                if (string.Equals(p, "Ctrl", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(p, "Control", StringComparison.OrdinalIgnoreCase))
+                {
+                    needsCtrl = true;
+                    continue;
+                }
+
+                if (string.Equals(p, "Shift", StringComparison.OrdinalIgnoreCase))
+                {
+                    needsShift = true;
+                    continue;
+                }
+
+                uint parsedKey;
+                if (TryParseVirtualKey(p, out parsedKey) && key == VK_Z)
+                {
+                    key = parsedKey;
+                    continue;
+                }
+
+                return false;
             }
-            return VK_Z;
+
+            if (!(needsAlt || needsCtrl || needsShift))
+                return false;
+
+            if (key == VK_Z && !value.ToUpperInvariant().Contains("Z"))
+                return false;
+
+            display = BuildTriggerDisplay(needsAlt, needsCtrl, needsShift, key);
+            return true;
+        }
+
+        private static bool TryParseVirtualKey(string token, out uint key)
+        {
+            key = 0;
+
+            if (token.Length == 1 && (char.IsLetter(token[0]) || char.IsDigit(token[0])))
+            {
+                key = (uint)char.ToUpperInvariant(token[0]);
+                return true;
+            }
+
+            if (token.Length >= 2 && (token[0] == 'F' || token[0] == 'f'))
+            {
+                int fn;
+                if (int.TryParse(token.Substring(1), out fn) && fn >= 1 && fn <= 24)
+                {
+                    key = (uint)(0x70 + fn - 1);
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private static string BuildTriggerDisplay(bool needsAlt, bool needsCtrl, bool needsShift, uint key)
+        {
+            var parts = new System.Collections.Generic.List<string>();
+            if (needsCtrl) parts.Add("Ctrl");
+            if (needsAlt) parts.Add("Alt");
+            if (needsShift) parts.Add("Shift");
+            parts.Add(VirtualKeyToText(key));
+            return string.Join("-", parts.ToArray());
+        }
+
+        private static string VirtualKeyToText(uint key)
+        {
+            if ((key >= 'A' && key <= 'Z') || (key >= '0' && key <= '9'))
+                return ((char)key).ToString();
+
+            if (key >= 0x70 && key <= 0x87)
+                return "F" + (key - 0x70 + 1).ToString();
+
+            return key.ToString();
+        }
+
+        private static bool IsModifierDown(int vk)
+        {
+            return (GetAsyncKeyState(vk) & unchecked((short)0x8000)) != 0;
+        }
+
+        private static bool TriggerModifiersMatch()
+        {
+            return IsModifierDown(VK_MENU) == _triggerNeedsAlt
+                && IsModifierDown(VK_CONTROL) == _triggerNeedsCtrl
+                && IsModifierDown(VK_SHIFT) == _triggerNeedsShift;
         }
 
         private static void BeginSelecting()
@@ -248,16 +367,21 @@ namespace SnipWithBorder
                 int msg = (int)wParam;
                 var info = Marshal.PtrToStructure<KBDLLHOOKSTRUCT>(lParam);
 
-                // Alt+<key> – trigger: toggle between Waiting and Selecting
-                if (msg == WM_SYSKEYDOWN
+                if ((msg == WM_KEYUP || msg == WM_SYSKEYUP) && info.vkCode == _triggerVk)
+                    _triggerKeyDown = false;
+
+                // Configured hotkey trigger: toggle between Waiting and Selecting
+                if ((msg == WM_KEYDOWN || msg == WM_SYSKEYDOWN)
                     && info.vkCode == _triggerVk
-                    && (info.flags & LLKHF_ALTDOWN) != 0)
+                    && !_triggerKeyDown
+                    && TriggerModifiersMatch())
                 {
+                    _triggerKeyDown = true;
                     if (_state == AppState.Waiting)
                         BeginSelecting();
                     else if (_state == AppState.Selecting)
                         BeginWaiting();
-                    return new IntPtr(1);   // Swallow so Alt+P doesn't activate menus
+                    return new IntPtr(1);   // Swallow hotkey
                 }
 
                 // Escape: cancel selection and return to waiting
