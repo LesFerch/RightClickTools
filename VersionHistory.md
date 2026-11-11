@@ -1,3 +1,7 @@
+## 2.0.6
+
+- The hot key for `Snip with border` may now use any combination of `Alt`, `Ctrl`, and `Shift` key modifiers. Previously, only Alt was supported.
+
 ## 2.0.5
 
 - Fixed bug where root folder path was not passed to Search Helper, Shortcut Tool, and Date Time Tool when run as TrustedInstaller.
