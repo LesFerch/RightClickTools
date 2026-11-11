@@ -1,6 +1,6 @@
 # RightClickTools
 
-[Version 2.0.5](./VersionHistory.md)
+[Version 2.0.6](./VersionHistory.md)
 
 The documentation for version 1.2.1 can be found [here](./Version121Readme.md).
 
@@ -25,9 +25,9 @@ For a summary of the includes tools, click [here](./RightClickTools-Extended-Sum
 
 ## Download
 
-[![image](https://github.com/user-attachments/assets/75e62417-c8ee-43b1-a8a8-a217ce130c91)Download the installer](https://github.com/LesFerch/RightClickTools/releases/download/2.0.5/RightClickTools-Setup.exe)
+[![image](https://github.com/user-attachments/assets/75e62417-c8ee-43b1-a8a8-a217ce130c91)Download the installer](https://github.com/LesFerch/RightClickTools/releases/download/2.0.6/RightClickTools-Setup.exe)
 
-[![image](https://github.com/LesFerch/WinSetView/assets/79026235/0188480f-ca53-45d5-b9ff-daafff32869e)Download the zip file](https://github.com/LesFerch/RightClickTools/releases/download/2.0.5/RightClickTools.zip)
+[![image](https://github.com/LesFerch/WinSetView/assets/79026235/0188480f-ca53-45d5-b9ff-daafff32869e)Download the zip file](https://github.com/LesFerch/RightClickTools/releases/download/2.0.6/RightClickTools.zip)
 
 **Note**: Some antivirus software may falsely detect the download as a virus. This can happen any time you download a new executable and may require extra steps to whitelist the file.
 
@@ -431,7 +431,7 @@ You can change the shortcut key and/or the border width via the **RightClickTool
 | RightClickTools | TakeOwnHere | StopAll | Owner and permission changes will be refused for these paths and all their subfolders |
 | RightClickTools | TakeOwnHere | StopRoot | Owner and permission changes will be refused for these paths at the root only |
 | RightClickTools | Settings | MaxScale | Maximum scale value to show in the `Scale` dropdown menu within the Settings dialog (default=300) |
-| RightClickTools | SnipWithBorder | Key | Alt key combination (e.g. Alt-Z) |
+| RightClickTools | SnipWithBorder | Key | One or more modifiers (Alt, Ctrl, or Shift) plus one of A-Z, 0-9, or F1-F24 (e.g. Alt-Z) |
 | RightClickTools | SnipWithBorder | BorderWidth | Border width in pixels at 100% scaling. The border width will be scaled proportionally with your screen scaling setting. |
 | Launcher <br> MoreTools | All | Exe | Path to the executable (without quotes) <br><br> For internal commands it's always `RightClickTools.exe` <br><br> For external commmands it's either the full path or a relative path for tools located within `AppParts` <br><br> For scripts this must be the full path of the script interpreter (Cmd PowerShell WScript Python etc.) |
 | Launcher <br> MoreTools | All | CmdLine | Command line to pass to the executable <br><br> Include `"%V"` (with the quotes) to specify the selected path <br><br> For internal commands the value will always be a single argument that specifies which tool to run <br><br> For scripts this would typically be the full path to the script and possibly additional arguments |
