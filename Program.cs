@@ -49,7 +49,10 @@ namespace RightClickTools
         }
         static string CCMfolder = FindCustomCommandsFolder(true);
         static string CCMA = @"Software\Classes\CLSID\{86CA1AA0-34AA-4E8B-A509-50C905BAE2A2}";
-        static string CCMB = $@"{CCMA}\InprocServer32";
+        static string CCMA2 = $@"{CCMA}\InprocServer32";
+        static string CCMB = @"Software\Classes\CLSID\{51668040-5e31-4023-bbe3-149163bd80f1}";
+        static string CCMB2 = $@"{CCMB}\InprocServer32";
+        static string CMTK = @"Software\Microsoft\Windows\CurrentVersion\Explorer\ContextMenu";
         static bool Win10ContextMenu = false;
         static bool NoTrustedInstaller = false;
         static string EditorExe = "notepad.exe";
@@ -3936,11 +3939,18 @@ namespace RightClickTools
             CCMfolder = FindCustomCommandsFolder(true);
             bool showCCM = CCMfolder != null;
 
+            bool hasNewContextMenu;
+            using (RegistryKey contextMenuKey = Registry.CurrentUser.OpenSubKey(CMTK))
+            {
+                hasNewContextMenu = contextMenuKey != null;
+            }
+
             // Check current Win10ContextMenu status if on Win11
             bool showWin11Toggle = Win11;
             if (Win11)
             {
-                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(CCMB))
+                string contextMenuCheckKey = hasNewContextMenu ? CCMB2 : CCMA2;
+                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(contextMenuCheckKey))
                 {
                     Win10ContextMenu = key != null;
                 }
@@ -4020,7 +4030,8 @@ namespace RightClickTools
                     // Enable Windows 11 classic context menu
                     try
                     {
-                        Registry.SetValue($@"HKEY_CURRENT_USER\{CCMB}", "", "", RegistryValueKind.String);
+                        Registry.SetValue($@"HKEY_CURRENT_USER\{CCMA2}", "", "", RegistryValueKind.String);
+                        Registry.SetValue($@"HKEY_CURRENT_USER\{CCMB2}", "", "", RegistryValueKind.String);
                         StartDirectory = myPath;
 
                         // Ask user for confirmation before restarting Explorer
@@ -4038,6 +4049,7 @@ namespace RightClickTools
                     try
                     {
                         Registry.CurrentUser.DeleteSubKeyTree(CCMA, false);
+                        Registry.CurrentUser.DeleteSubKeyTree(CCMB, false);
                         StartDirectory = myPath;
 
                         // Ask user for confirmation before restarting Explorer
@@ -4182,7 +4194,8 @@ namespace RightClickTools
             {
                 try
                 {
-                    Registry.SetValue($@"{H}{CCMB}", "", "", RegistryValueKind.String);
+                    Registry.SetValue($@"{H}{CCMA2}", "", "", RegistryValueKind.String);
+                    Registry.SetValue($@"{H}{CCMB2}", "", "", RegistryValueKind.String);
                     StartDirectory = myPath;
                     RestartExplorer();
                 }
@@ -4196,6 +4209,7 @@ namespace RightClickTools
                 try
                 {
                     Registry.CurrentUser.DeleteSubKeyTree(CCMA, false);
+                    Registry.CurrentUser.DeleteSubKeyTree(CCMB, false);
                 }
                 catch
                 {
