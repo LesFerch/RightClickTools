@@ -1,3 +1,7 @@
+## 2.0.7
+
+- The `Show only the classic context menu` option in Setup now works with the new customizable Windows 11 context menu.
+
 ## 2.0.6
 
 - The hot key for `Snip with border` may now use any combination of `Alt`, `Ctrl`, and `Shift` key modifiers. Previously, only Alt was supported.
