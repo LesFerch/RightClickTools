@@ -1,6 +1,6 @@
 # RightClickTools
 
-[Version 2.0.6](./VersionHistory.md)
+[Version 2.0.7](./VersionHistory.md)
 
 The documentation for version 1.2.1 can be found [here](./Version121Readme.md).
 
@@ -25,9 +25,9 @@ For a summary of the includes tools, click [here](./RightClickTools-Extended-Sum
 
 ## Download
 
-[![image](https://github.com/user-attachments/assets/75e62417-c8ee-43b1-a8a8-a217ce130c91)Download the installer](https://github.com/LesFerch/RightClickTools/releases/download/2.0.6/RightClickTools-Setup.exe)
+[![image](https://github.com/user-attachments/assets/75e62417-c8ee-43b1-a8a8-a217ce130c91)Download the installer](https://github.com/LesFerch/RightClickTools/releases/download/2.0.7/RightClickTools-Setup.exe)
 
-[![image](https://github.com/LesFerch/WinSetView/assets/79026235/0188480f-ca53-45d5-b9ff-daafff32869e)Download the zip file](https://github.com/LesFerch/RightClickTools/releases/download/2.0.6/RightClickTools.zip)
+[![image](https://github.com/LesFerch/WinSetView/assets/79026235/0188480f-ca53-45d5-b9ff-daafff32869e)Download the zip file](https://github.com/LesFerch/RightClickTools/releases/download/2.0.7/RightClickTools.zip)
 
 **Note**: Some antivirus software may falsely detect the download as a virus. This can happen any time you download a new executable and may require extra steps to whitelist the file.
 
@@ -135,8 +135,6 @@ This option only appears if you've installed the program [Custom Context Menu](h
 ### Show only the classic context menu
 
 This option appears on Windows 11 or higher. The slider will be in the on position if you've already changed Windows 11 to use the classic context menu. When enabled, the Explorer context menu will be the classic version. When disabled, the Explorer context menu will be the modern version (i.e. Windows 11 default), with the classic version available by holding the **Shift** key when right-clicking.
-
-> **Note**: This option will have no effect if you have the latest context menu, which includes the `Customize menu` option.
 
 ## How to Use
 
